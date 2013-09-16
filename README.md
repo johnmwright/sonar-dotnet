@@ -1,13 +1,8 @@
-Sonar C# Plugins Ecosystem
+Sonar .Net ReSharper Plugins
 =========================
 
-This is the Sonar C# Plugins Ecosystem
+I've created a fork of the SonarQube .Net ecosystem plugins [GitHub repository](https://github.com/SonarCommunity/sonar-dotnet) with the purpose of adding a new plugin to support the [JetBrain's ReSharper command line code inspection tool](http://www.jetbrains.com/resharper/features/command-line.html). I have full intention of submitting this back to the main SonarQube dotnot plugin repository once it's stabilized, under [SONARDOTNT-348](http://jira.codehaus.org/browse/SONARDOTNT-348).
 
-Project homepage:
-http://docs.codehaus.org/display/SONAR/C%23+Plugins+Ecosystem
+** If you are looking for the *official* SonarQube .Net ecosystem plugins, please go to that [GitHub repository](https://github.com/SonarCommunity/sonar-dotnet)**
 
-Issue tracking:
-http://jira.codehaus.org/browse/SONARDOTNT
-
-CI builds:
-https://sonarplugins.ci.cloudbees.com/job/dotnet/
+For full details about the plugin, installation prereqs and instructions, see [http://www.wrightfully.com/sonarqube-plugin-for-resharper-analysis-results](http://www.wrightfully.com/sonarqube-plugin-for-resharper-analysis-results)
