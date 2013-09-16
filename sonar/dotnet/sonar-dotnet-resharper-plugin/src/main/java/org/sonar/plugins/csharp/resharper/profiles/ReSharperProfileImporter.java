@@ -43,43 +43,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Class that allows to import ReSharper rule definition files into a Sonar Rule Profile
-*/
+ * Class that allows to import ReSharper rule definition files into a Sonar Rule Profile
+ */
 public class ReSharperProfileImporter extends ProfileImporter {
-
 
     private static final Logger LOG = LoggerFactory.getLogger(ReSharperProfileImporter.class);
 
     private RuleFinder ruleFinder;
-  private String languageKey;
+    private String languageKey;
 
-  public static class CSharpRegularReSharperProfileImporter extends ReSharperProfileImporter {
-    public CSharpRegularReSharperProfileImporter(RuleFinder ruleFinder) {
-      super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+    public static class CSharpRegularReSharperProfileImporter extends ReSharperProfileImporter {
+        public CSharpRegularReSharperProfileImporter(RuleFinder ruleFinder) {
+            super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+        }
     }
-  }
 
-  public static class VbNetRegularReSharperProfileImporter extends ReSharperProfileImporter {
-    public VbNetRegularReSharperProfileImporter(RuleFinder ruleFinder) {
-      super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+    public static class VbNetRegularReSharperProfileImporter extends ReSharperProfileImporter {
+        public VbNetRegularReSharperProfileImporter(RuleFinder ruleFinder) {
+            super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+        }
     }
-  }
 
+    protected ReSharperProfileImporter(String languageKey, String repositoryKey, String repositoryName, RuleFinder ruleFinder) {
+        super(repositoryKey + "-" + languageKey, repositoryName);
+        setSupportedLanguages(languageKey);
+        this.ruleFinder = ruleFinder;
+        this.languageKey = languageKey;
+    }
 
-  protected ReSharperProfileImporter(String languageKey, String repositoryKey, String repositoryName, RuleFinder ruleFinder) {
-    super(repositoryKey + "-" + languageKey, repositoryName);
-    setSupportedLanguages(languageKey);
-    this.ruleFinder = ruleFinder;
-    this.languageKey = languageKey;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
-    RulesProfile profile = RulesProfile.create();
-    profile.setLanguage(languageKey);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
+        RulesProfile profile = RulesProfile.create();
+        profile.setLanguage(languageKey);
 
 //        <IssueType Id="ClassNeverInstantiated.Global"
 //           Enabled="True"
@@ -88,47 +86,38 @@ public class ReSharperProfileImporter extends ProfileImporter {
 //                   Severity="SUGGESTION" />
 
 
-      List<ReSharperRule> rules = parseRules(reader, messages);
+        List<ReSharperRule> rules = parseRules(reader, messages);
 
-      for (ReSharperRule reSharperRule : rules) {
-          String ruleName = reSharperRule.getId();
-          Rule rule = ruleFinder.find(RuleQuery.create().withRepositoryKey(getKey()).withKey(ruleName));
+        for (ReSharperRule reSharperRule : rules) {
+            String ruleName = reSharperRule.getId();
+            Rule rule = ruleFinder.find(RuleQuery.create().withRepositoryKey(getKey()).withKey(ruleName));
 
-          if (rule != null) {
-              RulePriority sonarPriority = reSharperRule.getSonarPriority();
-              profile.activateRule(rule, sonarPriority);
-              LOG.info("Activating profile rule " + rule.getKey() + " with priority " + sonarPriority);
-          }
-      }
+            if (rule != null) {
+                RulePriority sonarPriority = reSharperRule.getSonarPriority();
+                profile.activateRule(rule, sonarPriority);
+                LOG.debug("Activating profile rule " + rule.getKey() + " with priority " + sonarPriority);
+            }
+        }
 
-      return profile;
-  }
+        return profile;
+    }
 
     private List<ReSharperRule> parseRules(Reader reader, ValidationMessages messages) {
         List<ReSharperRule> result = new ArrayList<ReSharperRule>();
 
         try {
-//            InputSource source = new InputSource(IOUtils.toString(reader));
-
-//            StringWriter writer = new StringWriter();
-//            IOUtils.copy(reader, writer);
-//            String theString = writer.toString();
-//            LOG.info("FILE: " + theString);
-           // throw new SonarException("FILE: " + theString);
-
             InputSource source = new InputSource(reader);
             XPathFactory factory = XPathFactory.newInstance();
             XPath xpath = factory.newXPath();
-            LOG.info("Running XPATH for //IssueType");
             NodeList nodes = (NodeList) xpath.evaluate("//IssueType",source, XPathConstants.NODESET);
 
             if (nodes == null)  {
-                LOG.info("no IssueType nodes found in profile file");
+                LOG.info("No IssueType nodes found in profile file");
             }
             else {
 
                 int count = nodes.getLength();
-                LOG.info("Found " + count + " nodes" );
+                LOG.debug("Found " + count + " nodes" );
 
                 // For each rule we extract the elements
                 for (int idxRule = 0; idxRule < count; idxRule++) {
@@ -153,11 +142,11 @@ public class ReSharperProfileImporter extends ProfileImporter {
                 }
             }
         } catch (XPathExpressionException e) {
-          messages.addErrorText("xpath exception while parsing resharper config file: " + e.getMessage());
+            messages.addErrorText("xpath exception while parsing resharper config file: " + e.getMessage());
 
         } catch (Exception e) {
-          messages.addErrorText("Failed to read the profile to import: " + e.getMessage());
-      }
+            messages.addErrorText("Failed to read the profile to import: " + e.getMessage());
+        }
         return result;
     }
 

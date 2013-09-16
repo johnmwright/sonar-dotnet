@@ -36,41 +36,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Class that allows to export a Sonar profile into a ReSharper rule definition file.
-*/
+ * Class that allows to export a Sonar profile into a ReSharper rule definition file.
+ */
 public class ReSharperProfileExporter extends ProfileExporter {
 
-  public static class CSharpRegularReSharperProfileExporter extends ReSharperProfileExporter {
-    public CSharpRegularReSharperProfileExporter() {
-      super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+    public static class CSharpRegularReSharperProfileExporter extends ReSharperProfileExporter {
+        public CSharpRegularReSharperProfileExporter() {
+            super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+        }
     }
-  }
 
-  public static class VbNetRegularReSharperProfileExporter extends ReSharperProfileExporter {
-    public VbNetRegularReSharperProfileExporter() {
-      super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+    public static class VbNetRegularReSharperProfileExporter extends ReSharperProfileExporter {
+        public VbNetRegularReSharperProfileExporter() {
+            super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+        }
     }
-  }
 
-  protected ReSharperProfileExporter(String languageKey, String repositoryKey, String repositoryName) {
-    super(repositoryKey + "-" + languageKey, repositoryName);
-    setSupportedLanguages(languageKey);
-    setMimeType("application/xml");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void exportProfile(RulesProfile profile, Writer writer) {
-    try {
-          printRules(profile, writer);
-    } catch (IOException e) {
-          throw new SonarException("Error while generating the ReSharper profile to export: " + profile, e);
+    protected ReSharperProfileExporter(String languageKey, String repositoryKey, String repositoryName) {
+        super(repositoryKey + "-" + languageKey, repositoryName);
+        setSupportedLanguages(languageKey);
+        setMimeType("application/xml");
     }
-  }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void exportProfile(RulesProfile profile, Writer writer) {
+        try {
+            printRules(profile, writer);
+        } catch (IOException e) {
+            throw new SonarException("Error while generating the ReSharper profile to export: " + profile, e);
+        }
+    }
 
     private void printRules(RulesProfile profile, Writer writer) throws IOException {
+        //Create a file that matches the format of the ReSharper inspectcode.exe output
+
         writer.append("<Report>\n");
         writer.append("  <IssueTypes>");
 
@@ -88,11 +90,12 @@ public class ReSharperProfileExporter extends ProfileExporter {
 
 
     private void printRule(Writer writer, ReSharperRule resharperRule) throws IOException {
-//        <IssueType Id="ClassNeverInstantiated.Global"
-        //           Enabled="True"
-//                   Category="Potential Code Quality Issues"
-//                   Description="Class is never instantiated: Non-private accessibility"
-//                   Severity="SUGGESTION" />
+        // This is generally what the output will look like:
+        //        <IssueType Id="ClassNeverInstantiated.Global"
+        //                   Enabled="True"
+        //                   Category="Potential Code Quality Issues"
+        //                   Description="Class is never instantiated: Non-private accessibility"
+        //                   Severity="SUGGESTION" />
 
         writer.append("    <IssueType");
         writer.append(" Id=\"");

@@ -34,38 +34,37 @@ import java.util.List;
 
 
 /**
-* Creates ReSharper rule repositories for every language supported by ReSharper.
-*/
+ * Creates ReSharper rule repositories for every language supported by ReSharper.
+ */
 @Properties({
-  @Property(key = ReSharperConstants.CUSTOM_RULES_PROP_KEY,
-    defaultValue = "", name = "ReSharper custom rules",
-    description = "XML description of ReSharper custom rules", type = PropertyType.TEXT,
-    global = true, project = false)
+        @Property(key = ReSharperConstants.CUSTOM_RULES_PROP_KEY,
+                defaultValue = "", name = "ReSharper custom rules",
+                description = "XML description of ReSharper custom rules", type = PropertyType.TEXT,
+                global = true, project = false)
 })
 public class ReSharperRuleRepositoryProvider extends ExtensionProvider implements ServerExtension {
 
+    private ServerFileSystem fileSystem;
+    private XMLRuleParser xmlRuleParser;
+    private Settings settings;
 
-  private ServerFileSystem fileSystem;
-  private XMLRuleParser xmlRuleParser;
-  private Settings settings;
-
-  public ReSharperRuleRepositoryProvider(ServerFileSystem fileSystem, Settings settings) {
-    this.fileSystem = fileSystem;
-    this.xmlRuleParser = new XMLRuleParser();
-    this.settings = settings;
-  }
-
-  @Override
-  public Object provide() {
-    List<ReSharperRuleRepository> extensions = new ArrayList<ReSharperRuleRepository>();
-
-    for (String languageKey : ReSharperConstants.SUPPORTED_LANGUAGES) {
-      // every repository key should be "resharper-<language_key>"
-      String repoKey = ReSharperConstants.REPOSITORY_KEY + "-" + languageKey;
-      extensions.add(new ReSharperRuleRepository(repoKey, languageKey, fileSystem, xmlRuleParser, settings));
+    public ReSharperRuleRepositoryProvider(ServerFileSystem fileSystem, Settings settings) {
+        this.fileSystem = fileSystem;
+        this.xmlRuleParser = new XMLRuleParser();
+        this.settings = settings;
     }
 
-    return extensions;
-  }
+    @Override
+    public Object provide() {
+        List<ReSharperRuleRepository> extensions = new ArrayList<ReSharperRuleRepository>();
+
+        for (String languageKey : ReSharperConstants.SUPPORTED_LANGUAGES) {
+            // every repository key should be "resharper-<language_key>"
+            String repoKey = ReSharperConstants.REPOSITORY_KEY + "-" + languageKey;
+            extensions.add(new ReSharperRuleRepository(repoKey, languageKey, fileSystem, xmlRuleParser, settings));
+        }
+
+        return extensions;
+    }
 
 }

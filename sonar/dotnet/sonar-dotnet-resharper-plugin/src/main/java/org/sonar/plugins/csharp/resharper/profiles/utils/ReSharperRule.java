@@ -22,84 +22,84 @@ package org.sonar.plugins.csharp.resharper.profiles.utils;
 import org.sonar.api.rules.RulePriority;
 
 /**
-* Definition of a ReSharper rule.
-*/
+ * Definition of a ReSharper rule.
+ */
 public class ReSharperRule {
 
-  private String id;
-  private boolean enabled;
-  private String category;
-  private String description;
-  private ReSharperSeverity severity;
+    private String id;
+    private boolean enabled;
+    private String category;
+    private String description;
+    private ReSharperSeverity severity;
 
-  /**
-   * Constructs a @link{ReSharperRule}.
-   */
-  public ReSharperRule() {
-  }
+    /**
+     * Constructs a @link{ReSharperRule}.
+     */
+    public ReSharperRule() {
+    }
 
-  @Override
-  public String toString() {
-    return "ReSharperRule(id=" + id + ")";
-  }
+    @Override
+    public String toString() {
+        return "ReSharperRule(id=" + id + ")";
+    }
 
 
     /**
-   * Returns the id.
-   *
-   * @return The id to return.
-   */
-  public String getId() {
-    return this.id;
-  }
+     * Returns the id.
+     *
+     * @return The id to return.
+     */
+    public String getId() {
+        return this.id;
+    }
 
-  /**
-   * Sets the id.
-   *
-   * @param id
-   *          The id to set.
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *          The id to set.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  /**
-   * Returns the enabled.
-   *
-   * @return The enabled to return.
-   */
-  public boolean isEnabled() {
-    return this.enabled;
-  }
+    /**
+     * Returns the enabled.
+     *
+     * @return The enabled to return.
+     */
+    public boolean isEnabled() {
+        return this.enabled;
+    }
 
-  /**
-   * Sets the enabled.
-   *
-   * @param enabled
-   *          The enabled to set.
-   */
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
+    /**
+     * Sets the enabled.
+     *
+     * @param enabled
+     *          The enabled to set.
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-  /**
-   * Returns the category.
-   *
-   * @return The category to return.
-   */
-  public String getCategory() {
-    return this.category;
-  }
+    /**
+     * Returns the category.
+     *
+     * @return The category to return.
+     */
+    public String getCategory() {
+        return this.category;
+    }
 
-  /**
-   * Sets the category.
-   *
-   * @param category
-   *          The category to set.
-   */
-  public void setCategory(String category) {
-    this.category = category;
-  }
+    /**
+     * Sets the category.
+     *
+     * @param category
+     *          The category to set.
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     /**
      * Returns the description.
@@ -121,23 +121,23 @@ public class ReSharperRule {
     }
 
     /**
-   * Get the resharper severity of this rule
-   *
-   * @return the resharper severity
-   */
-  public ReSharperSeverity getSeverity() {
-    return severity;
-  }
+     * Get the resharper severity of this rule
+     *
+     * @return the resharper severity
+     */
+    public ReSharperSeverity getSeverity() {
+        return severity;
+    }
 
-  /**
-   * Set the resharper severity of this rule
-   *
-   * @param severity
-   *          resharper severity
-   */
-  public void setSeverity(ReSharperSeverity severity) {
-    this.severity = severity;
-  }
+    /**
+     * Set the resharper severity of this rule
+     *
+     * @param severity
+     *          resharper severity
+     */
+    public void setSeverity(ReSharperSeverity severity) {
+        this.severity = severity;
+    }
 
 
     /**

@@ -27,17 +27,17 @@ import java.io.InputStreamReader;
 
 public final class SonarWayProfileVbNet extends ProfileDefinition {
 
-  private ReSharperProfileImporter profileImporter;
+    private ReSharperProfileImporter profileImporter;
 
-  public SonarWayProfileVbNet(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter profileImporter) {
-    this.profileImporter = profileImporter;
-  }
+    public SonarWayProfileVbNet(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter profileImporter) {
+        this.profileImporter = profileImporter;
+    }
 
-  public RulesProfile createProfile(ValidationMessages messages) {
-    RulesProfile profile = profileImporter.importProfile(
-        new InputStreamReader(getClass().getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/DefaultRules.ReSharper")), messages);
-    profile.setLanguage("vbnet");
-    profile.setName("Sonar way");
-    return profile;
-  }
+    public RulesProfile createProfile(ValidationMessages messages) {
+        RulesProfile profile = profileImporter.importProfile(
+                new InputStreamReader(getClass().getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/DefaultRules.ReSharper")), messages);
+        profile.setLanguage("vbnet");
+        profile.setName("Sonar way");
+        return profile;
+    }
 }

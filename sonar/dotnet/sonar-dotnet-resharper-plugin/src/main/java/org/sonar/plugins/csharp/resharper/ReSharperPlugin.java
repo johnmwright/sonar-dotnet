@@ -30,40 +30,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Main class of the ReSharper plugin.
-*/
+ * Main class of the ReSharper plugin.
+ */
 @Properties({
-  @Property(key = ReSharperConstants.MODE, defaultValue = AbstractDotNetSensor.MODE_SKIP, name = "ReSharper activation mode",
-    description = "Possible values : empty (defaults to 'skip'), 'skip' and 'reuseReport'.", global = false, project = false,
-    type = PropertyType.SINGLE_SELECT_LIST, options = {AbstractDotNetSensor.MODE_SKIP, AbstractDotNetSensor.MODE_REUSE_REPORT}),
-  @Property(key = ReSharperConstants.REPORTS_PATH_KEY, defaultValue = "", name = "Name of the ReSharper report files",
-    description = "Name of the ReSharper report file used when reuse report mode is activated. "
-      + "This can be an absolute path, or a path relative to each project base directory.", global = false, project = false)
+        @Property(key = ReSharperConstants.MODE, defaultValue = AbstractDotNetSensor.MODE_SKIP, name = "ReSharper activation mode",
+                description = "Possible values : empty (defaults to 'skip'), 'skip' and 'reuseReport'.", global = false, project = false,
+                type = PropertyType.SINGLE_SELECT_LIST, options = {AbstractDotNetSensor.MODE_SKIP, AbstractDotNetSensor.MODE_REUSE_REPORT}),
+        @Property(key = ReSharperConstants.REPORTS_PATH_KEY, defaultValue = "", name = "Name of the ReSharper report files",
+                description = "Name of the ReSharper report file used when reuse report mode is activated. "
+                        + "This can be an absolute path, or a path relative to each project base directory.", global = false, project = false)
 })
 public class ReSharperPlugin extends SonarPlugin {
 
-  /**
-   * {@inheritDoc}
-   */
-  public List<Class<? extends Extension>> getExtensions() {
-    List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
+    /**
+     * {@inheritDoc}
+     */
+    public List<Class<? extends Extension>> getExtensions() {
+        List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
-    // sensors
-    list.add(ReSharperSensor.CSharpRegularReSharperSensor.class);
-    list.add(ReSharperSensor.VbNetRegularReSharperSensor.class);
+        // sensors
+        list.add(ReSharperSensor.CSharpRegularReSharperSensor.class);
+        list.add(ReSharperSensor.VbNetRegularReSharperSensor.class);
 
-    // Rules and profiles
-    list.add(ReSharperRuleRepositoryProvider.class);
-    list.add(ReSharperProfileExporter.CSharpRegularReSharperProfileExporter.class);
-    list.add(ReSharperProfileExporter.VbNetRegularReSharperProfileExporter.class);
-    list.add(ReSharperProfileImporter.CSharpRegularReSharperProfileImporter.class);
-    list.add(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter.class);
-    list.add(SonarWayProfileCSharp.class);
-    list.add(SonarWayProfileVbNet.class);
+        // Rules and profiles
+        list.add(ReSharperRuleRepositoryProvider.class);
+        list.add(ReSharperProfileExporter.CSharpRegularReSharperProfileExporter.class);
+        list.add(ReSharperProfileExporter.VbNetRegularReSharperProfileExporter.class);
+        list.add(ReSharperProfileImporter.CSharpRegularReSharperProfileImporter.class);
+        list.add(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter.class);
+        list.add(SonarWayProfileCSharp.class);
+        list.add(SonarWayProfileVbNet.class);
 
-    // Running ReSharper
-    list.add(ReSharperResultParser.class);
+        // Running ReSharper
+        list.add(ReSharperResultParser.class);
 
-    return list;
-  }
+        return list;
+    }
 }

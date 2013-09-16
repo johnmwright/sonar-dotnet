@@ -128,7 +128,7 @@ public class ReSharperResultParser implements BatchExtension {
             if (projectName.equals(thisName))  {
                 parseProjectBloc(projectsCursor);
             } else {
-                LOG.info("Skipping project block due to name mismatch.  Currently analyzing '" + thisName +"', processing '" + projectName + "'");
+                LOG.debug("Skipping project block due to name mismatch.  Currently analyzing '" + thisName +"', processing '" + projectName + "'");
             }
         }
     }
@@ -141,14 +141,13 @@ public class ReSharperResultParser implements BatchExtension {
 
             String ruleKey = "ReSharperInspectCode#" + issuesCursor.getAttrValue("TypeId");
 
-            LOG.info("Searching for rule '"+ruleKey+"' in repository '" + repositoryKey +"'");
+            LOG.debug("Searching for rule '"+ruleKey+"' in repository '" + repositoryKey +"'");
             Rule currentRule = ruleFinder.find(RuleQuery.create().withRepositoryKey(repositoryKey).withConfigKey(ruleKey));
             if (currentRule != null) {
-                LOG.info("Rule found: " + ruleKey);
+                LOG.debug("Rule found: " + ruleKey);
                 createViolation(issuesCursor, currentRule);
             } else {
                 LOG.warn("Could not find the following rule in the ReSharper rule repository: " + ruleKey);
-//                throw new SonarException("Could not find the following rule in the ReSharper rule repository: " + ruleKey);
             }
         }
     }
@@ -159,11 +158,11 @@ public class ReSharperResultParser implements BatchExtension {
         File sourceFile = new File(violationsCursor.getAttrValue("File"));
 
         try{
-            LOG.info("searching for sourceFile " + sourceFile.getCanonicalFile().getPath() + " - Exists: " + sourceFile.exists());
-       }catch (Exception ex)
-       {
-           LOG.info("Exception: " + ex.getMessage());
-       }
+            LOG.debug("searching for sourceFile " + sourceFile.getCanonicalFile().getPath() + " - Exists: " + sourceFile.exists());
+        }catch (Exception ex)
+        {
+            LOG.warn("Exception: " + ex.getMessage());
+        }
 
         if (vsProject.contains(sourceFile)) {
             final org.sonar.api.resources.File sonarFile;
@@ -179,8 +178,7 @@ public class ReSharperResultParser implements BatchExtension {
             violation.setMessage(message.trim());
             context.saveViolation(violation);
         } else {
-            LOG.info("Violation could not be saved, associated file not referenced in VS project" + sourceFile);
-       //     throw new SonarException("Violation could not be saved, associated file not referenced in VS project" + sourceFile);
+            LOG.warn("Violation could not be saved, associated file not referenced in VS project" + sourceFile);
         }
     }
 

@@ -20,23 +20,23 @@
 package org.sonar.plugins.csharp.resharper;
 
 /**
-* Constants of the ReSharper plugin.
-*/
+ * Constants of the ReSharper plugin.
+ */
 public final class ReSharperConstants {
 
-  private ReSharperConstants() {
-  }
+    private ReSharperConstants() {
+    }
 
-  public static final String REPOSITORY_KEY = "resharper";
-  public static final String REPOSITORY_NAME = "ReSharper";
-  public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
+    public static final String REPOSITORY_KEY = "resharper";
+    public static final String REPOSITORY_NAME = "ReSharper";
+    public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
 
-  public static final String RESHARPER_REPORT_XML = "resharper-report.xml";
+    public static final String RESHARPER_REPORT_XML = "resharper-report.xml";
 
     // ----------- Plugin Configuration Properties ----------- //
-  public static final String MODE = "sonar.resharper.mode";
+    public static final String MODE = "sonar.resharper.mode";
 
-  public static final String REPORTS_PATH_KEY = "sonar.resharper.reports.path";
-  public static final String CUSTOM_RULES_PROP_KEY = "sonar.resharper.customRules.definition";
+    public static final String REPORTS_PATH_KEY = "sonar.resharper.reports.path";
+    public static final String CUSTOM_RULES_PROP_KEY = "sonar.resharper.customRules.definition";
 
 }

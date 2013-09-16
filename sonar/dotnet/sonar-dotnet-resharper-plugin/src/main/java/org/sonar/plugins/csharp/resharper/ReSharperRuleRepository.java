@@ -32,50 +32,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Loads the ReSharper rules configuration file.
-*/
+ * Loads the ReSharper rules configuration file.
+ */
 public class ReSharperRuleRepository extends RuleRepository {
 
-  private String repositoryKey;
-  private ServerFileSystem fileSystem;
-  private XMLRuleParser xmlRuleParser;
-  private Settings settings;
+    private String repositoryKey;
+    private ServerFileSystem fileSystem;
+    private XMLRuleParser xmlRuleParser;
+    private Settings settings;
 
-  public ReSharperRuleRepository(String repoKey, String languageKey, ServerFileSystem fileSystem, XMLRuleParser xmlRuleParser,
-      Settings settings) {
-    super(repoKey, languageKey);
-    setName(ReSharperConstants.REPOSITORY_NAME);
-    this.repositoryKey = repoKey;
-    this.fileSystem = fileSystem;
-    this.xmlRuleParser = xmlRuleParser;
-    this.settings = settings;
-  }
-
-  @Override
-  public List<Rule> createRules() {
-    List<Rule> rules = new ArrayList<Rule>();
-
-      //TODO: for each of these, allow the user to use the ReSharper report style of:
-      // <IssueTypes>
-      //   <IssueType .../>
-      // so that they can just copy/paste from the report files and not convert to sonar-specific format
-
-    // ReSharper rules
-    rules.addAll(xmlRuleParser.parse(ReSharperRuleRepository.class.getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/rules.xml")));
-
-    // Custom rules:
-    // - old fashion: XML files in the file system
-    for (File userExtensionXml : fileSystem.getExtensions(repositoryKey, "xml")) {
-      rules.addAll(xmlRuleParser.parse(userExtensionXml));
+    public ReSharperRuleRepository(String repoKey, String languageKey, ServerFileSystem fileSystem, XMLRuleParser xmlRuleParser,
+                                   Settings settings) {
+        super(repoKey, languageKey);
+        setName(ReSharperConstants.REPOSITORY_NAME);
+        this.repositoryKey = repoKey;
+        this.fileSystem = fileSystem;
+        this.xmlRuleParser = xmlRuleParser;
+        this.settings = settings;
     }
 
-    // - new fashion: through the Web interface
-    String customRules = settings.getString(ReSharperConstants.CUSTOM_RULES_PROP_KEY);
-    if (StringUtils.isNotBlank(customRules)) {
-      rules.addAll(xmlRuleParser.parse(new StringReader(customRules)));
-    }
+    @Override
+    public List<Rule> createRules() {
+        List<Rule> rules = new ArrayList<Rule>();
 
-    return rules;
-  }
+        //TODO: for each of these, allow the user to use the ReSharper report style of:
+        // <IssueTypes>
+        //   <IssueType .../>
+        // so that they can just copy/paste from the report files and not convert to sonar-specific format
+
+        // ReSharper rules
+        rules.addAll(xmlRuleParser.parse(ReSharperRuleRepository.class.getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/rules.xml")));
+
+        // Custom rules:
+        // - old fashion: XML files in the file system
+        for (File userExtensionXml : fileSystem.getExtensions(repositoryKey, "xml")) {
+            rules.addAll(xmlRuleParser.parse(userExtensionXml));
+        }
+
+        // - new fashion: through the Web interface
+        String customRules = settings.getString(ReSharperConstants.CUSTOM_RULES_PROP_KEY);
+        if (StringUtils.isNotBlank(customRules)) {
+            rules.addAll(xmlRuleParser.parse(new StringReader(customRules)));
+        }
+
+        return rules;
+    }
 
 }
