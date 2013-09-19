@@ -29,6 +29,9 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.utils.SonarException;
+import org.sonar.dotnet.tools.resharper.ReSharperCommandBuilder;
+import org.sonar.dotnet.tools.resharper.ReSharperException;
+import org.sonar.dotnet.tools.resharper.ReSharperRunner;
 import org.sonar.plugins.csharp.resharper.profiles.ReSharperProfileExporter;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
 import org.sonar.plugins.dotnet.api.DotNetConstants;
@@ -40,6 +43,7 @@ import org.sonar.plugins.dotnet.api.utils.FileFinder;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Collects the ReSharper reporting into sonar.
@@ -121,13 +125,30 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
 
             LOG.info("Reusing ReSharper reports: " + Joiner.on(" ").join(reportFiles));
         } else {
-            throw new SonarException("ReSharper direct execution not yet supported.");
+            try {
+                ReSharperRunner runner = ReSharperRunner.create(configuration.getString(ReSharperConstants.INSTALL_DIR_KEY));
+                launchInspectCode(project, runner);
+            } catch (ReSharperException e) {
+                throw new SonarException("ReSharper execution failed.", e);
+            }
+            File projectDir = fileSystem.getBasedir();
+            reportFiles = Collections.singleton(new File(projectDir, reportDefaultPath));
         }
 
         // and analyze results
         for (File reportFile : reportFiles) {
             analyseResults(reportFile);
         }
+    }
+
+
+    protected void launchInspectCode(Project project, ReSharperRunner runner) throws ReSharperException {
+        VisualStudioSolution vsSolution = getVSSolution();
+        VisualStudioProject vsProject = getVSProject(project);
+        ReSharperCommandBuilder builder = runner.createCommandBuilder(vsSolution, vsProject);
+        builder.setReportFile(new File(fileSystem.getSonarWorkingDirectory(), ReSharperConstants.RESHARPER_REPORT_XML));
+        int timeout = configuration.getInt(ReSharperConstants.TIMEOUT_MINUTES_KEY);
+        runner.execute(builder, timeout);
     }
 
     private void analyseResults(File reportFile) {
