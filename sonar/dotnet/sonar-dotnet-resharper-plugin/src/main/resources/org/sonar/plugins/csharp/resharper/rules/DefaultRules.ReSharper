@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report>
   <IssueTypes>
+    <!-- Special rule used to capture unknown IssueTypes -->
+    <IssueType Id="Sonar.UnknownIssueType" Category="Sonar Plugin Missing Data" Description="This rule is used to capture IssueTypes reported by ReSharper which are previously unknown to the plugin.  Instructions will be provided with the violations on how to properly include the IssueTypes for future analysis runs." Severity="ERROR" Enabled="true" />
+
     <IssueType Id="ClassNeverInstantiated.Global" Category="Potential Code Quality Issues" Description="Class is never instantiated: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
     <IssueType Id="ClassWithVirtualMembersNeverInherited.Global" Category="Redundancies in Symbol Declarations" Description="Class with virtual(overridable) members never inherited: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
     <IssueType Id="ConvertToConstant.Global" Category="Common Practices and Code Improvements" Description="Convert local variable or field to constant: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
