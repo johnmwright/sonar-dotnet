@@ -2,245 +2,253 @@
 <Report>
   <IssueTypes>
     <!-- Special rule used to capture unknown IssueTypes -->
-    <IssueType Id="Sonar.UnknownIssueType" Category="Sonar Plugin Missing Data" Description="This rule is used to capture IssueTypes reported by ReSharper which are previously unknown to the plugin.  Instructions will be provided with the violations on how to properly include the IssueTypes for future analysis runs." Severity="ERROR" Enabled="true" />
+    <IssueType Id="Sonar.UnknownIssueType" Category="Sonar Plugin Missing Data" Description="This rule is used to capture IssueTypes reported by ReSharper which are previously unknown to the plugin.  Instructions will be provided with the violations on how to properly include the IssueTypes for future analysis runs." Severity="ERROR" />
 
-    <IssueType Id="ClassNeverInstantiated.Global" Category="Potential Code Quality Issues" Description="Class is never instantiated: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ClassWithVirtualMembersNeverInherited.Global" Category="Redundancies in Symbol Declarations" Description="Class with virtual(overridable) members never inherited: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertToConstant.Global" Category="Common Practices and Code Improvements" Description="Convert local variable or field to constant: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="EventNeverSubscribedTo.Global" Category="Potential Code Quality Issues" Description="Event is never subscribed to: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="FieldCanBeMadeReadOnly.Global" Category="Common Practices and Code Improvements" Description="Field can be made readonly: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="IntroduceOptionalParameters.Global" Category="Language Usage Opportunities" Description="Introduce optional parameters: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="MemberCanBeMadeStatic.Global" Category="Common Practices and Code Improvements" Description="Member can be made static(shared): Non-private accessibility" Severity="HINT" Enabled="true" />
-    <IssueType Id="MemberCanBePrivate.Global" Category="Common Practices and Code Improvements" Description="Member can be made private: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="MemberCanBeProtected.Global" Category="Common Practices and Code Improvements" Description="Member can be made protected: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="NotAccessedField.Global" Category="Potential Code Quality Issues" Description="Non-accessed field: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ParameterTypeCanBeEnumerable.Global" Category="Common Practices and Code Improvements" Description="Parameter type can be IEnumerable&lt;T&gt;: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="RedundantDefaultFieldInitializer" Category="Redundancies in Symbol Declarations" Description="Redundant field initializer" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+field+initializer" Enabled="true" />
-    <IssueType Id="RedundantThisQualifier" Category="Redundancies in Code" Description="Redundant 'this.' qualifier" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ReturnTypeCanBeEnumerable.Global" Category="Common Practices and Code Improvements" Description="Return type can be IEnumerable&lt;T&gt;: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="SuggestUseVarKeywordEvident" Category="Language Usage Opportunities" Description="Use 'var' keyword when initializer explicitly declares type" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Use+'var'+keyword+when+initializer+explicitly+declares+type" Enabled="true" />
-    <IssueType Id="UnassignedField.Compiler" Category="Compiler Warnings" Description="Unassigned field" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnassignedField.Global" Category="Potential Code Quality Issues" Description="Unassigned field: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnusedAutoPropertyAccessor.Global" Category="Potential Code Quality Issues" Description="Auto-implemented property accessor is never used: Non-private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedField.Compiler" Category="Compiler Warnings" Description="Field is never used" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedMember.Global" Category="Redundancies in Symbol Declarations" Description="Type or type member is never used: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnusedMemberHiearchy.Global" Category="Redundancies in Symbol Declarations" Description="Type member is only used in overrides: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnusedMemberInSuper.Global" Category="Redundancies in Symbol Declarations" Description="Type member is never accessed via base type: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnusedMethodReturnValue.Global" Category="Redundancies in Symbol Declarations" Description="Method return value is never used: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnusedParameter.Global" Category="Redundancies in Symbol Declarations" Description="Unused parameter: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="VirtualMemberNeverOverriden.Global" Category="Redundancies in Symbol Declarations" Description="Virtual(overridable) member is never overridden: Non-private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="AccessToDisposedClosure" Category="Potential Code Quality Issues" Description="Access to disposed closure" Severity="WARNING" Enabled="true" />
-    <IssueType Id="AccessToForEachVariableInClosure" Category="Potential Code Quality Issues" Description="Access to foreach variable in closure" Severity="WARNING" Enabled="true" />
-    <IssueType Id="AccessToModifiedClosure" Category="Potential Code Quality Issues" Description="Access to modified closure" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Access+to+modified+closure" Enabled="true" />
-    <IssueType Id="AccessToStaticMemberViaDerivedType" Category="Common Practices and Code Improvements" Description="Access to a static member of a type via a derived type" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Access+to+a+static+member+of+a+type+via+a+derived+type" Enabled="true" />
-    <IssueType Id="AssignNullToNotNullAttribute" Category="Constraints Violations" Description="Possible 'null' assignment to entity marked with 'Value cannot be null' attribute" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+'null'+assignment+to+an+entity+marked+with+'Value+cannot+be+null'+attribute" Enabled="true" />
-    <IssueType Id="BaseMethodCallWithDefaultParameter" Category="Potential Code Quality Issues" Description="Call to base member with implicit default parameters" Severity="WARNING" Enabled="true" />
-    <IssueType Id="BaseObjectEqualsIsObjectEquals" Category="Potential Code Quality Issues" Description="Call to 'base.Equals(...)' is reference equality" Severity="WARNING" Enabled="true" />
-    <IssueType Id="BaseObjectGetHashCodeCallInGetHashCode" Category="Potential Code Quality Issues" Description="Overriden GetHashCode calls base 'Object.GetHashCode()'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="BitwiseOperatorOnEnumWithoutFlags" Category="Potential Code Quality Issues" Description="Bitwise operation on enum which is not marked by [Flags] attribute" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpErrors" Category="C# Compiler Errors" Description="" Severity="ERROR" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0108" Category="Compiler Warnings" Description="CS0108,CS0114:Keyword 'new' is required" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0109" Category="Compiler Warnings" Description="CS0109:Keyword 'new' is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0162" Category="Compiler Warnings" Description="CS0162:Code is unreachable" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0183" Category="Compiler Warnings" Description="CS0183:Given expression is always of the provided type" Severity="ERROR" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0465" Category="Compiler Warnings" Description="CS0465:Introducing a 'Finalize' method can interfere with destructor invocation" Severity="ERROR" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0612" Category="Compiler Warnings" Description="CS0612:Use of obsolete symbol (without message)" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0618" Category="Compiler Warnings" Description="CS0618:Use of obsolete symbol" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS0659" Category="Compiler Warnings" Description="CS0659:Class overrides Object.Equals(object o) but not Object.GetHashCode()" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1030" Category="Compiler Warnings" Description="CS1030:'#warning' directive" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1570" Category="Compiler Warnings" Description="CS1570:Invalid XML in XML comment" Severity="ERROR" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1571" Category="Compiler Warnings" Description="CS1571:Duplicate param tag in XML comment" Severity="ERROR" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1573" Category="Compiler Warnings" Description="CS1573:Parameter has no matching param tag in the XML comment" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1574" Category="Compiler Warnings" Description="CS1574:Ambiguous reference in XML comment" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1584" Category="Compiler Warnings" Description="CS1584:Syntax error in XML comment" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1587" Category="Compiler Warnings" Description="CS1587:XML comment is not placed on a valid language element" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CSharpWarnings::CS1591" Category="Compiler Warnings" Description="CS1591:Missing XML comment for publicly visible type or member" Severity="WARNING" Enabled="true" />
-    <IssueType Id="CanBeReplacedWithTryCastAndCheckForNull" Category="Potential Code Quality Issues" Description="Type check and direct cast can be replaced with try cast and check for null" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="CheckForReferenceEqualityInstead.1" Category="Common Practices and Code Improvements" Description="Check for reference equality instead: Check for reference equality instead" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="CheckNamespace" Category="Constraints Violations" Description="Namespace does not correspond to file location" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Namespace+does+not+correspond+to+file+location" Enabled="true" />
-    <IssueType Id="ClassNeverInstantiated.Local" Category="Potential Code Quality Issues" Description="Class is never instantiated: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ClassWithVirtualMembersNeverInherited.Local" Category="Redundancies in Symbol Declarations" Description="Class with virtual(overridable) members never inherited: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="CoVariantArrayConversion" Category="Potential Code Quality Issues" Description="Co-variant array conversion" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Co-variant+array+conversion+may+cause+exception+on+write+operation" Enabled="true" />
-    <IssueType Id="CompareNonConstrainedGenericWithNull" Category="Potential Code Quality Issues" Description="Possible compare of value type with 'null'" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+compare+of+value+type+with+null" Enabled="true" />
-    <IssueType Id="CompareOfFloatsByEqualityOperator" Category="Potential Code Quality Issues" Description="Compare of float numbers with equality operator" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Compare+of+float+numbers+by+equality+operator" Enabled="true" />
-    <IssueType Id="ConditionIsAlwaysTrueOrFalse" Category="Redundancies in Code" Description="Expression is always 'true' or always 'false'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ConditionalTernaryEqualBranch" Category="Potential Code Quality Issues" Description="'?:' expression has identical true and false branches" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ConstantNullCoalescingCondition" Category="Redundancies in Code" Description="'??' condition is known to be null or not null" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ConvertClosureToMethodGroup" Category="Language Usage Opportunities" Description="Convert anonymous method to method group" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertConditionalTernaryToNullCoalescing" Category="Language Usage Opportunities" Description="'?:' expression can be re-written as '??' expression" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertIfStatementToConditionalTernaryExpression" Category="Language Usage Opportunities" Description="'if' statement can be re-written as '?:' expression" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertIfStatementToNullCoalescingExpression" Category="Language Usage Opportunities" Description="'if' statement can be re-written as '??' expression" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertIfStatementToReturnStatement" Category="Language Usage Opportunities" Description="'if-return' statement can be re-written as 'return' statement" Severity="HINT" Enabled="true" />
-    <IssueType Id="ConvertIfStatementToSwitchStatement" Category="Language Usage Opportunities" Description="Convert 'if' statement to 'switch' statement" Severity="HINT" Enabled="true" />
-    <IssueType Id="ConvertIfToOrExpression" Category="Common Practices and Code Improvements" Description="Convert 'if' to '||'" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertNullableToShortForm" Category="Language Usage Opportunities" Description="Convert 'Nullable&lt;T&gt;' to 'T?'" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/pages/viewpage.action?pageId=37235229" Enabled="true" />
-    <IssueType Id="ConvertToAutoProperty" Category="Language Usage Opportunities" Description="Convert property to auto-property" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertToAutoPropertyWithPrivateSetter" Category="Language Usage Opportunities" Description="Convert property to auto-property with private setter" Severity="HINT" Enabled="true" />
-    <IssueType Id="ConvertToConstant.Local" Category="Common Practices and Code Improvements" Description="Convert local variable or field to constant: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertToLambdaExpression" Category="Language Usage Opportunities" Description="Convert to lambda expression" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ConvertToStaticClass" Category="Language Usage Opportunities" Description="Convert to static class" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="DelegateSubtraction" Category="Potential Code Quality Issues" Description="Delegate subtractions" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Delegate+subtraction+has+unpredictable+semantics" Enabled="true" />
-    <IssueType Id="DoNotCallOverridableMethodsInConstructor" Category="Potential Code Quality Issues" Description="Virtual member call in constructor" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Virtual+method+call+in+constructor" Enabled="true" />
-    <IssueType Id="EmptyConstructor" Category="Redundancies in Symbol Declarations" Description="Empty constructor" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Empty+static+constructor+is+redundant" Enabled="true" />
-    <IssueType Id="EmptyEmbeddedStatement" Category="Common Practices and Code Improvements" Description="Empty control statement body" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EmptyForStatement" Category="Redundancies in Code" Description="Empty 'for' loop is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EmptyGeneralCatchClause" Category="Potential Code Quality Issues" Description="Empty general catch clause" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Empty+general+catch+clause+suppresses+all+errors" Enabled="true" />
-    <IssueType Id="EmptyNamespace" Category="Redundancies in Symbol Declarations" Description="Empty namespace declaration" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EmptyStatement" Category="Common Practices and Code Improvements" Description="Empty statement is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EnumUnderlyingTypeIsInt" Category="Redundancies in Symbol Declarations" Description="Underlying type of enum is 'int'" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Underlying+type+of+enum+is+'int'" Enabled="true" />
-    <IssueType Id="EqualExpressionComparison" Category="Potential Code Quality Issues" Description="Similar expressions comparison" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EventNeverInvoked" Category="Potential Code Quality Issues" Description="Event never invoked" Severity="WARNING" Enabled="true" />
-    <IssueType Id="EventNeverSubscribedTo.Local" Category="Potential Code Quality Issues" Description="Event is never subscribed to: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ExpressionIsAlwaysNull" Category="Redundancies in Code" Description="Expression is always 'null'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="FieldCanBeMadeReadOnly.Local" Category="Common Practices and Code Improvements" Description="Field can be made readonly: Private accessibility" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Field+can+be+made+read-only" Enabled="true" />
-    <IssueType Id="ForCanBeConvertedToForeach" Category="Language Usage Opportunities" Description="For-loop can be converted into foreach-loop" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ForControlVariableIsNeverModified" Category="Potential Code Quality Issues" Description="'for' loop control variable is never modified" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/'for'+loop+control+variable+is+never+modified" Enabled="true" />
-    <IssueType Id="FormatStringProblem" Category="Potential Code Quality Issues" Description="String formatting method problems" Severity="WARNING" Enabled="true" />
-    <IssueType Id="FunctionRecursiveOnAllPaths" Category="Potential Code Quality Issues" Description="Function is recursive on all paths" Severity="WARNING" Enabled="true" />
-    <IssueType Id="GCSuppressFinalizeForTypeWithoutDestructor" Category="Potential Code Quality Issues" Description="'GC.SuppressFinalize' is invoked for type without destructor" Severity="WARNING" Enabled="true" />
-    <IssueType Id="HeuristicUnreachableCode" Category="Redundancies in Code" Description="Heuristically unreachable code" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ImplicitlyCapturedClosure" Category="Potential Code Quality Issues" Description="Implicitly captured closure" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ImpureMethodCallOnReadonlyValueField" Category="Potential Code Quality Issues" Description="Impure method is called for readonly field of value type" Severity="WARNING" Enabled="true" />
-    <IssueType Id="InconsistentNaming" Category="Constraints Violations" Description="Inconsistent Naming" Severity="WARNING" Enabled="true" />
-    <IssueType Id="IntroduceOptionalParameters.Local" Category="Language Usage Opportunities" Description="Introduce optional parameters: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="InvertIf" Category="Language Usage Opportunities" Description="Invert 'if' statement to reduce nesting" Severity="HINT" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Invert+'if'+to+reduce+nesting" Enabled="true" />
-    <IssueType Id="InvokeAsExtensionMethod" Category="Language Usage Opportunities" Description="Convert static method invocation to extension method call" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="JoinDeclarationAndInitializer" Category="Common Practices and Code Improvements" Description="Join local variable declaration and assignment" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="LocalVariableHidesMember" Category="Potential Code Quality Issues" Description="Local variable hides member" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Local+variable+hides+member" Enabled="true" />
-    <IssueType Id="LongLiteralEndingLowerL" Category="Potential Code Quality Issues" Description="Long literal ending with 'l' instead of 'L'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="LoopCanBeConvertedToQuery" Category="Language Usage Opportunities" Description="Loop can be converted into LINQ-expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Loop+can+be+converted+into+a+LINQ+expression" Enabled="true" />
-    <IssueType Id="LoopCanBePartlyConvertedToQuery" Category="Language Usage Opportunities" Description="Part of loop's body can be converted into LINQ-expression" Severity="HINT" Enabled="true" />
-    <IssueType Id="MemberCanBeMadeStatic.Local" Category="Common Practices and Code Improvements" Description="Member can be made static(shared): Private accessibility" Severity="HINT" Enabled="true" />
-    <IssueType Id="MemberCanBePrivate.Local" Category="Common Practices and Code Improvements" Description="Member can be made private: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="MemberHidesStaticFromOuterClass" Category="Potential Code Quality Issues" Description="Member hides static member from outer class" Severity="WARNING" Enabled="true" />
-    <IssueType Id="MethodOverloadWithOptionalParameter" Category="Potential Code Quality Issues" Description="Method with optional or 'params' parameter is hidden by overload" Severity="WARNING" Enabled="true" />
-    <IssueType Id="MoreSpecificForeachVariableTypeAvailable" Category="Common Practices and Code Improvements" Description="Iteration variable can be declared with a more specific type" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Iteration+variable+can+be+declared+with+a+more+specific+type" Enabled="true" />
-    <IssueType Id="NegativeEqualityExpression" Category="Common Practices and Code Improvements" Description="Simplify negative equality expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Simplify+negative+equality+expression" Enabled="true" />
-    <IssueType Id="NonReadonlyFieldInGetHashCode" Category="Potential Code Quality Issues" Description="Non-readonly field referenced in 'GetHashCode()'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="NotAccessedField.Local" Category="Potential Code Quality Issues" Description="Non-accessed field: Private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="NotAccessedVariable" Category="Redundancies in Symbol Declarations" Description="Non-accessed local variable" Severity="ERROR" Enabled="true" />
-    <IssueType Id="NotResolvedInText" Category="Potential Code Quality Issues" Description="Cannot resolve symbol in text argument" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ObjectCreationAsStatement" Category="Potential Code Quality Issues" Description="Possible unassigned object created by 'new' expression" Severity="WARNING" Enabled="true" />
-    <IssueType Id="OperatorIsCanBeUsed" Category="Potential Code Quality Issues" Description="Operator 'is'/'Type Of ... Is ...' can be used" Severity="WARNING" Enabled="true" />
-    <IssueType Id="OptionalParameterHierarchyMismatch" Category="Potential Code Quality Issues" Description="Mismatch optional parameter value in overridden method" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ParameterHidesMember" Category="Potential Code Quality Issues" Description="Parameter hides member" Severity="WARNING" Enabled="true" />
-    <IssueType Id="ParameterTypeCanBeEnumerable.Local" Category="Common Practices and Code Improvements" Description="Parameter type can be IEnumerable&lt;T&gt;: Private accessibility" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Parameter+type+can+be+IEnumerable+of+T" Enabled="true" />
-    <IssueType Id="PartialMethodWithSinglePart" Category="Redundancies in Symbol Declarations" Description="Redundant 'partial' modifier on method declaration" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PartialTypeWithSinglePart" Category="Redundancies in Symbol Declarations" Description="Redundant 'partial' modifier on type declaration" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PolymorphicFieldLikeEventInvocation" Category="Potential Code Quality Issues" Description="Invocation of polymorphic field-like event" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Invocation+of+polymorphic+field-like+event" Enabled="true" />
-    <IssueType Id="PossibleAssignmentToReadonlyField" Category="Potential Code Quality Issues" Description="Assignment to a property of a readonly field can be useless" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Assignment+to+a+property+of+a+readonly+field+can+be+useless" Enabled="true" />
-    <IssueType Id="PossibleIntendedRethrow" Category="Potential Code Quality Issues" Description="Exception rethrow possibly intended" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleInvalidCastException" Category="Potential Code Quality Issues" Description="Possible 'System.InvalidCastException'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleInvalidOperationException" Category="Potential Code Quality Issues" Description="Possible 'System.InvalidOperationException'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleLossOfFraction" Category="Potential Code Quality Issues" Description="Possible loss of fraction" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleMistakenCallToGetType.2" Category="Common Practices and Code Improvements" Description="Possible mistaken call to GetType(): Possible mistaken call to GetType()" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleMultipleEnumeration" Category="Potential Code Quality Issues" Description="Possible multiple enumeration of IEnumerable" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+multiple+enumeration+of+IEnumerable" Enabled="true" />
-    <IssueType Id="PossibleMultipleWriteAccessInDoubleCheckLocking" Category="Potential Code Quality Issues" Description="Possible incorrect implementation of Double-Check Locking pattern. Possible multiple write access to checked field" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+multiple+write+access+in+double-checked+locking" Enabled="true" />
-    <IssueType Id="PossibleNullReferenceException" Category="Potential Code Quality Issues" Description="Possible 'System.NullReferenceException'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossibleUnintendedReferenceComparison" Category="Potential Code Quality Issues" Description="Possible unintended reference comparison" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PossiblyMistakenUseOfParamsMethod" Category="Potential Code Quality Issues" Description="Method with 'params' is invoked while more specific method is available" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PrivateFieldCanBeConvertedToLocalVariable" Category="Redundancies in Code" Description="Private field can be converted to local variable" Severity="WARNING" Enabled="true" />
-    <IssueType Id="PublicConstructorInAbstractClass" Category="Common Practices and Code Improvements" Description="Make constructor in abstract class protected" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Make+constructor+in+abstract+class+protected" Enabled="true" />
-    <IssueType Id="RedundantArgumentDefaultValue" Category="Redundancies in Code" Description="Redundant argument with default value" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantArgumentName" Category="Redundancies in Code" Description="Redundant explicit argument name specification" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="RedundantArgumentNameForLiteralExpression" Category="Redundancies in Code" Description="Redundant explicit argument name specification for literal expression" Severity="HINT" Enabled="true" />
-    <IssueType Id="RedundantArrayCreationExpression" Category="Redundancies in Code" Description="Array creation can be replaced with array initializer" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantAssignment" Category="Redundancies in Code" Description="Assignment is not used" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantAttributeParentheses" Category="Redundancies in Code" Description="Parentheses are redundant if attribute has no arguments" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantBaseConstructorCall" Category="Redundancies in Symbol Declarations" Description="Redundant base constructor call" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantBaseQualifier" Category="Redundancies in Code" Description="Redundant 'base.' qualifier" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantBoolCompare" Category="Redundancies in Code" Description="Redundant boolean comparison" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantCaseLabel" Category="Redundancies in Code" Description="Redundant 'case' label" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantCast" Category="Redundancies in Code" Description="Redundant cast" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantCatchClause" Category="Redundancies in Code" Description="Redundant catch clause" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Catch+clause+is+redundant" Enabled="true" />
-    <IssueType Id="RedundantCheckBeforeAssignment" Category="Redundancies in Code" Description="Redundant condition check before assignments" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantCommaInArrayInitializer" Category="Redundancies in Code" Description="Redundant comma in array initializer" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantComparisonWithNull" Category="Redundancies in Code" Description="Redundant comparison with 'null'" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantDelegateCreation" Category="Redundancies in Code" Description="Explicit delegate creation expression is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantEmptyDefaultSwitchBranch" Category="Redundancies in Code" Description="Redundant empty default switch branch" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantEmptyFinallyBlock" Category="Redundancies in Code" Description="Redundant empty finally block" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantEmptyObjectCreationArgumentList" Category="Redundancies in Code" Description="Redundant empty argument list on object creation expression" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantEmptyObjectOrCollectionInitializer" Category="Redundancies in Code" Description="Redundant empty object or collection initializer" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantEnumerableCastCall" Category="Redundancies in Code" Description="Redundant 'IEnumerable.Cast&lt;T&gt;' or 'IEnumerable.OfType&lt;T&gt;' call" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantExplicitArrayCreation" Category="Redundancies in Code" Description="Redundant explicit type in array creation" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantExplicitArraySize" Category="Redundancies in Code" Description="Redundant explicit size specification in array creation" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantExplicitNullableCreation" Category="Redundancies in Code" Description="Redundant explicit nullable type creation" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantExtendsListEntry" Category="Redundancies in Symbol Declarations" Description="Redundant class or interface specification in base types list" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantIfElseBlock" Category="Redundancies in Code" Description="Redundant 'else' keyword" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+'else'+keyword" Enabled="true" />
-    <IssueType Id="RedundantJumpStatement" Category="Redundancies in Code" Description="Redundant control flow jump statement" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantLambdaParameterType" Category="Redundancies in Code" Description="Redundant lambda parameter explicit type specification" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantLambdaSignatureParentheses" Category="Redundancies in Code" Description="Redundant lambda signature parentheses" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantLogicalConditionalExpressionOperand" Category="Redundancies in Code" Description="Redundant operand in logical conditional expression" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantNameQualifier" Category="Redundancies in Code" Description="Redundant name qualifier" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantOverridenMember" Category="Redundancies in Symbol Declarations" Description="Redundant member override" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantParams" Category="Redundancies in Symbol Declarations" Description="'params' modifier is always ignored on overrides" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantStringFormatCall" Category="Redundancies in Code" Description="Redundant 'string.Format()' call" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantStringToCharArrayCall" Category="Redundancies in Code" Description="Redundant 'string.ToCharArray()' call" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantTernaryExpression" Category="Redundancies in Code" Description="Redundant conditional ternary expression usage" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantToStringCall" Category="Redundancies in Code" Description="Redundant 'object.ToString()' call" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantToStringCallForValueType" Category="Redundancies in Code" Description="Redundant 'object.ToString()' call for value types" Severity="HINT" Enabled="true" />
-    <IssueType Id="RedundantTypeArgumentsOfMethod" Category="Redundancies in Code" Description="Redundant type arguments of method" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantUsingDirective" Category="Redundancies in Code" Description="Redundant using directive" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+using+directive" Enabled="true" />
-    <IssueType Id="ReplaceWithOfType.3" Category="Common Practices and Code Improvements" Description="Replace with OfType&lt;T&gt;(): Replace with OfType&lt;T&gt;()" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleAssignment.False" Category="Common Practices and Code Improvements" Description="Replace with single assignment: Replace with single assignment" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleAssignment.True" Category="Common Practices and Code Improvements" Description="Replace with single assignment: Replace with single assignment" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleCallToAny" Category="Common Practices and Code Improvements" Description="Replace with single call to Any(..): Replace with single call to Any(..)" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleCallToCount" Category="Common Practices and Code Improvements" Description="Replace with single call to Count(..): Replace with single call to Count(..)" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleCallToFirst" Category="Common Practices and Code Improvements" Description="Replace with single call to First(..): Replace with single call to First(..)" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithSingleCallToFirstOrDefault" Category="Common Practices and Code Improvements" Description="Replace with single call to FirstOrDefault(..): Replace with single call to FirstOrDefault(..)" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReplaceWithStringIsNullOrEmpty" Category="Common Practices and Code Improvements" Description="Use 'String.IsNullOrEmpty'" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Use+'String.IsNullOrEmpty'" Enabled="true" />
-    <IssueType Id="ReturnTypeCanBeEnumerable.Local" Category="Common Practices and Code Improvements" Description="Return type can be IEnumerable&lt;T&gt;: Private accessibility" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ReturnValueOfPureMethodIsNotUsed" Category="Potential Code Quality Issues" Description="Return value of pure method is not used" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Return+value+of+pure+method+is+not+used" Enabled="true" />
-    <IssueType Id="SealedMemberInSealedClass" Category="Redundancies in Symbol Declarations" Description="Sealed member in sealed class" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Sealed+member+in+sealed+class" Enabled="true" />
-    <IssueType Id="SimplifyConditionalTernaryExpression" Category="Common Practices and Code Improvements" Description="Simplify conditional ternary expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Simplify+conditional+ternary+expression" Enabled="true" />
-    <IssueType Id="SimplifyLinqExpression" Category="Common Practices and Code Improvements" Description="Simplify LINQ expression" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="SpecifyACultureInStringConversionExplicitly" Category="Common Practices and Code Improvements" Description="Specify a culture in string conversion explicitly" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Specify+a+culture+in+string+conversion+explicitly" Enabled="true" />
-    <IssueType Id="SpecifyStringComparison" Category="Common Practices and Code Improvements" Description="Specify string comparison explicitly" Severity="HINT" Enabled="true" />
-    <IssueType Id="StaticFieldInGenericType" Category="Potential Code Quality Issues" Description="Static field in generic type" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringCompareIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.Compare is culture-specific: String.Compare(string, string) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringCompareIsCultureSpecific.3" Category="Common Practices and Code Improvements" Description="String.Compare is culture-specific: String.Compare(string, string, bool) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringCompareToIsCultureSpecific" Category="Common Practices and Code Improvements" Description="String.CompareTo is culture-specific: String.CompareTo is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringIndexOfIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.IndexOf is culture-specific: String.IndexOf(string) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringIndexOfIsCultureSpecific.2" Category="Common Practices and Code Improvements" Description="String.IndexOf is culture-specific: String.IndexOf(string, int) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringLastIndexOfIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.LastIndexOf is culture-specific: String.LastIndexOf(string) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="StringLastIndexOfIsCultureSpecific.2" Category="Common Practices and Code Improvements" Description="String.LastIndexOf is culture-specific: String.LastIndexOf(string, int) is culture-specific" Severity="WARNING" Enabled="true" />
-    <IssueType Id="SuggestBaseTypeForParameter" Category="Common Practices and Code Improvements" Description="Parameter can be declared with base type" Severity="HINT" Enabled="true" />
-    <IssueType Id="SuggestUseVarKeywordEverywhere" Category="Language Usage Opportunities" Description="Use 'var' keyword when possible" Severity="HINT" Enabled="true" />
-    <IssueType Id="SuspiciousTypeConversion.Global" Category="Potential Code Quality Issues" Description="Suspicious type conversion or check" Severity="WARNING" Enabled="true" />
-    <IssueType Id="TailRecursiveCall" Category="Potential Code Quality Issues" Description="Tail recursive call may be replaced with loop" Severity="HINT" Enabled="true" />
-    <IssueType Id="ThreadStaticFieldHasInitializer" Category="Potential Code Quality Issues" Description="Thread static field has initializer" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/%27ThreadStaticAttribute%27+usage" Enabled="true" />
-    <IssueType Id="TooWideLocalVariableScope" Category="Common Practices and Code Improvements" Description="Local variable has too wide declaration scope" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="TypeParameterCanBeVariant" Category="Common Practices and Code Improvements" Description="Type parameter could be declared as covariant or contravariant" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UnassignedReadonlyField" Category="Potential Code Quality Issues" Description="Unassigned readonly field" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnassignedReadonlyField.Compiler" Category="Compiler Warnings" Description="Unassigned readonly field" Severity="ERROR" Enabled="true" />
-    <IssueType Id="UnreachableCode" Category="Common Practices and Code Improvements" Description="Unreachable code detected" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedAnonymousMethodSignature" Category="Redundancies in Code" Description="Anonymous method signature is not necessary" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedAutoPropertyAccessor.Local" Category="Potential Code Quality Issues" Description="Auto-implemented property accessor is never used: Private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedMember.Local" Category="Redundancies in Symbol Declarations" Description="Type or type member is never used: Private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedMethodReturnValue.Local" Category="Redundancies in Symbol Declarations" Description="Method return value is never used: Private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedParameter.Local" Category="Redundancies in Symbol Declarations" Description="Unused parameter: Private accessibility" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedTypeParameter" Category="Redundancies in Symbol Declarations" Description="Unused type parameter" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedVariable" Category="Redundancies in Symbol Declarations" Description="Unused local variable" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UnusedVariable.Compiler" Category="Compiler Warnings" Description="Unused local variable" Severity="WARNING" Enabled="true" />
-    <IssueType Id="UseFourSlashesComment" Category="Potential Code Quality Issues" Description="Use ////-comment" Severity="HINT" Enabled="true" />
-    <IssueType Id="UseMethodAny.0" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UseMethodAny.1" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UseMethodAny.2" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UseMethodIsInstanceOfType" Category="Common Practices and Code Improvements" Description="Use method IsInstanceOfType(..): Use method IsInstanceOfType(..)" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="UseObjectOrCollectionInitializer" Category="Language Usage Opportunities" Description="Use object or collection initializer when possible" Severity="SUGGESTION" Enabled="true" />
-    <IssueType Id="ValueParameterNotUsed" Category="Potential Code Quality Issues" Description="'value' parameter is not used" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/%27value%27+parameter+is+not+used" Enabled="true" />
-    <IssueType Id="Xaml.BindingWithContextNotResolved" Category="Code Notification" Description="Unresolved binding path when DataContext is known" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.BindingWithoutContextNotResolved" Category="Code Notification" Description="Unresolved binding path when DataContext is unknown" Severity="HINT" Enabled="true" />
-    <IssueType Id="Xaml.IndexOutOfGridDefinition" Category="Potential Code Quality Issues" Description="Grid element column/row index is out of grid definition range" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.MissingGridIndex" Category="Potential Code Quality Issues" Description="Missing grid column/row setter for non-first child" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.RedundantGridDefinitions" Category="Redundancies in Code" Description="Single grid row/column definition is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.RedundantGridSpan" Category="Redundancies in Code" Description="Single-cell grid column/row span is redundant" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.RedundantModifiersAttribute" Category="Redundancies in Code" Description="Redundant modifiers attribute" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.RedundantNamespaceAlias" Category="Redundancies in Code" Description="Redundant namespace alias" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.RedundantResource" Category="Redundancies in Code" Description="Redundant resource" Severity="WARNING" Enabled="true" />
-    <IssueType Id="Xaml.StaticResourceNotResolved" Category="Code Notification" Description="Static resource not resolved" Severity="WARNING" Enabled="true" />
-    <IssueType Id="RedundantAnonymousTypePropertyName" Category="Redundancies in Code" Description="Redundant anonymous type property explicit name" Severity="WARNING" Enabled="true" />
-    <IssueType Id="XAMLErrors" Category="XAML Errors" Description="" Severity="ERROR" Enabled="true" />
-    <IssueType Id="Xaml.DependencyPropertyResolveError" Category="Code Notification" Description="Dependency property not resolved" Severity="ERROR" Enabled="true" />
+    <IssueType Id="ClassNeverInstantiated.Global" Category="Potential Code Quality Issues" Description="Class is never instantiated: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ClassWithVirtualMembersNeverInherited.Global" Category="Redundancies in Symbol Declarations" Description="Class with virtual(overridable) members never inherited: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ConvertToConstant.Global" Category="Common Practices and Code Improvements" Description="Convert local variable or field to constant: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="EventNeverSubscribedTo.Global" Category="Potential Code Quality Issues" Description="Event is never subscribed to: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="FieldCanBeMadeReadOnly.Global" Category="Common Practices and Code Improvements" Description="Field can be made readonly: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="IntroduceOptionalParameters.Global" Category="Language Usage Opportunities" Description="Introduce optional parameters: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="MemberCanBeMadeStatic.Global" Category="Common Practices and Code Improvements" Description="Member can be made static(shared): Non-private accessibility" Severity="HINT" />
+    <IssueType Id="MemberCanBePrivate.Global" Category="Common Practices and Code Improvements" Description="Member can be made private: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="MemberCanBeProtected.Global" Category="Common Practices and Code Improvements" Description="Member can be made protected: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="NotAccessedField.Global" Category="Potential Code Quality Issues" Description="Non-accessed field: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ParameterTypeCanBeEnumerable.Global" Category="Common Practices and Code Improvements" Description="Parameter type can be IEnumerable&lt;T&gt;: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="RedundantDefaultFieldInitializer" Category="Redundancies in Symbol Declarations" Description="Redundant field initializer" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+field+initializer" />
+    <IssueType Id="RedundantThisQualifier" Category="Redundancies in Code" Description="Redundant 'this.' qualifier" Severity="WARNING" />
+    <IssueType Id="ReturnTypeCanBeEnumerable.Global" Category="Common Practices and Code Improvements" Description="Return type can be IEnumerable&lt;T&gt;: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="SuggestUseVarKeywordEvident" Category="Language Usage Opportunities" Description="Use 'var' keyword when initializer explicitly declares type" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Use+'var'+keyword+when+initializer+explicitly+declares+type" />
+    <IssueType Id="UnassignedField.Compiler" Category="Compiler Warnings" Description="Unassigned field" Severity="WARNING" />
+    <IssueType Id="UnassignedField.Global" Category="Potential Code Quality Issues" Description="Unassigned field: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="UnusedAutoPropertyAccessor.Global" Category="Potential Code Quality Issues" Description="Auto-implemented property accessor is never used: Non-private accessibility" Severity="WARNING" />
+    <IssueType Id="UnusedField.Compiler" Category="Compiler Warnings" Description="Field is never used" Severity="WARNING" />
+    <IssueType Id="UnusedMember.Global" Category="Redundancies in Symbol Declarations" Description="Type or type member is never used: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="UnusedMemberHiearchy.Global" Category="Redundancies in Symbol Declarations" Description="Type member is only used in overrides: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="UnusedMemberInSuper.Global" Category="Redundancies in Symbol Declarations" Description="Type member is never accessed via base type: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="UnusedMethodReturnValue.Global" Category="Redundancies in Symbol Declarations" Description="Method return value is never used: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="UnusedParameter.Global" Category="Redundancies in Symbol Declarations" Description="Unused parameter: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="VirtualMemberNeverOverriden.Global" Category="Redundancies in Symbol Declarations" Description="Virtual(overridable) member is never overridden: Non-private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="AccessToDisposedClosure" Category="Potential Code Quality Issues" Description="Access to disposed closure" Severity="WARNING" />
+    <IssueType Id="AccessToForEachVariableInClosure" Category="Potential Code Quality Issues" Description="Access to foreach variable in closure" Severity="WARNING" />
+    <IssueType Id="AccessToModifiedClosure" Category="Potential Code Quality Issues" Description="Access to modified closure" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Access+to+modified+closure" />
+    <IssueType Id="AccessToStaticMemberViaDerivedType" Category="Common Practices and Code Improvements" Description="Access to a static member of a type via a derived type" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Access+to+a+static+member+of+a+type+via+a+derived+type" />
+    <IssueType Id="AssignNullToNotNullAttribute" Category="Constraints Violations" Description="Possible 'null' assignment to entity marked with 'Value cannot be null' attribute" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+'null'+assignment+to+an+entity+marked+with+'Value+cannot+be+null'+attribute" />
+    <IssueType Id="BaseMethodCallWithDefaultParameter" Category="Potential Code Quality Issues" Description="Call to base member with implicit default parameters" Severity="WARNING" />
+    <IssueType Id="BaseObjectEqualsIsObjectEquals" Category="Potential Code Quality Issues" Description="Call to 'base.Equals(...)' is reference equality" Severity="WARNING" />
+    <IssueType Id="BaseObjectGetHashCodeCallInGetHashCode" Category="Potential Code Quality Issues" Description="Overriden GetHashCode calls base 'Object.GetHashCode()'" Severity="WARNING" />
+    <IssueType Id="BitwiseOperatorOnEnumWithoutFlags" Category="Potential Code Quality Issues" Description="Bitwise operation on enum which is not marked by [Flags] attribute" Severity="WARNING" />
+    <IssueType Id="CSharpErrors" Category="C# Compiler Errors" Description="" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS0108" Category="Compiler Warnings" Description="CS0108,CS0114:Keyword 'new' is required" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS0109" Category="Compiler Warnings" Description="CS0109:Keyword 'new' is redundant" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS0162" Category="Compiler Warnings" Description="CS0162:Code is unreachable" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS0183" Category="Compiler Warnings" Description="CS0183:Given expression is always of the provided type" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS0465" Category="Compiler Warnings" Description="CS0465:Introducing a 'Finalize' method can interfere with destructor invocation" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS0612" Category="Compiler Warnings" Description="CS0612:Use of obsolete symbol (without message)" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS0618" Category="Compiler Warnings" Description="CS0618:Use of obsolete symbol" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS0659" Category="Compiler Warnings" Description="CS0659:Class overrides Object.Equals(object o) but not Object.GetHashCode()" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1030" Category="Compiler Warnings" Description="CS1030:'#warning' directive" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1570" Category="Compiler Warnings" Description="CS1570:Invalid XML in XML comment" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS1571" Category="Compiler Warnings" Description="CS1571:Duplicate param tag in XML comment" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS1573" Category="Compiler Warnings" Description="CS1573:Parameter has no matching param tag in the XML comment" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1574" Category="Compiler Warnings" Description="CS1574:Ambiguous reference in XML comment" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1584" Category="Compiler Warnings" Description="CS1584:Syntax error in XML comment" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1587" Category="Compiler Warnings" Description="CS1587:XML comment is not placed on a valid language element" Severity="WARNING" />
+    <IssueType Id="CSharpWarnings::CS1591" Category="Compiler Warnings" Description="CS1591:Missing XML comment for publicly visible type or member" Severity="WARNING" />
+    <IssueType Id="CanBeReplacedWithTryCastAndCheckForNull" Category="Potential Code Quality Issues" Description="Type check and direct cast can be replaced with try cast and check for null" Severity="SUGGESTION" />
+    <IssueType Id="CheckForReferenceEqualityInstead.1" Category="Common Practices and Code Improvements" Description="Check for reference equality instead: Check for reference equality instead" Severity="SUGGESTION" />
+    <IssueType Id="CheckNamespace" Category="Constraints Violations" Description="Namespace does not correspond to file location" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Namespace+does+not+correspond+to+file+location" />
+    <IssueType Id="ClassNeverInstantiated.Local" Category="Potential Code Quality Issues" Description="Class is never instantiated: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ClassWithVirtualMembersNeverInherited.Local" Category="Redundancies in Symbol Declarations" Description="Class with virtual(overridable) members never inherited: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="CoVariantArrayConversion" Category="Potential Code Quality Issues" Description="Co-variant array conversion" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Co-variant+array+conversion+may+cause+exception+on+write+operation" />
+    <IssueType Id="CompareNonConstrainedGenericWithNull" Category="Potential Code Quality Issues" Description="Possible compare of value type with 'null'" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+compare+of+value+type+with+null" />
+    <IssueType Id="CompareOfFloatsByEqualityOperator" Category="Potential Code Quality Issues" Description="Compare of float numbers with equality operator" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Compare+of+float+numbers+by+equality+operator" />
+    <IssueType Id="ConditionIsAlwaysTrueOrFalse" Category="Redundancies in Code" Description="Expression is always 'true' or always 'false'" Severity="WARNING" />
+    <IssueType Id="ConditionalTernaryEqualBranch" Category="Potential Code Quality Issues" Description="'?:' expression has identical true and false branches" Severity="WARNING" />
+    <IssueType Id="ConstantNullCoalescingCondition" Category="Redundancies in Code" Description="'??' condition is known to be null or not null" Severity="WARNING" />
+    <IssueType Id="ConvertClosureToMethodGroup" Category="Language Usage Opportunities" Description="Convert anonymous method to method group" Severity="SUGGESTION" />
+    <IssueType Id="ConvertConditionalTernaryToNullCoalescing" Category="Language Usage Opportunities" Description="'?:' expression can be re-written as '??' expression" Severity="SUGGESTION" />
+    <IssueType Id="ConvertIfStatementToConditionalTernaryExpression" Category="Language Usage Opportunities" Description="'if' statement can be re-written as '?:' expression" Severity="SUGGESTION" />
+    <IssueType Id="ConvertIfStatementToNullCoalescingExpression" Category="Language Usage Opportunities" Description="'if' statement can be re-written as '??' expression" Severity="SUGGESTION" />
+    <IssueType Id="ConvertIfStatementToReturnStatement" Category="Language Usage Opportunities" Description="'if-return' statement can be re-written as 'return' statement" Severity="HINT" />
+    <IssueType Id="ConvertIfStatementToSwitchStatement" Category="Language Usage Opportunities" Description="Convert 'if' statement to 'switch' statement" Severity="HINT" />
+    <IssueType Id="ConvertIfToOrExpression" Category="Common Practices and Code Improvements" Description="Convert 'if' to '||'" Severity="SUGGESTION" />
+    <IssueType Id="ConvertNullableToShortForm" Category="Language Usage Opportunities" Description="Convert 'Nullable&lt;T&gt;' to 'T?'" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/pages/viewpage.action?pageId=37235229" />
+    <IssueType Id="ConvertToAutoProperty" Category="Language Usage Opportunities" Description="Convert property to auto-property" Severity="SUGGESTION" />
+    <IssueType Id="ConvertToAutoPropertyWithPrivateSetter" Category="Language Usage Opportunities" Description="Convert property to auto-property with private setter" Severity="HINT" />
+    <IssueType Id="ConvertToConstant.Local" Category="Common Practices and Code Improvements" Description="Convert local variable or field to constant: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ConvertToLambdaExpression" Category="Language Usage Opportunities" Description="Convert to lambda expression" Severity="SUGGESTION" />
+    <IssueType Id="ConvertToStaticClass" Category="Language Usage Opportunities" Description="Convert to static class" Severity="SUGGESTION" />
+    <IssueType Id="DelegateSubtraction" Category="Potential Code Quality Issues" Description="Delegate subtractions" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Delegate+subtraction+has+unpredictable+semantics" />
+    <IssueType Id="DoNotCallOverridableMethodsInConstructor" Category="Potential Code Quality Issues" Description="Virtual member call in constructor" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Virtual+method+call+in+constructor" />
+    <IssueType Id="EmptyConstructor" Category="Redundancies in Symbol Declarations" Description="Empty constructor" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Empty+static+constructor+is+redundant" />
+    <IssueType Id="EmptyEmbeddedStatement" Category="Common Practices and Code Improvements" Description="Empty control statement body" Severity="WARNING" />
+    <IssueType Id="EmptyForStatement" Category="Redundancies in Code" Description="Empty 'for' loop is redundant" Severity="WARNING" />
+    <IssueType Id="EmptyGeneralCatchClause" Category="Potential Code Quality Issues" Description="Empty general catch clause" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Empty+general+catch+clause+suppresses+all+errors" />
+    <IssueType Id="EmptyNamespace" Category="Redundancies in Symbol Declarations" Description="Empty namespace declaration" Severity="WARNING" />
+    <IssueType Id="EmptyStatement" Category="Common Practices and Code Improvements" Description="Empty statement is redundant" Severity="WARNING" />
+    <IssueType Id="EnumUnderlyingTypeIsInt" Category="Redundancies in Symbol Declarations" Description="Underlying type of enum is 'int'" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Underlying+type+of+enum+is+'int'" />
+    <IssueType Id="EqualExpressionComparison" Category="Potential Code Quality Issues" Description="Similar expressions comparison" Severity="WARNING" />
+    <IssueType Id="EventNeverInvoked" Category="Potential Code Quality Issues" Description="Event never invoked" Severity="WARNING" />
+    <IssueType Id="EventNeverSubscribedTo.Local" Category="Potential Code Quality Issues" Description="Event is never subscribed to: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ExpressionIsAlwaysNull" Category="Redundancies in Code" Description="Expression is always 'null'" Severity="WARNING" />
+    <IssueType Id="FieldCanBeMadeReadOnly.Local" Category="Common Practices and Code Improvements" Description="Field can be made readonly: Private accessibility" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Field+can+be+made+read-only" />
+    <IssueType Id="ForCanBeConvertedToForeach" Category="Language Usage Opportunities" Description="For-loop can be converted into foreach-loop" Severity="SUGGESTION" />
+    <IssueType Id="ForControlVariableIsNeverModified" Category="Potential Code Quality Issues" Description="'for' loop control variable is never modified" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/'for'+loop+control+variable+is+never+modified" />
+    <IssueType Id="FormatStringProblem" Category="Potential Code Quality Issues" Description="String formatting method problems" Severity="WARNING" />
+    <IssueType Id="FunctionRecursiveOnAllPaths" Category="Potential Code Quality Issues" Description="Function is recursive on all paths" Severity="WARNING" />
+    <IssueType Id="GCSuppressFinalizeForTypeWithoutDestructor" Category="Potential Code Quality Issues" Description="'GC.SuppressFinalize' is invoked for type without destructor" Severity="WARNING" />
+    <IssueType Id="HeuristicUnreachableCode" Category="Redundancies in Code" Description="Heuristically unreachable code" Severity="WARNING" />
+    <IssueType Id="ImplicitlyCapturedClosure" Category="Potential Code Quality Issues" Description="Implicitly captured closure" Severity="WARNING" />
+    <IssueType Id="ImpureMethodCallOnReadonlyValueField" Category="Potential Code Quality Issues" Description="Impure method is called for readonly field of value type" Severity="WARNING" />
+    <IssueType Id="InconsistentNaming" Category="Constraints Violations" Description="Inconsistent Naming" Severity="WARNING" />
+    <IssueType Id="IntroduceOptionalParameters.Local" Category="Language Usage Opportunities" Description="Introduce optional parameters: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="InvertIf" Category="Language Usage Opportunities" Description="Invert 'if' statement to reduce nesting" Severity="HINT" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Invert+'if'+to+reduce+nesting" />
+    <IssueType Id="InvokeAsExtensionMethod" Category="Language Usage Opportunities" Description="Convert static method invocation to extension method call" Severity="SUGGESTION" />
+    <IssueType Id="JoinDeclarationAndInitializer" Category="Common Practices and Code Improvements" Description="Join local variable declaration and assignment" Severity="SUGGESTION" />
+    <IssueType Id="LocalVariableHidesMember" Category="Potential Code Quality Issues" Description="Local variable hides member" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Local+variable+hides+member" />
+    <IssueType Id="LongLiteralEndingLowerL" Category="Potential Code Quality Issues" Description="Long literal ending with 'l' instead of 'L'" Severity="WARNING" />
+    <IssueType Id="LoopCanBeConvertedToQuery" Category="Language Usage Opportunities" Description="Loop can be converted into LINQ-expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Loop+can+be+converted+into+a+LINQ+expression" />
+    <IssueType Id="LoopCanBePartlyConvertedToQuery" Category="Language Usage Opportunities" Description="Part of loop's body can be converted into LINQ-expression" Severity="HINT" />
+    <IssueType Id="MemberCanBeMadeStatic.Local" Category="Common Practices and Code Improvements" Description="Member can be made static(shared): Private accessibility" Severity="HINT" />
+    <IssueType Id="MemberCanBePrivate.Local" Category="Common Practices and Code Improvements" Description="Member can be made private: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="MemberHidesStaticFromOuterClass" Category="Potential Code Quality Issues" Description="Member hides static member from outer class" Severity="WARNING" />
+    <IssueType Id="MethodOverloadWithOptionalParameter" Category="Potential Code Quality Issues" Description="Method with optional or 'params' parameter is hidden by overload" Severity="WARNING" />
+    <IssueType Id="MoreSpecificForeachVariableTypeAvailable" Category="Common Practices and Code Improvements" Description="Iteration variable can be declared with a more specific type" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Iteration+variable+can+be+declared+with+a+more+specific+type" />
+    <IssueType Id="NegativeEqualityExpression" Category="Common Practices and Code Improvements" Description="Simplify negative equality expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Simplify+negative+equality+expression" />
+    <IssueType Id="NonReadonlyFieldInGetHashCode" Category="Potential Code Quality Issues" Description="Non-readonly field referenced in 'GetHashCode()'" Severity="WARNING" />
+    <IssueType Id="NotAccessedField.Local" Category="Potential Code Quality Issues" Description="Non-accessed field: Private accessibility" Severity="WARNING" />
+    <IssueType Id="NotAccessedVariable" Category="Redundancies in Symbol Declarations" Description="Non-accessed local variable" Severity="ERROR" />
+    <IssueType Id="NotResolvedInText" Category="Potential Code Quality Issues" Description="Cannot resolve symbol in text argument" Severity="WARNING" />
+    <IssueType Id="ObjectCreationAsStatement" Category="Potential Code Quality Issues" Description="Possible unassigned object created by 'new' expression" Severity="WARNING" />
+    <IssueType Id="OperatorIsCanBeUsed" Category="Potential Code Quality Issues" Description="Operator 'is'/'Type Of ... Is ...' can be used" Severity="WARNING" />
+    <IssueType Id="OptionalParameterHierarchyMismatch" Category="Potential Code Quality Issues" Description="Mismatch optional parameter value in overridden method" Severity="WARNING" />
+    <IssueType Id="ParameterHidesMember" Category="Potential Code Quality Issues" Description="Parameter hides member" Severity="WARNING" />
+    <IssueType Id="ParameterTypeCanBeEnumerable.Local" Category="Common Practices and Code Improvements" Description="Parameter type can be IEnumerable&lt;T&gt;: Private accessibility" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Parameter+type+can+be+IEnumerable+of+T" />
+    <IssueType Id="PartialMethodWithSinglePart" Category="Redundancies in Symbol Declarations" Description="Redundant 'partial' modifier on method declaration" Severity="WARNING" />
+    <IssueType Id="PartialTypeWithSinglePart" Category="Redundancies in Symbol Declarations" Description="Redundant 'partial' modifier on type declaration" Severity="WARNING" />
+    <IssueType Id="PolymorphicFieldLikeEventInvocation" Category="Potential Code Quality Issues" Description="Invocation of polymorphic field-like event" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Invocation+of+polymorphic+field-like+event" />
+    <IssueType Id="PossibleAssignmentToReadonlyField" Category="Potential Code Quality Issues" Description="Assignment to a property of a readonly field can be useless" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Assignment+to+a+property+of+a+readonly+field+can+be+useless" />
+    <IssueType Id="PossibleIntendedRethrow" Category="Potential Code Quality Issues" Description="Exception rethrow possibly intended" Severity="WARNING" />
+    <IssueType Id="PossibleInvalidCastException" Category="Potential Code Quality Issues" Description="Possible 'System.InvalidCastException'" Severity="WARNING" />
+    <IssueType Id="PossibleInvalidOperationException" Category="Potential Code Quality Issues" Description="Possible 'System.InvalidOperationException'" Severity="WARNING" />
+    <IssueType Id="PossibleLossOfFraction" Category="Potential Code Quality Issues" Description="Possible loss of fraction" Severity="WARNING" />
+    <IssueType Id="PossibleMistakenCallToGetType.2" Category="Common Practices and Code Improvements" Description="Possible mistaken call to GetType(): Possible mistaken call to GetType()" Severity="WARNING" />
+    <IssueType Id="PossibleMultipleEnumeration" Category="Potential Code Quality Issues" Description="Possible multiple enumeration of IEnumerable" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+multiple+enumeration+of+IEnumerable" />
+    <IssueType Id="PossibleMultipleWriteAccessInDoubleCheckLocking" Category="Potential Code Quality Issues" Description="Possible incorrect implementation of Double-Check Locking pattern. Possible multiple write access to checked field" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Possible+multiple+write+access+in+double-checked+locking" />
+    <IssueType Id="PossibleNullReferenceException" Category="Potential Code Quality Issues" Description="Possible 'System.NullReferenceException'" Severity="WARNING" />
+    <IssueType Id="PossibleUnintendedReferenceComparison" Category="Potential Code Quality Issues" Description="Possible unintended reference comparison" Severity="WARNING" />
+    <IssueType Id="PossiblyMistakenUseOfParamsMethod" Category="Potential Code Quality Issues" Description="Method with 'params' is invoked while more specific method is available" Severity="WARNING" />
+    <IssueType Id="PrivateFieldCanBeConvertedToLocalVariable" Category="Redundancies in Code" Description="Private field can be converted to local variable" Severity="WARNING" />
+    <IssueType Id="PublicConstructorInAbstractClass" Category="Common Practices and Code Improvements" Description="Make constructor in abstract class protected" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Make+constructor+in+abstract+class+protected" />
+    <IssueType Id="RedundantArgumentDefaultValue" Category="Redundancies in Code" Description="Redundant argument with default value" Severity="WARNING" />
+    <IssueType Id="RedundantArgumentName" Category="Redundancies in Code" Description="Redundant explicit argument name specification" Severity="SUGGESTION" />
+    <IssueType Id="RedundantArgumentNameForLiteralExpression" Category="Redundancies in Code" Description="Redundant explicit argument name specification for literal expression" Severity="HINT" />
+    <IssueType Id="RedundantArrayCreationExpression" Category="Redundancies in Code" Description="Array creation can be replaced with array initializer" Severity="WARNING" />
+    <IssueType Id="RedundantAssignment" Category="Redundancies in Code" Description="Assignment is not used" Severity="WARNING" />
+    <IssueType Id="RedundantAttributeParentheses" Category="Redundancies in Code" Description="Parentheses are redundant if attribute has no arguments" Severity="WARNING" />
+    <IssueType Id="RedundantBaseConstructorCall" Category="Redundancies in Symbol Declarations" Description="Redundant base constructor call" Severity="WARNING" />
+    <IssueType Id="RedundantBaseQualifier" Category="Redundancies in Code" Description="Redundant 'base.' qualifier" Severity="WARNING" />
+    <IssueType Id="RedundantBoolCompare" Category="Redundancies in Code" Description="Redundant boolean comparison" Severity="WARNING" />
+    <IssueType Id="RedundantCaseLabel" Category="Redundancies in Code" Description="Redundant 'case' label" Severity="WARNING" />
+    <IssueType Id="RedundantCast" Category="Redundancies in Code" Description="Redundant cast" Severity="WARNING" />
+    <IssueType Id="RedundantCatchClause" Category="Redundancies in Code" Description="Redundant catch clause" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Catch+clause+is+redundant" />
+    <IssueType Id="RedundantCheckBeforeAssignment" Category="Redundancies in Code" Description="Redundant condition check before assignments" Severity="WARNING" />
+    <IssueType Id="RedundantCommaInArrayInitializer" Category="Redundancies in Code" Description="Redundant comma in array initializer" Severity="WARNING" />
+    <IssueType Id="RedundantComparisonWithNull" Category="Redundancies in Code" Description="Redundant comparison with 'null'" Severity="WARNING" />
+    <IssueType Id="RedundantDelegateCreation" Category="Redundancies in Code" Description="Explicit delegate creation expression is redundant" Severity="WARNING" />
+    <IssueType Id="RedundantEmptyDefaultSwitchBranch" Category="Redundancies in Code" Description="Redundant empty default switch branch" Severity="WARNING" />
+    <IssueType Id="RedundantEmptyFinallyBlock" Category="Redundancies in Code" Description="Redundant empty finally block" Severity="WARNING" />
+    <IssueType Id="RedundantEmptyObjectCreationArgumentList" Category="Redundancies in Code" Description="Redundant empty argument list on object creation expression" Severity="WARNING" />
+    <IssueType Id="RedundantEmptyObjectOrCollectionInitializer" Category="Redundancies in Code" Description="Redundant empty object or collection initializer" Severity="WARNING" />
+    <IssueType Id="RedundantEnumerableCastCall" Category="Redundancies in Code" Description="Redundant 'IEnumerable.Cast&lt;T&gt;' or 'IEnumerable.OfType&lt;T&gt;' call" Severity="WARNING" />
+    <IssueType Id="RedundantExplicitArrayCreation" Category="Redundancies in Code" Description="Redundant explicit type in array creation" Severity="WARNING" />
+    <IssueType Id="RedundantExplicitArraySize" Category="Redundancies in Code" Description="Redundant explicit size specification in array creation" Severity="WARNING" />
+    <IssueType Id="RedundantExplicitNullableCreation" Category="Redundancies in Code" Description="Redundant explicit nullable type creation" Severity="WARNING" />
+    <IssueType Id="RedundantExtendsListEntry" Category="Redundancies in Symbol Declarations" Description="Redundant class or interface specification in base types list" Severity="WARNING" />
+    <IssueType Id="RedundantIfElseBlock" Category="Redundancies in Code" Description="Redundant 'else' keyword" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+'else'+keyword" />
+    <IssueType Id="RedundantJumpStatement" Category="Redundancies in Code" Description="Redundant control flow jump statement" Severity="WARNING" />
+    <IssueType Id="RedundantLambdaParameterType" Category="Redundancies in Code" Description="Redundant lambda parameter explicit type specification" Severity="WARNING" />
+    <IssueType Id="RedundantLambdaSignatureParentheses" Category="Redundancies in Code" Description="Redundant lambda signature parentheses" Severity="WARNING" />
+    <IssueType Id="RedundantLogicalConditionalExpressionOperand" Category="Redundancies in Code" Description="Redundant operand in logical conditional expression" Severity="WARNING" />
+    <IssueType Id="RedundantNameQualifier" Category="Redundancies in Code" Description="Redundant name qualifier" Severity="WARNING" />
+    <IssueType Id="RedundantOverridenMember" Category="Redundancies in Symbol Declarations" Description="Redundant member override" Severity="WARNING" />
+    <IssueType Id="RedundantParams" Category="Redundancies in Symbol Declarations" Description="'params' modifier is always ignored on overrides" Severity="WARNING" />
+    <IssueType Id="RedundantStringFormatCall" Category="Redundancies in Code" Description="Redundant 'string.Format()' call" Severity="WARNING" />
+    <IssueType Id="RedundantStringToCharArrayCall" Category="Redundancies in Code" Description="Redundant 'string.ToCharArray()' call" Severity="WARNING" />
+    <IssueType Id="RedundantTernaryExpression" Category="Redundancies in Code" Description="Redundant conditional ternary expression usage" Severity="WARNING" />
+    <IssueType Id="RedundantToStringCall" Category="Redundancies in Code" Description="Redundant 'object.ToString()' call" Severity="WARNING" />
+    <IssueType Id="RedundantToStringCallForValueType" Category="Redundancies in Code" Description="Redundant 'object.ToString()' call for value types" Severity="HINT" />
+    <IssueType Id="RedundantTypeArgumentsOfMethod" Category="Redundancies in Code" Description="Redundant type arguments of method" Severity="WARNING" />
+    <IssueType Id="RedundantUsingDirective" Category="Redundancies in Code" Description="Redundant using directive" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Redundant+using+directive" />
+    <IssueType Id="ReplaceWithOfType.3" Category="Common Practices and Code Improvements" Description="Replace with OfType&lt;T&gt;(): Replace with OfType&lt;T&gt;()" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleAssignment.False" Category="Common Practices and Code Improvements" Description="Replace with single assignment: Replace with single assignment" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleAssignment.True" Category="Common Practices and Code Improvements" Description="Replace with single assignment: Replace with single assignment" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleCallToAny" Category="Common Practices and Code Improvements" Description="Replace with single call to Any(..): Replace with single call to Any(..)" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleCallToCount" Category="Common Practices and Code Improvements" Description="Replace with single call to Count(..): Replace with single call to Count(..)" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleCallToFirst" Category="Common Practices and Code Improvements" Description="Replace with single call to First(..): Replace with single call to First(..)" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithSingleCallToFirstOrDefault" Category="Common Practices and Code Improvements" Description="Replace with single call to FirstOrDefault(..): Replace with single call to FirstOrDefault(..)" Severity="SUGGESTION" />
+    <IssueType Id="ReplaceWithStringIsNullOrEmpty" Category="Common Practices and Code Improvements" Description="Use 'String.IsNullOrEmpty'" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Use+'String.IsNullOrEmpty'" />
+    <IssueType Id="ReturnTypeCanBeEnumerable.Local" Category="Common Practices and Code Improvements" Description="Return type can be IEnumerable&lt;T&gt;: Private accessibility" Severity="SUGGESTION" />
+    <IssueType Id="ReturnValueOfPureMethodIsNotUsed" Category="Potential Code Quality Issues" Description="Return value of pure method is not used" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Return+value+of+pure+method+is+not+used" />
+    <IssueType Id="SealedMemberInSealedClass" Category="Redundancies in Symbol Declarations" Description="Sealed member in sealed class" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Sealed+member+in+sealed+class" />
+    <IssueType Id="SimplifyConditionalTernaryExpression" Category="Common Practices and Code Improvements" Description="Simplify conditional ternary expression" Severity="SUGGESTION" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Simplify+conditional+ternary+expression" />
+    <IssueType Id="SimplifyLinqExpression" Category="Common Practices and Code Improvements" Description="Simplify LINQ expression" Severity="SUGGESTION" />
+    <IssueType Id="SpecifyACultureInStringConversionExplicitly" Category="Common Practices and Code Improvements" Description="Specify a culture in string conversion explicitly" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Specify+a+culture+in+string+conversion+explicitly" />
+    <IssueType Id="SpecifyStringComparison" Category="Common Practices and Code Improvements" Description="Specify string comparison explicitly" Severity="HINT" />
+    <IssueType Id="StaticFieldInGenericType" Category="Potential Code Quality Issues" Description="Static field in generic type" Severity="WARNING" />
+    <IssueType Id="StringCompareIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.Compare is culture-specific: String.Compare(string, string) is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringCompareIsCultureSpecific.3" Category="Common Practices and Code Improvements" Description="String.Compare is culture-specific: String.Compare(string, string, bool) is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringCompareToIsCultureSpecific" Category="Common Practices and Code Improvements" Description="String.CompareTo is culture-specific: String.CompareTo is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringIndexOfIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.IndexOf is culture-specific: String.IndexOf(string) is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringIndexOfIsCultureSpecific.2" Category="Common Practices and Code Improvements" Description="String.IndexOf is culture-specific: String.IndexOf(string, int) is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringLastIndexOfIsCultureSpecific.1" Category="Common Practices and Code Improvements" Description="String.LastIndexOf is culture-specific: String.LastIndexOf(string) is culture-specific" Severity="WARNING" />
+    <IssueType Id="StringLastIndexOfIsCultureSpecific.2" Category="Common Practices and Code Improvements" Description="String.LastIndexOf is culture-specific: String.LastIndexOf(string, int) is culture-specific" Severity="WARNING" />
+    <IssueType Id="SuggestBaseTypeForParameter" Category="Common Practices and Code Improvements" Description="Parameter can be declared with base type" Severity="HINT" />
+    <IssueType Id="SuggestUseVarKeywordEverywhere" Category="Language Usage Opportunities" Description="Use 'var' keyword when possible" Severity="HINT" />
+    <IssueType Id="SuspiciousTypeConversion.Global" Category="Potential Code Quality Issues" Description="Suspicious type conversion or check" Severity="WARNING" />
+    <IssueType Id="TailRecursiveCall" Category="Potential Code Quality Issues" Description="Tail recursive call may be replaced with loop" Severity="HINT" />
+    <IssueType Id="ThreadStaticFieldHasInitializer" Category="Potential Code Quality Issues" Description="Thread static field has initializer" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/%27ThreadStaticAttribute%27+usage" />
+    <IssueType Id="TooWideLocalVariableScope" Category="Common Practices and Code Improvements" Description="Local variable has too wide declaration scope" Severity="SUGGESTION" />
+    <IssueType Id="TypeParameterCanBeVariant" Category="Common Practices and Code Improvements" Description="Type parameter could be declared as covariant or contravariant" Severity="SUGGESTION" />
+    <IssueType Id="UnassignedReadonlyField" Category="Potential Code Quality Issues" Description="Unassigned readonly field" Severity="WARNING" />
+    <IssueType Id="UnassignedReadonlyField.Compiler" Category="Compiler Warnings" Description="Unassigned readonly field" Severity="ERROR" />
+    <IssueType Id="UnreachableCode" Category="Common Practices and Code Improvements" Description="Unreachable code detected" Severity="WARNING" />
+    <IssueType Id="UnusedAnonymousMethodSignature" Category="Redundancies in Code" Description="Anonymous method signature is not necessary" Severity="WARNING" />
+    <IssueType Id="UnusedAutoPropertyAccessor.Local" Category="Potential Code Quality Issues" Description="Auto-implemented property accessor is never used: Private accessibility" Severity="WARNING" />
+    <IssueType Id="UnusedMember.Local" Category="Redundancies in Symbol Declarations" Description="Type or type member is never used: Private accessibility" Severity="WARNING" />
+    <IssueType Id="UnusedMethodReturnValue.Local" Category="Redundancies in Symbol Declarations" Description="Method return value is never used: Private accessibility" Severity="WARNING" />
+    <IssueType Id="UnusedParameter.Local" Category="Redundancies in Symbol Declarations" Description="Unused parameter: Private accessibility" Severity="WARNING" />
+    <IssueType Id="UnusedTypeParameter" Category="Redundancies in Symbol Declarations" Description="Unused type parameter" Severity="WARNING" />
+    <IssueType Id="UnusedVariable" Category="Redundancies in Symbol Declarations" Description="Unused local variable" Severity="WARNING" />
+    <IssueType Id="UnusedVariable.Compiler" Category="Compiler Warnings" Description="Unused local variable" Severity="WARNING" />
+    <IssueType Id="UseFourSlashesComment" Category="Potential Code Quality Issues" Description="Use ////-comment" Severity="HINT" />
+    <IssueType Id="UseMethodAny.0" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" />
+    <IssueType Id="UseMethodAny.1" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" />
+    <IssueType Id="UseMethodAny.2" Category="Common Practices and Code Improvements" Description="Use method Any(): Use method Any()" Severity="SUGGESTION" />
+    <IssueType Id="UseMethodIsInstanceOfType" Category="Common Practices and Code Improvements" Description="Use method IsInstanceOfType(..): Use method IsInstanceOfType(..)" Severity="SUGGESTION" />
+    <IssueType Id="UseObjectOrCollectionInitializer" Category="Language Usage Opportunities" Description="Use object or collection initializer when possible" Severity="SUGGESTION" />
+    <IssueType Id="ValueParameterNotUsed" Category="Potential Code Quality Issues" Description="'value' parameter is not used" Severity="WARNING" WikiUrl="http://confluence.jetbrains.net/display/ReSharper/%27value%27+parameter+is+not+used" />
+    <IssueType Id="Xaml.BindingWithContextNotResolved" Category="Code Notification" Description="Unresolved binding path when DataContext is known" Severity="WARNING" />
+    <IssueType Id="Xaml.BindingWithoutContextNotResolved" Category="Code Notification" Description="Unresolved binding path when DataContext is unknown" Severity="HINT" />
+    <IssueType Id="Xaml.IndexOutOfGridDefinition" Category="Potential Code Quality Issues" Description="Grid element column/row index is out of grid definition range" Severity="WARNING" />
+    <IssueType Id="Xaml.MissingGridIndex" Category="Potential Code Quality Issues" Description="Missing grid column/row setter for non-first child" Severity="WARNING" />
+    <IssueType Id="Xaml.RedundantGridDefinitions" Category="Redundancies in Code" Description="Single grid row/column definition is redundant" Severity="WARNING" />
+    <IssueType Id="Xaml.RedundantGridSpan" Category="Redundancies in Code" Description="Single-cell grid column/row span is redundant" Severity="WARNING" />
+    <IssueType Id="Xaml.RedundantModifiersAttribute" Category="Redundancies in Code" Description="Redundant modifiers attribute" Severity="WARNING" />
+    <IssueType Id="Xaml.RedundantNamespaceAlias" Category="Redundancies in Code" Description="Redundant namespace alias" Severity="WARNING" />
+    <IssueType Id="Xaml.RedundantResource" Category="Redundancies in Code" Description="Redundant resource" Severity="WARNING" />
+    <IssueType Id="Xaml.StaticResourceNotResolved" Category="Code Notification" Description="Static resource not resolved" Severity="WARNING" />
+    <IssueType Id="RedundantAnonymousTypePropertyName" Category="Redundancies in Code" Description="Redundant anonymous type property explicit name" Severity="WARNING" />
+    <IssueType Id="XAMLErrors" Category="XAML Errors" Description="" Severity="ERROR" />
+    <IssueType Id="Xaml.DependencyPropertyResolveError" Category="Code Notification" Description="Dependency property not resolved" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS1589" Category="Compiler Warnings" Description="CS1589:Unable to include XML fragment" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS1712" Category="Compiler Warnings" Description="CS1712:Type parameter has no matching typeparam tag in the XML comment" Severity="ERROR" />
+    <IssueType Id="CSharpWarnings::CS0628" Category="Compiler Warnings" Description="CS0628:Declaring new protected member in sealed class is the same as declaring it as private" Severity="WARNING" />
+    <IssueType Id="UseArrayCreationExpression.1" Category="Common Practices and Code Improvements" Description="Use array creation expression: Use array creation expression" Severity="SUGGESTION" />
+    <IssueType Id="CSharpWarnings::CS0660" Category="Compiler Warnings" Description="CS0660,CS0661:Operator '==' or operator '!=' with 'Object.Equals(object o)' and 'Object.GetHashCode()' not overriden" Severity="WARNING" />
+    <IssueType Id="UnusedImportClause" Category="Redundancies in Code" Description="Unused import clause" Severity="WARNING" />
+    <IssueType Id="VbUnreachableCode" Category="Redundancies in Code" Description="Unreachable code" Severity="WARNING" />
+    <IssueType Id="AspErrors" Category="ASP Errors" Description="" Severity="ERROR" />
   </IssueTypes>
 </Report>
