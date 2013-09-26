@@ -39,8 +39,8 @@ import java.util.List;
 @Properties({
         @Property(key = ReSharperConstants.CUSTOM_RULES_PROP_KEY,
                 defaultValue = "", name = "ReSharper custom rules",
-                description = "XML description of ReSharper custom rules", type = PropertyType.TEXT,
-                global = true, project = false)
+                description = "Add &lt;IssueType&gt; values from ReSharper's results file for issues that are not built-in to the plugin's rules. A restart is required to take affect.",
+                type = PropertyType.TEXT, global = true, project = false)
 })
 public class ReSharperRuleRepositoryProvider extends ExtensionProvider implements ServerExtension {
 

@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.csharp.resharper.profiles.utils;
 
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
 
 /**
@@ -201,4 +203,46 @@ public class ReSharperRule {
         }
 
     }
+
+    public Rule toSonarRule() {
+
+        /*
+            Rule			<==		IssueType
+            key				<==		Id
+            <name>			<==		Id
+            <configKey>		<==		"ReSharperInspectCode#"+ Id
+            <description>   <==		Description + Wiki link + "<br/>(Category: " + Category + ")"
+         *
+         * WikiUrl="http://confluence.jetbrains.net/display/ReSharper/Use+'var'+keyword+when+initializer+explicitly+declares+type"
+        */
+
+
+//
+//        <rule key="ClassNeverInstantiated.Global">
+//          <name><![CDATA[ClassNeverInstantiated.Global]]></name>
+//          <configKey><![CDATA[ReSharperInspectCode#ClassNeverInstantiated.Global]]></configKey>
+//          <description><![CDATA[Class is never instantiated: Non-private accessibility<br/>(Category: Potential Code Quality Issues)]]></description>
+//          <enabled>true</enabled>
+//          <priority>MINOR</priority>
+//        </rule>
+
+
+        //if the description is empty, the import of rules will
+        //fail, so set the description to the id (name) if it doesn't exist
+        String desc = getDescription();
+        if (StringUtils.isBlank(desc))
+        {
+            desc = getId();
+        }
+
+        Rule sonarRule = Rule.create()
+                .setKey(getId())
+                .setName(getId())
+                .setConfigKey("ReSharperInspectCode#" + getId())
+                .setDescription(desc)
+                .setSeverity(getSonarPriority());
+
+       return sonarRule;
+    }
+
 }

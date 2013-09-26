@@ -20,13 +20,19 @@
 package org.sonar.plugins.csharp.resharper;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.config.Settings;
 import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.rules.XMLRuleParser;
+import org.sonar.plugins.csharp.resharper.profiles.ReSharperFileParser;
+import org.sonar.plugins.csharp.resharper.profiles.utils.ReSharperRule;
 
-import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +42,15 @@ import java.util.List;
  */
 public class ReSharperRuleRepository extends RuleRepository {
 
-    private String repositoryKey;
-    private ServerFileSystem fileSystem;
-    private XMLRuleParser xmlRuleParser;
+
+    private static final Logger LOG = LoggerFactory.getLogger(ReSharperRuleRepository.class);
+
     private Settings settings;
 
     public ReSharperRuleRepository(String repoKey, String languageKey, ServerFileSystem fileSystem, XMLRuleParser xmlRuleParser,
                                    Settings settings) {
         super(repoKey, languageKey);
         setName(ReSharperConstants.REPOSITORY_NAME);
-        this.repositoryKey = repoKey;
-        this.fileSystem = fileSystem;
-        this.xmlRuleParser = xmlRuleParser;
         this.settings = settings;
     }
 
@@ -55,24 +58,30 @@ public class ReSharperRuleRepository extends RuleRepository {
     public List<Rule> createRules() {
         List<Rule> rules = new ArrayList<Rule>();
 
-        //TODO: for each of these, allow the user to use the ReSharper report style of:
-        // <IssueTypes>
-        //   <IssueType .../>
-        // so that they can just copy/paste from the report files and not convert to sonar-specific format
-
         // ReSharper rules
-        rules.addAll(xmlRuleParser.parse(ReSharperRuleRepository.class.getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/rules.xml")));
-
-        // Custom rules:
-        // - old fashion: XML files in the file system
-        for (File userExtensionXml : fileSystem.getExtensions(repositoryKey, "xml")) {
-            rules.addAll(xmlRuleParser.parse(userExtensionXml));
+        InputStream rulesFileStream = ReSharperRuleRepository.class.getResourceAsStream("/org/sonar/plugins/csharp/resharper/rules/DefaultRules.ReSharper");
+        Reader reader = new InputStreamReader(rulesFileStream);
+        List<ReSharperRule> reSharperRules = ReSharperFileParser.parseRules(reader);
+        for(ReSharperRule rRule: reSharperRules) {
+            rules.add(rRule.toSonarRule());
         }
 
-        // - new fashion: through the Web interface
+        // Custom rules through the Web interface
         String customRules = settings.getString(ReSharperConstants.CUSTOM_RULES_PROP_KEY);
         if (StringUtils.isNotBlank(customRules)) {
-            rules.addAll(xmlRuleParser.parse(new StringReader(customRules)));
+            try {
+                String customRulesXml = "<Report><IssueTypes>" + customRules + "</IssueTypes></Report>";
+
+                Reader customRulesReader = new StringReader(customRulesXml);
+                List<ReSharperRule> customReSharperRules = ReSharperFileParser.parseRules(customRulesReader);
+                for(ReSharperRule rRule: customReSharperRules) {
+                    //TODO: do i need to check if the rule has already been added?
+                    rules.add(rRule.toSonarRule());
+                }
+            } catch (Exception ex)
+            {
+                LOG.warn("Error parsing ReSharper Custom Rules: " + ex.getMessage());
+            }
         }
 
         return rules;

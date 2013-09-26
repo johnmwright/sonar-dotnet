@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Properties({
         @Property(key = ReSharperConstants.MODE, defaultValue = AbstractDotNetSensor.MODE_SKIP, name = "ReSharper activation mode",
-                description = "Possible values : empty (defaults to 'skip'), 'skip' and 'reuseReport'.", global = false, project = false,
+                description = "Possible values : empty (means active), 'skip' and 'reuseReport'.", global = false, project = false,
                 type = PropertyType.SINGLE_SELECT_LIST, options = {AbstractDotNetSensor.MODE_SKIP, AbstractDotNetSensor.MODE_REUSE_REPORT}),
         @Property(key = ReSharperConstants.REPORTS_PATH_KEY, defaultValue = "", name = "Name of the ReSharper report files",
                 description = "Name of the ReSharper report file used when reuse report mode is activated. "

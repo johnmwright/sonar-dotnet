@@ -30,16 +30,8 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.csharp.resharper.ReSharperConstants;
 import org.sonar.plugins.csharp.resharper.profiles.utils.ReSharperRule;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,7 +78,7 @@ public class ReSharperProfileImporter extends ProfileImporter {
 //                   Severity="SUGGESTION" />
 
 
-        List<ReSharperRule> rules = parseRules(reader, messages);
+        List<ReSharperRule> rules = ReSharperFileParser.parseRules(reader, messages);
 
         for (ReSharperRule reSharperRule : rules) {
             String ruleName = reSharperRule.getId();
@@ -100,54 +92,6 @@ public class ReSharperProfileImporter extends ProfileImporter {
         }
 
         return profile;
-    }
-
-    private List<ReSharperRule> parseRules(Reader reader, ValidationMessages messages) {
-        List<ReSharperRule> result = new ArrayList<ReSharperRule>();
-
-        try {
-            InputSource source = new InputSource(reader);
-            XPathFactory factory = XPathFactory.newInstance();
-            XPath xpath = factory.newXPath();
-            NodeList nodes = (NodeList) xpath.evaluate("//IssueType",source, XPathConstants.NODESET);
-
-            if (nodes == null)  {
-                LOG.info("No IssueType nodes found in profile file");
-            }
-            else {
-
-                int count = nodes.getLength();
-                LOG.debug("Found " + count + " nodes" );
-
-                // For each rule we extract the elements
-                for (int idxRule = 0; idxRule < count; idxRule++) {
-                    Element ruleElement = (Element) nodes.item(idxRule);
-                    ReSharperRule rule = new ReSharperRule();
-                    String ruleId = ruleElement.getAttribute("Id");
-                    rule.setId(ruleId);
-
-                    String active = ruleElement.getAttribute("Enabled");
-                    rule.setEnabled(active.toLowerCase().contains("true"));
-
-                    String category = ruleElement.getAttribute("Category");
-                    rule.setCategory(category);
-
-                    String description = ruleElement.getAttribute("Description");
-                    rule.setDescription(description);
-
-                    String severity = ruleElement.getAttribute("Severity");
-                    rule.setSeverity(ReSharperRule.ReSharperSeverity.valueOf(severity));
-
-                    result.add(rule);
-                }
-            }
-        } catch (XPathExpressionException e) {
-            messages.addErrorText("xpath exception while parsing resharper config file: " + e.getMessage());
-
-        } catch (Exception e) {
-            messages.addErrorText("Failed to read the profile to import: " + e.getMessage());
-        }
-        return result;
     }
 
 }
