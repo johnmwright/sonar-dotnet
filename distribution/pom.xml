@@ -2,57 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-    <artifactId>dotnet</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <groupId>com.wrightfully.sonar-plugins.dotnet.resharper</groupId>
+    <artifactId>resharper</artifactId>
+    <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
+  <groupId>com.wrightfully.sonar-plugins.dotnet.resharper</groupId>
   <artifactId>distribution</artifactId>
   <packaging>pom</packaging>
 
-  <name>C# Plugins Ecosystem :: Distribution</name>
+  <name>Sonar .NET ReSharper :: Distribution</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-      <artifactId>sonar-dotnet-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-      <artifactId>sonar-dotnet-fxcop-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-      <artifactId>sonar-dotnet-gendarme-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-      <artifactId>sonar-dotnet-ndeps-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-      <artifactId>sonar-dotnet-gallio-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet.csharp</groupId>
-      <artifactId>sonar-csharp-plugin</artifactId>
-      <version>${project.version}</version>
-      <type>sonar-plugin</type>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet.csharp</groupId>
-      <artifactId>sonar-csharp-stylecop-plugin</artifactId>
+      <groupId>com.wrightfully.sonar-plugins.dotnet.resharper</groupId>
+      <artifactId>sonar-dotnet-resharper-plugin</artifactId>
       <version>${project.version}</version>
       <type>sonar-plugin</type>
     </dependency>
@@ -73,7 +37,7 @@
                 </goals>
                 <configuration>
                   <appendAssemblyId>false</appendAssemblyId>
-                  <finalName>CSharpPluginsEcosystem-${project.version}</finalName>
+                  <finalName>SonarReSharperPlugin-${project.version}</finalName>
                   <descriptors>
                     <descriptor>assembly.xml</descriptor>
                   </descriptors>
@@ -97,7 +61,7 @@
                       <maxsize>2200000</maxsize>
                       <minsize>2000000</minsize>
                       <files>
-                        <file>${project.build.directory}/CSharpPluginsEcosystem-${project.version}.zip</file>
+                        <file>${project.build.directory}/SonarReSharperPlugin-${project.version}.zip</file>
                       </files>
                     </requireFilesSize>
                   </rules>
