@@ -43,7 +43,7 @@ public class ReSharperFileParser {
         return parseRules(reader, null);
     }
 
-        public static List<ReSharperRule> parseRules(Reader reader, ValidationMessages messages) {
+    public static List<ReSharperRule> parseRules(Reader reader, ValidationMessages messages) {
         List<ReSharperRule> result = new ArrayList<ReSharperRule>();
 
         try {
@@ -52,13 +52,16 @@ public class ReSharperFileParser {
             XPath xpath = factory.newXPath();
             NodeList nodes = (NodeList) xpath.evaluate("//IssueType",source, XPathConstants.NODESET);
 
-            if (nodes == null)  {
-                LOG.info("No IssueType nodes found in profile file");
+            if (nodes == null || nodes.getLength() == 0)  {
+                String logMsg = "No IssueType nodes found in profile file";
+                if (messages != null)
+                    messages.addErrorText(logMsg);
+                else LOG.error(logMsg);
             }
             else {
 
                 int count = nodes.getLength();
-                LOG.debug("Found " + count + " nodes" );
+                LOG.debug("Found " + count + " IssueType nodes" );
 
                 // For each rule we extract the elements
                 for (int idxRule = 0; idxRule < count; idxRule++) {
@@ -75,6 +78,9 @@ public class ReSharperFileParser {
 
                     String description = ruleElement.getAttribute("Description");
                     rule.setDescription(description);
+
+                    String wikiLink = ruleElement.getAttribute("WikiUrl");
+                    rule.setWikiLink(wikiLink);
 
                     String severity = ruleElement.getAttribute("Severity");
                     rule.setSeverity(ReSharperRule.ReSharperSeverity.valueOf(severity));

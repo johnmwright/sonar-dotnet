@@ -39,7 +39,7 @@ public final class ReSharperConstants {
     public static final String RESHARPER_REPORT_XML = "resharper-report.xml";
 
     public static final String INSTALL_DIR_KEY = "sonar.resharper.installDirectory";
-    public static final String INSTALL_DIR_DEFVALUE = "C:/jb-commandline-8.0.0.39";
+    public static final String INSTALL_DIR_DEFVALUE = "C:/jetbrains-commandline-tools";
 
     public static final String TIMEOUT_MINUTES_KEY = "sonar.resharper.timeoutMinutes";
     public static final int TIMEOUT_MINUTES_DEFVALUE = 10;

@@ -22,6 +22,9 @@ package com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
+import org.sonar.api.rules.ActiveRule;
+
+import java.lang.Override;
 
 /**
  * Definition of a ReSharper rule.
@@ -33,6 +36,7 @@ public class ReSharperRule {
     private String category;
     private String description;
     private ReSharperSeverity severity;
+    private String wikiLink;
 
     /**
      * Constructs a @link{ReSharperRule}.
@@ -123,6 +127,25 @@ public class ReSharperRule {
     }
 
     /**
+     * Returns the WikiLink.
+     *
+     * @return The WikiLink to return.
+     */
+    public String getWikiLink() {
+        return this.wikiLink;
+    }
+
+    /**
+     * Sets the WikiLink.
+     *
+     * @param wikiLink
+     *          The WikiLink to set.
+     */
+    public void setWikiLink(String wikiLink) {
+        this.wikiLink = wikiLink;
+    }
+
+    /**
      * Get the resharper severity of this rule
      *
      * @return the resharper severity
@@ -186,7 +209,7 @@ public class ReSharperRule {
         }
     }
 
-    public ReSharperSeverity TranslateSonarPriorityIntoResharperSeverity(RulePriority priority) {
+    private ReSharperSeverity TranslateSonarPriorityIntoResharperSeverity(RulePriority priority) {
 
         switch (priority) {
             case BLOCKER:
@@ -235,6 +258,16 @@ public class ReSharperRule {
             desc = getId();
         }
 
+        if (!StringUtils.isBlank(wikiLink))
+        {
+            desc += "<br />"+wikiLink;
+        }
+
+        if (!StringUtils.isBlank(category))
+        {
+            desc += "<br />(Category: "+category + ")";
+        }
+
         Rule sonarRule = Rule.create()
                 .setKey(getId())
                 .setName(getId())
@@ -243,6 +276,37 @@ public class ReSharperRule {
                 .setSeverity(getSonarPriority());
 
        return sonarRule;
+    }
+
+    public static ReSharperRule createFromActiveRule(ActiveRule activeRule) {
+        //  input:
+        //        <rule key="ConvertToConstant.Global">
+        //          <name><![CDATA[ConvertToConstant.Global]]></name>
+        //          <configKey><![CDATA[ReSharperInspectCode#ConvertToConstant.Global]]></configKey>
+        //          <description><![CDATA[Convert local variable or field to constant: Non-private accessibility<br/>(Category: Common Practices and Code Improvements)]]></description>
+        //        </rule>
+
+
+        //Note: I don't extract out the Category and WikiUrl since they are just pushed back into the description
+        //when rehydrating the Rule object.
+
+        // Extracts the rule's information
+        Rule rule = activeRule.getRule();
+        String name = rule.getName();
+        String rawDesc = rule.getDescription();
+
+        // Creates the ReSharper rule
+        ReSharperRule resharperRule = new ReSharperRule();
+        resharperRule.setEnabled(rule.isEnabled());
+        resharperRule.setId(name);
+        resharperRule.setDescription(rawDesc);
+
+        RulePriority priority = activeRule.getSeverity();
+        if (priority != null) {
+            resharperRule.setSonarPriority(priority);
+        }
+
+        return resharperRule;
     }
 
 }

@@ -46,18 +46,18 @@ public class ReSharperProfileImporter extends ProfileImporter {
 
     public static class CSharpRegularReSharperProfileImporter extends ReSharperProfileImporter {
         public CSharpRegularReSharperProfileImporter(RuleFinder ruleFinder) {
-            super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+            super("cs", ruleFinder);
         }
     }
 
     public static class VbNetRegularReSharperProfileImporter extends ReSharperProfileImporter {
         public VbNetRegularReSharperProfileImporter(RuleFinder ruleFinder) {
-            super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME, ruleFinder);
+            super("vbnet", ruleFinder);
         }
     }
 
-    protected ReSharperProfileImporter(String languageKey, String repositoryKey, String repositoryName, RuleFinder ruleFinder) {
-        super(repositoryKey + "-" + languageKey, repositoryName);
+    protected ReSharperProfileImporter(String languageKey, RuleFinder ruleFinder) {
+        super(ReSharperConstants.REPOSITORY_KEY + "-" + languageKey, ReSharperConstants.REPOSITORY_NAME);
         setSupportedLanguages(languageKey);
         this.ruleFinder = ruleFinder;
         this.languageKey = languageKey;
@@ -71,6 +71,7 @@ public class ReSharperProfileImporter extends ProfileImporter {
         RulesProfile profile = RulesProfile.create();
         profile.setLanguage(languageKey);
 
+        //incoming format:
 //        <IssueType Id="ClassNeverInstantiated.Global"
 //           Enabled="True"
 //                   Category="Potential Code Quality Issues"
@@ -88,6 +89,8 @@ public class ReSharperProfileImporter extends ProfileImporter {
                 RulePriority sonarPriority = reSharperRule.getSonarPriority();
                 profile.activateRule(rule, sonarPriority);
                 LOG.debug("Activating profile rule " + rule.getKey() + " with priority " + sonarPriority);
+            } else {
+                messages.addWarningText("Unable to find rule for key '" + ruleName +"' in repository '"+getKey()+"'");
             }
         }
 

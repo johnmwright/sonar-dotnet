@@ -32,6 +32,7 @@ import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRu
 
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.Exception;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,18 +43,18 @@ public class ReSharperProfileExporter extends ProfileExporter {
 
     public static class CSharpRegularReSharperProfileExporter extends ReSharperProfileExporter {
         public CSharpRegularReSharperProfileExporter() {
-            super("cs", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+            super("cs");
         }
     }
 
     public static class VbNetRegularReSharperProfileExporter extends ReSharperProfileExporter {
         public VbNetRegularReSharperProfileExporter() {
-            super("vbnet", ReSharperConstants.REPOSITORY_KEY, ReSharperConstants.REPOSITORY_NAME);
+            super("vbnet");
         }
     }
 
-    protected ReSharperProfileExporter(String languageKey, String repositoryKey, String repositoryName) {
-        super(repositoryKey + "-" + languageKey, repositoryName);
+    protected ReSharperProfileExporter(String languageKey) {
+        super(ReSharperConstants.REPOSITORY_KEY + "-" + languageKey, ReSharperConstants.REPOSITORY_NAME);
         setSupportedLanguages(languageKey);
         setMimeType("application/xml");
     }
@@ -74,7 +75,7 @@ public class ReSharperProfileExporter extends ProfileExporter {
         //Create a file that matches the format of the ReSharper inspectcode.exe output
 
         writer.append("<Report>\n");
-        writer.append("  <IssueTypes>");
+        writer.append("  <IssueTypes>\n");
 
         List<ActiveRule> activeRules = profile.getActiveRulesByRepository(getKey());
         List<ReSharperRule> rules = transformIntoReSharperRules(activeRules);
@@ -84,7 +85,7 @@ public class ReSharperProfileExporter extends ProfileExporter {
             printRule(writer, rule);
         }
 
-        writer.append("  </IssueTypes>");
+        writer.append("  </IssueTypes>\n");
         writer.append("</Report>");
     }
 
@@ -93,19 +94,31 @@ public class ReSharperProfileExporter extends ProfileExporter {
         // This is generally what the output will look like:
         //        <IssueType Id="ClassNeverInstantiated.Global"
         //                   Enabled="True"
-        //                   Category="Potential Code Quality Issues"
         //                   Description="Class is never instantiated: Non-private accessibility"
         //                   Severity="SUGGESTION" />
+
 
         writer.append("    <IssueType");
         writer.append(" Id=\"");
         StringEscapeUtils.escapeXml(writer, resharperRule.getId());
-        writer.append("\" Enabled=\"True\"");
-        writer.append(" Category=\"");
-        StringEscapeUtils.escapeXml(writer, resharperRule.getCategory());
-        writer.append("\" Description\"");
+        writer.append("\" Enabled=\"");
+        StringEscapeUtils.escapeXml(writer, String.valueOf(resharperRule.isEnabled()));
+
+        String category = resharperRule.getCategory();
+        if (category != null && !StringUtils.isBlank(category)) {
+            writer.append("\" Category=\"");
+            StringEscapeUtils.escapeXml(writer, category);
+        }
+
+        String wiki = resharperRule.getWikiLink();
+        if (wiki != null && !StringUtils.isBlank(wiki)) {
+            writer.append("\" WikiUrl=\"");
+            StringEscapeUtils.escapeXml(writer, wiki);
+        }
+
+        writer.append("\" Description=\"");
         StringEscapeUtils.escapeXml(writer, resharperRule.getDescription());
-        writer.append("\" Severity\"");
+        writer.append("\" Severity=\"");
         StringEscapeUtils.escapeXml(writer, resharperRule.getSeverity().toString());
         writer.append("\"/>\n");
     }
@@ -113,35 +126,8 @@ public class ReSharperProfileExporter extends ProfileExporter {
     private List<ReSharperRule> transformIntoReSharperRules(List<ActiveRule> activeRulesByPlugin) {
         List<ReSharperRule> result = new ArrayList<ReSharperRule>();
 
-//        <rule key="ConvertToConstant.Global">
-//          <name><![CDATA[ConvertToConstant.Global]]></name>
-//          <configKey><![CDATA[ReSharperInspectCode#ConvertToConstant.Global]]></configKey>
-//          <description><![CDATA[Convert local variable or field to constant: Non-private accessibility<br/>(Category: Common Practices and Code Improvements)]]></description>
-//        </rule>
-
-
         for (ActiveRule activeRule : activeRulesByPlugin) {
-            // Extracts the rule's information
-            Rule rule = activeRule.getRule();
-            String name = rule.getName();
-            String rawDesc = rule.getDescription();
-
-            String description = StringUtils.substringBefore(rawDesc, "<br/>(Category: ");
-            String category = StringUtils.stripEnd(StringUtils.substringAfter(rawDesc, "<br/>(Category: "), ")");
-
-
-            // Creates the ReSharper rule
-            ReSharperRule resharperRule = new ReSharperRule();
-            resharperRule.setEnabled(true);
-            resharperRule.setId(name);
-            resharperRule.setCategory(category);
-            resharperRule.setDescription(description);
-
-            RulePriority priority = activeRule.getSeverity();
-            if (priority != null) {
-                resharperRule.setSonarPriority(priority);
-            }
-
+            ReSharperRule resharperRule = ReSharperRule.createFromActiveRule(activeRule);
             result.add(resharperRule);
         }
         return result;
