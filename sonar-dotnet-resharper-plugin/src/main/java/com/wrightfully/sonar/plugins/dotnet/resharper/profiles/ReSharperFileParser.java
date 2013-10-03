@@ -23,7 +23,7 @@ package com.wrightfully.sonar.plugins.dotnet.resharper.profiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.utils.ValidationMessages;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;

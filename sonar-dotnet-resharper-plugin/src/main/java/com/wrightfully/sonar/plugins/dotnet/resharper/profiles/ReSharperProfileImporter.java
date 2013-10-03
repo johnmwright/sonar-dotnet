@@ -29,7 +29,7 @@ import org.sonar.api.rules.RulePriority;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
 import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConstants;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
 
 import java.io.Reader;
 import java.util.List;

@@ -40,7 +40,7 @@ import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
 import org.sonar.plugins.dotnet.api.utils.ResourceHelper;
 import org.sonar.test.TestUtils;
 
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperFileParser;
 
 import java.io.File;

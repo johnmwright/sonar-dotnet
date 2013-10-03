@@ -52,8 +52,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.*;
 
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule.*;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule.*;
 
 
 import static org.fest.assertions.Assertions.assertThat;

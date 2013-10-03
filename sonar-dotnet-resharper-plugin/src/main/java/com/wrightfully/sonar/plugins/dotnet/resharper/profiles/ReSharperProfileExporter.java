@@ -28,7 +28,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.SonarException;
 import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConstants;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
 
 import java.io.IOException;
 import java.io.Writer;

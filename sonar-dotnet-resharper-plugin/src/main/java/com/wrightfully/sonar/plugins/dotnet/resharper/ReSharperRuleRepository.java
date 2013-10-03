@@ -28,7 +28,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.rules.XMLRuleParser;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperFileParser;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.utils.ReSharperRule;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperRule;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
