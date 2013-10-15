@@ -25,19 +25,35 @@ import org.sonar.api.utils.ValidationMessages;
 
 import java.io.InputStreamReader;
 
-public final class SonarWayProfileVbNet extends ProfileDefinition {
+public class ReSharperSonarWayProfile extends ProfileDefinition {
+
+    public final class SonarWayProfileCSharp extends ReSharperSonarWayProfile {
+        public SonarWayProfileCSharp(ReSharperProfileImporter.CSharpRegularReSharperProfileImporter profileImporter) {
+            super(profileImporter, "cs");
+        }
+    }
+
+
+    public final class SonarWayProfileVbNet extends ReSharperSonarWayProfile {
+        public SonarWayProfileVbNet(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter profileImporter) {
+            super(profileImporter, "vbnet");
+        }
+    }
 
     private ReSharperProfileImporter profileImporter;
+    private String languageKey;
 
-    public SonarWayProfileVbNet(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter profileImporter) {
+    protected ReSharperSonarWayProfile(ReSharperProfileImporter profileImporter, String languageKey) {
         this.profileImporter = profileImporter;
+        this.languageKey = languageKey;
     }
 
     public RulesProfile createProfile(ValidationMessages messages) {
         RulesProfile profile = profileImporter.importProfile(
                 new InputStreamReader(getClass().getResourceAsStream("/com/wrightfully/sonar/plugins/dotnet/resharper/rules/DefaultRules.ReSharper")), messages);
-        profile.setLanguage("vbnet");
+        profile.setLanguage(languageKey);
         profile.setName("Sonar way");
         return profile;
     }
+
 }

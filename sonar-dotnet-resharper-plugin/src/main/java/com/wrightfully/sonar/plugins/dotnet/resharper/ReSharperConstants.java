@@ -35,14 +35,14 @@ public final class ReSharperConstants {
     // ----------- Plugin Configuration Properties ----------- //
     public static final String MODE = "sonar.resharper.mode";
 
-    public static final String REPORTS_PATH_KEY = "sonar.resharper.reports.path";
-    public static final String RESHARPER_REPORT_XML = "resharper-report.xml";
+    public static final String REPORT_PATH_KEY = "sonar.resharper.report.path";
+    public static final String REPORT_FILENAME = "resharper-report.xml";
 
     public static final String INSTALL_DIR_KEY = "sonar.resharper.installDirectory";
     public static final String INSTALL_DIR_DEFVALUE = "C:/jetbrains-commandline-tools";
 
     public static final String TIMEOUT_MINUTES_KEY = "sonar.resharper.timeoutMinutes";
-    public static final int TIMEOUT_MINUTES_DEFVALUE = 10;
+    public static final int TIMEOUT_MINUTES_DEFVALUE = 20;
 
     public static final String CUSTOM_RULES_PROP_KEY = "sonar.resharper.customRules.definition";
 

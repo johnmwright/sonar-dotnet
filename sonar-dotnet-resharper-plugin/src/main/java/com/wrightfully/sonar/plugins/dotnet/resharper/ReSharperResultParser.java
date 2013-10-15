@@ -178,7 +178,7 @@ public class ReSharperResultParser implements BatchExtension {
             if (!hasMissingIssues())
                 return;
 
-            String logMessage = "The following IssueTypes are not known to the SonarQube ReSharper plugin. \n" +
+            String logMessage = "The following IssueTypes are not known to the SonarQube ReSharper plugin.\n" +
                     "Add the following text to the 'ReSharper custom rules' property in the Settings UI to add local " +
                     "support for these rules and submit them to " + developerEmail + " so that they can be included in " +
                     "future releases.\n";
@@ -248,7 +248,11 @@ public class ReSharperResultParser implements BatchExtension {
 
 
     private void createViolation(SMInputCursor violationsCursor, Rule currentRule) throws XMLStreamException {
-        File sourceFile = new File(violationsCursor.getAttrValue("File"));
+        String relativeFilePath = violationsCursor.getAttrValue("File");
+        File sourceFile = project.getFileSystem().resolvePath(relativeFilePath);
+        if (sourceFile == null) {
+            sourceFile = new File(relativeFilePath);
+        }
 
         try{
             LOG.debug("searching for sourceFile " + sourceFile.getCanonicalFile().getPath() + " - Exists: " + sourceFile.exists());
@@ -257,7 +261,6 @@ public class ReSharperResultParser implements BatchExtension {
             LOG.warn("Exception: " + ex.getMessage());
         }
 
-        //if (vsProject.contains(sourceFile)) {
         try {
             final org.sonar.api.resources.File sonarFile;
             sonarFile = org.sonar.api.resources.File.fromIOFile(sourceFile, project);
@@ -272,15 +275,14 @@ public class ReSharperResultParser implements BatchExtension {
             violation.setMessage(message.trim());
             context.saveViolation(violation);
         } catch (Exception ex){
-//        } else {
-            LOG.warn("Violation could not be saved against file, associated file not referenced in VS project" + sourceFile);
+            LOG.warn("Violation could not be saved against file, associated file not referenced in VS project: " + sourceFile.getPath());
             Violation violation = Violation.create(currentRule, project);
 
             String lineNumber = violationsCursor.getAttrValue("Line");
 
             String message = violationsCursor.getAttrValue("Message");
 
-            message += " (for file " + sourceFile.getName();
+            message += " (for file " + sourceFile.getPath();
             if (lineNumber != null) {
                 message += " line " + lineNumber;
             }

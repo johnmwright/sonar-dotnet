@@ -109,9 +109,9 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
     public void analyse(Project project, SensorContext context) {
 
         final Collection<File> reportFiles;
-        String reportDefaultPath = getMicrosoftWindowsEnvironment().getWorkingDirectory() + "/" + ReSharperConstants.RESHARPER_REPORT_XML;
+        String reportDefaultPath = getMicrosoftWindowsEnvironment().getWorkingDirectory() + "/" + ReSharperConstants.REPORT_FILENAME;
         if (MODE_REUSE_REPORT.equalsIgnoreCase(getExecutionMode())) {
-            String reportPath = configuration.getString(ReSharperConstants.REPORTS_PATH_KEY);
+            String reportPath = configuration.getString(ReSharperConstants.REPORT_PATH_KEY);
             if (StringUtils.isEmpty(reportPath)) {
                 reportPath = reportDefaultPath;
             }
@@ -120,7 +120,7 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
             reportFiles = FileFinder.findFiles(vsSolution, vsProject, reportPath);
 
             if (reportFiles.isEmpty()){
-                new SonarException("No ReSharper reports found. Make sure to set " + ReSharperConstants.REPORTS_PATH_KEY);
+                new SonarException("No ReSharper reports found. Make sure to set " + ReSharperConstants.REPORT_PATH_KEY);
             }
 
             LOG.info("Reusing ReSharper reports: " + Joiner.on(" ").join(reportFiles));
@@ -146,7 +146,7 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
         VisualStudioSolution vsSolution = getVSSolution();
         VisualStudioProject vsProject = getVSProject(project);
         ReSharperCommandBuilder builder = runner.createCommandBuilder(vsSolution, vsProject);
-        builder.setReportFile(new File(fileSystem.getSonarWorkingDirectory(), ReSharperConstants.RESHARPER_REPORT_XML));
+        builder.setReportFile(new File(fileSystem.getSonarWorkingDirectory(), ReSharperConstants.REPORT_FILENAME));
         int timeout = configuration.getInt(ReSharperConstants.TIMEOUT_MINUTES_KEY);
         runner.execute(builder, timeout);
     }

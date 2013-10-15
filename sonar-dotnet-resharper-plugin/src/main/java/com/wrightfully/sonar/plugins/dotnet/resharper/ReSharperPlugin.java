@@ -22,8 +22,8 @@ package com.wrightfully.sonar.plugins.dotnet.resharper;
 import org.sonar.api.*;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperProfileExporter;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperProfileImporter;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.SonarWayProfileCSharp;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.SonarWayProfileVbNet;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfile.SonarWayProfileCSharp;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfile.SonarWayProfileVbNet;
 import org.sonar.plugins.dotnet.api.sensor.AbstractDotNetSensor;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.List;
         @Property(key = ReSharperConstants.MODE, defaultValue = AbstractDotNetSensor.MODE_SKIP, name = "ReSharper activation mode",
                 description = "Possible values : empty (means active), 'skip' and 'reuseReport'.", global = false, project = false,
                 type = PropertyType.SINGLE_SELECT_LIST, options = {AbstractDotNetSensor.MODE_SKIP, AbstractDotNetSensor.MODE_REUSE_REPORT}),
-        @Property(key = ReSharperConstants.REPORTS_PATH_KEY, defaultValue = "", name = "Name of the ReSharper report files",
+        @Property(key = ReSharperConstants.REPORT_PATH_KEY, defaultValue = "", name = "Name of the ReSharper report file",
                 description = "Name of the ReSharper report file used when reuse report mode is activated. "
                         + "This can be an absolute path, or a path relative to each project base directory.", global = false, project = false),
         @Property(key = ReSharperConstants.INSTALL_DIR_KEY, defaultValue = ReSharperConstants.INSTALL_DIR_DEFVALUE, name = "ReSharper Command Line Tools install directory",
