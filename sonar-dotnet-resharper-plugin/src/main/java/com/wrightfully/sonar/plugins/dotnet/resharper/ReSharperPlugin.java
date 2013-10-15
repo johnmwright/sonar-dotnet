@@ -22,8 +22,8 @@ package com.wrightfully.sonar.plugins.dotnet.resharper;
 import org.sonar.api.*;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperProfileExporter;
 import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperProfileImporter;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfile.SonarWayProfileCSharp;
-import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfile.SonarWayProfileVbNet;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfileCSharp;
+import com.wrightfully.sonar.plugins.dotnet.resharper.profiles.ReSharperSonarWayProfileVbNet;
 import org.sonar.plugins.dotnet.api.sensor.AbstractDotNetSensor;
 
 import java.util.ArrayList;
@@ -63,8 +63,8 @@ public class ReSharperPlugin extends SonarPlugin {
         list.add(ReSharperProfileExporter.VbNetRegularReSharperProfileExporter.class);
         list.add(ReSharperProfileImporter.CSharpRegularReSharperProfileImporter.class);
         list.add(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter.class);
-        list.add(SonarWayProfileCSharp.class);
-        list.add(SonarWayProfileVbNet.class);
+        list.add(ReSharperSonarWayProfileCSharp.class);
+        list.add(ReSharperSonarWayProfileVbNet.class);
 
         // Running ReSharper
         list.add(ReSharperResultParser.class);

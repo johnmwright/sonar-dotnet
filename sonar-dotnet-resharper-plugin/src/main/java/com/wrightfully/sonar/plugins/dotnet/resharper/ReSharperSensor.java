@@ -119,11 +119,11 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
             VisualStudioProject vsProject = getVSProject(project);
             reportFiles = FileFinder.findFiles(vsSolution, vsProject, reportPath);
 
-            if (reportFiles.isEmpty()){
+            if (reportFiles.size() == 0){
                 new SonarException("No ReSharper reports found. Make sure to set " + ReSharperConstants.REPORT_PATH_KEY);
             }
 
-            LOG.info("Reusing ReSharper reports: " + Joiner.on(" ").join(reportFiles));
+            LOG.info("Reusing ReSharper reports: " + Joiner.on("; ").join(reportFiles));
         } else {
             try {
                 ReSharperRunner runner = ReSharperRunner.create(configuration.getString(ReSharperConstants.INSTALL_DIR_KEY));
@@ -151,12 +151,12 @@ public abstract class ReSharperSensor extends AbstractRuleBasedDotNetSensor {
         runner.execute(builder, timeout);
     }
 
-    private void analyseResults(File reportFile) {
+    private void analyseResults(File reportFile) throws SonarException {
         if (reportFile.exists()) {
-            LOG.debug("ReSharper report found at location {}", reportFile);
+            LOG.debug("ReSharper report found at location" + reportFile);
             resharperResultParser.parse(reportFile);
         } else {
-            LOG.warn("No ReSharper report found for path {}", reportFile);
+            throw new SonarException("No ReSharper report found for path " + reportFile);
         }
     }
 
