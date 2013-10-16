@@ -11,7 +11,7 @@
   </parent>
 
   <groupId>com.wrightfully.sonar-plugins.dotnet.resharper</groupId>
-  <artifactId>resharper</artifactId>
+  <artifactId>sonar-dotnet-resharper</artifactId>
   <packaging>pom</packaging>
   <version>0.1-SNAPSHOT</version>
 
@@ -35,14 +35,14 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:johnmwright/sonar-dotnet.git</connection>
-    <developerConnection>scm:git:git@github.com:johnmwright/sonar-dotnet.git</developerConnection>
-    <url>https://github.com/johnmwright/sonar-dotnet</url>
+    <connection>scm:git:git@github.com:johnmwright/sonar-dotnet-resharper.git</connection>
+    <developerConnection>scm:git:git@github.com:johnmwright/sonar-dotnet-resharper.git</developerConnection>
+    <url>https://github.com/johnmwright/sonar-dotnet-resharper</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/johnmwright/sonar-dotnet/issues</url>
+    <url>https://github.com/johnmwright/sonar-dotnet-resharper/issues</url>
   </issueManagement>
   <!--<ciManagement>-->
     <!--<system>Cloudbees</system>-->

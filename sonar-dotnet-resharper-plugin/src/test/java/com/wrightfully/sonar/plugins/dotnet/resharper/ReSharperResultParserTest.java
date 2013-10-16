@@ -230,7 +230,7 @@ public class ReSharperResultParserTest {
         assertThat(capturedViolation.getLineId()).isNull();
 
         String expectedMessage = "The following IssueTypes are not known to the SonarQube ReSharper plugin.\n"+
-        "Add the following text to the 'ReSharper custom rules' property in the Settings UI to add local support for these rules and submit them to dev@wrightfully.com so that they can be included in future releases.\n"+
+        "Add the following text to the 'ReSharper custom rules' property in the Settings UI to add local support for these rules and submit them to https://github.com/johnmwright/sonar-dotnet-resharper/issues so that they can be included in future releases.\n"+
         "<IssueType Id=\"UnknownRule1\" Category=\"Redundancies in Symbol Declarations\" Description=\"Type or type member is never used: Non-private accessibility\" Severity=\"SUGGESTION\" />\n"+
         "<IssueType Id=\"UnknownRule2\" Category=\"Redundancies in Symbol Declarations\" Description=\"Type member is never accessed via base type: Non-private accessibility\" Severity=\"SUGGESTION\" />\n";
 

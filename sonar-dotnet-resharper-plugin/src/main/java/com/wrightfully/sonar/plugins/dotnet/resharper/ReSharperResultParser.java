@@ -63,7 +63,7 @@ public class ReSharperResultParser implements BatchExtension {
     private RuleFinder ruleFinder;
     private String repositoryKey;
 
-    private final String developerEmail = "dev@wrightfully.com";
+    private final String developerEmail = "https://github.com/johnmwright/sonar-dotnet-resharper/issues";
     private final String missingIssueTypesRuleKey = "ReSharperInspectCode#Sonar.UnknownIssueType";
 
     /**

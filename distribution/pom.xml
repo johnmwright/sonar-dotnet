@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.wrightfully.sonar-plugins.dotnet.resharper</groupId>
-    <artifactId>resharper</artifactId>
+    <artifactId>sonar-dotnet-resharper</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
 
