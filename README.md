@@ -18,3 +18,6 @@ I've created a fork of the [SonarQube](http://www.sonarsource.com) .Net ecosyste
 ** If you are looking for the *official* SonarQube .Net ecosystem plugins, please go to that [GitHub repository](https://github.com/SonarCommunity/sonar-dotnet)**
 
 For full details about the plugin, installation prereqs and instructions, see [http://www.wrightfully.com/sonarqube-plugin-for-resharper-analysis-results](http://www.wrightfully.com/sonarqube-plugin-for-resharper-analysis-results)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/johnmwright/sonar-dotnet-resharper/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
