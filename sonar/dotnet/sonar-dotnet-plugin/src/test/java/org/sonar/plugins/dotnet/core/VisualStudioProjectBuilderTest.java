@@ -77,7 +77,7 @@ public class VisualStudioProjectBuilderTest {
   public void initBuilder() {
     microsoftWindowsEnvironment = new MicrosoftWindowsEnvironment();
     settings = Settings.createForComponent(new DotNetCorePlugin());
-    settings.setProperty("sonar.language", "cs");
+    settings.setProperty("sonar.language", DotNetConstants.CSHARP_LANGUAGE_KEY);
     settings.setProperty(DotNetConstants.DOTNET_4_0_SDK_DIR_KEY, fakeSdkDir.getAbsolutePath());
     settings.setProperty(DotNetConstants.SILVERLIGHT_4_MSCORLIB_LOCATION_KEY, fakeSilverlightDir.getAbsolutePath());
     solutionBaseDir = TestUtils.getResource("/solution/Example");

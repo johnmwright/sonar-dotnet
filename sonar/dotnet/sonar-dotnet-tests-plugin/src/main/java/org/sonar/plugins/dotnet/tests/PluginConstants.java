@@ -20,7 +20,6 @@
 package org.sonar.plugins.csharp.gallio;
 
 import org.sonar.dotnet.tools.gallio.GallioRunnerConstants;
-import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 /**
  * Constants of the Gallio plugin.
@@ -37,7 +36,7 @@ public final class GallioConstants {
 
   public static final String RUNNER_TYPE_KEY = "sonar.gallio.runner";
 
-  public static final String[] SUPPORTED_LANGUAGES = DotNetConstants.DOTNET_LANGUAGE_KEYS;
+  public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
 
   // ----------- Plugin Configuration Properties ----------- //
   public static final String INSTALL_FOLDER_KEY = "sonar.gallio.installDirectory";

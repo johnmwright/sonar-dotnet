@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.csharp.fxcop;
 
+import org.sonar.plugins.dotnet.api.DotNetConstants;
+
 /**
  * Constants of the FxCop plugin.
  */
@@ -35,7 +37,7 @@ public final class FxCopConstants {
   public static final String FXCOP_RULES_FILE = "sonar.FxCop";
   public static final String FXCOP_REPORT_XML = "fxcop-report.xml";
 
-  public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
+  public static final String[] SUPPORTED_LANGUAGES = DotNetConstants.DOTNET_LANGUAGE_KEYS;
 
   // ----------- Plugin Configuration Properties ----------- //
   public static final String INSTALL_DIR_KEY = "sonar.fxcop.installDirectory";

@@ -28,6 +28,7 @@ import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.csharp.gendarme.GendarmeConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -42,13 +43,13 @@ public class GendarmeProfileExporter extends ProfileExporter {
 
   public static class CSharpRegularGendarmeProfileExporter extends GendarmeProfileExporter {
     public CSharpRegularGendarmeProfileExporter() {
-      super("cs", GendarmeConstants.REPOSITORY_KEY, GendarmeConstants.REPOSITORY_NAME);
+      super(DotNetConstants.CSHARP_LANGUAGE_KEY, GendarmeConstants.REPOSITORY_KEY, GendarmeConstants.REPOSITORY_NAME);
     }
   }
 
   public static class VbNetRegularGendarmeProfileExporter extends GendarmeProfileExporter {
     public VbNetRegularGendarmeProfileExporter() {
-      super("vbnet", GendarmeConstants.REPOSITORY_KEY + "-vbnet", GendarmeConstants.REPOSITORY_NAME);
+      super(DotNetConstants.VBNET_LANGUAGE_KEY, GendarmeConstants.REPOSITORY_KEY + "-vbnet", GendarmeConstants.REPOSITORY_NAME);
     }
   }
 

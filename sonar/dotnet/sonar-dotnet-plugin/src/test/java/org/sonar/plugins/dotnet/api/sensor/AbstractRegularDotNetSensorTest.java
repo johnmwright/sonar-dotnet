@@ -26,6 +26,7 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
@@ -54,7 +55,7 @@ public class AbstractRegularDotNetSensorTest {
 
     @Override
     public String[] getSupportedLanguages() {
-      return new String[] {"cs"};
+      return new String[] {DotNetConstants.CSHARP_LANGUAGE_KEY};
     }
 
     @Override
@@ -74,7 +75,7 @@ public class AbstractRegularDotNetSensorTest {
 
     @Override
     public String[] getSupportedLanguages() {
-      return new String[] {"cs"};
+      return new String[] {DotNetConstants.CSHARP_LANGUAGE_KEY};
     }
 
     @Override
@@ -117,7 +118,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldNotExecuteOnTestProject() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
 
@@ -125,7 +126,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldExecuteOnNormalProject() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertTrue(sensor.shouldExecuteOnProject(project));
   }
 
@@ -143,7 +144,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldCilSensorNotExecuteOnTestProject() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(cilSensor.shouldExecuteOnProject(project));
   }
 
@@ -167,7 +168,7 @@ public class AbstractRegularDotNetSensorTest {
     cilSensor = new FakeCilSensor(FakeSensor.MODE_REUSE_REPORT);
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(configurationMock.getString(BUILD_CONFIGURATION_KEY)).thenReturn(BUILD_CONFIGURATIONS_DEFVALUE);
     assertTrue(cilSensor.shouldExecuteOnProject(project));
   }
@@ -176,7 +177,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldCilSensorExecuteOnNormalProject() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(configurationMock.getString(BUILD_CONFIGURATION_KEY)).thenReturn(BUILD_CONFIGURATIONS_DEFVALUE);
 
     when(vsProject1.getGeneratedAssemblies(BUILD_CONFIGURATIONS_DEFVALUE, null)).thenReturn(Collections.singleton(new File("toto")));
@@ -187,7 +188,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldCilSensorNotExecuteOnNormalProjectWithoutAssemblies() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(configurationMock.getString(BUILD_CONFIGURATION_KEY)).thenReturn(BUILD_CONFIGURATIONS_DEFVALUE);
 
     assertFalse(cilSensor.shouldExecuteOnProject(project));
@@ -197,7 +198,7 @@ public class AbstractRegularDotNetSensorTest {
   public void testShouldCilSensorExecuteOnNormalProjectWithBadPattern() {
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(configurationMock.getString(BUILD_CONFIGURATION_KEY)).thenReturn(BUILD_CONFIGURATIONS_DEFVALUE);
     when(configurationMock.getString(eq(ASSEMBLIES_TO_SCAN_KEY))).thenReturn("foo/bar/whatever/*.dll");
 

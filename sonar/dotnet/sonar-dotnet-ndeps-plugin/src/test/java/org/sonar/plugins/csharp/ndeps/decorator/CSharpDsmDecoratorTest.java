@@ -28,6 +28,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import static org.hamcrest.Matchers.is;
@@ -71,14 +72,14 @@ public class CSharpDsmDecoratorTest {
   @Test
   public void testShouldNotExecuteOnRootProject() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey("cs");
+    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertThat(dsmDecorator.shouldExecuteOnProject(p), is(false));
   }
 
   @Test
   public void testShouldExecute() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey("cs");
+    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     p.setName("Foo");
     p.setParent(p);
     assertThat(dsmDecorator.shouldExecuteOnProject(p), is(true));
@@ -87,7 +88,7 @@ public class CSharpDsmDecoratorTest {
   @Test
   public void testShouldNotExecuteOnWebProject() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey("cs");
+    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     p.setName("Foo");
     p.setParent(p);
     when(vsProject.isWebProject()).thenReturn(true);

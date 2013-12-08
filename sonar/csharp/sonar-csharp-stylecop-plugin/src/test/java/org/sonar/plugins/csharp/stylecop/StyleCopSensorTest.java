@@ -33,6 +33,7 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.csharp.stylecop.profiles.StyleCopProfileExporter;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
@@ -46,9 +47,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class StyleCopSensorTest {
 
@@ -94,7 +93,7 @@ public class StyleCopSensorTest {
   public void testShouldExecuteOnProject() throws Exception {
     initializeSensor();
     Project project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
     assertTrue(sensor.shouldExecuteOnProject(project));
   }
@@ -105,7 +104,7 @@ public class StyleCopSensorTest {
     initializeSensor();
 
     Project project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
 
     assertFalse(sensor.shouldExecuteOnProject(project));
@@ -118,7 +117,7 @@ public class StyleCopSensorTest {
     initializeSensor();
 
     Project project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
@@ -127,7 +126,7 @@ public class StyleCopSensorTest {
   public void testUnitTestsSensorShouldNotExecuteOnRegularProject() throws Exception {
     initializeTestSensor();
 
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
 
     assertFalse(sensor.shouldExecuteOnProject(project));

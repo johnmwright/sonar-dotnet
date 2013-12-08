@@ -22,6 +22,7 @@ package org.sonar.plugins.dotnet.core;
 import com.google.common.collect.Maps;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.ServerExtension;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.util.Map;
 
@@ -36,12 +37,12 @@ import java.util.Map;
  */
 public class DotNetLanguages implements BatchExtension, ServerExtension { // NOSONAR Required to be able to mock the class
 
-  private static final String[] DOTNET_LANGUAGE_KEYS = new String[] {"cs", "vbnet"};
+  private static final String[] DOTNET_LANGUAGE_KEYS = DotNetConstants.DOTNET_LANGUAGE_KEYS;
   private static final Map<String, String> FILE_SUFFIXE_TO_LANGUAGE_KEY_MAP = Maps.newHashMap();
 
   static {
-    FILE_SUFFIXE_TO_LANGUAGE_KEY_MAP.put("cs", "cs");
-    FILE_SUFFIXE_TO_LANGUAGE_KEY_MAP.put("vb", "vbnet");
+    FILE_SUFFIXE_TO_LANGUAGE_KEY_MAP.put("cs", DotNetConstants.CSHARP_LANGUAGE_KEY);
+    FILE_SUFFIXE_TO_LANGUAGE_KEY_MAP.put("vb", DotNetConstants.VBNET_LANGUAGE_KEY);
   }
 
   private DotNetLanguages() {

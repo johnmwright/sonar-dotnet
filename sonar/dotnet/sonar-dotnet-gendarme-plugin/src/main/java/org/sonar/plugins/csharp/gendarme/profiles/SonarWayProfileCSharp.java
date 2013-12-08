@@ -22,6 +22,7 @@ package org.sonar.plugins.csharp.gendarme.profiles;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.io.InputStreamReader;
 
@@ -37,7 +38,7 @@ public final class SonarWayProfileCSharp extends ProfileDefinition {
     RulesProfile profile = profileImporter.importProfile(
         new InputStreamReader(getClass().getResourceAsStream("/org/sonar/plugins/csharp/gendarme/rules/DefaultRules.Gendarme-cs.xml")),
         messages);
-    profile.setLanguage("cs");
+    profile.setLanguage(DotNetConstants.CSHARP_LANGUAGE_KEY);
     profile.setName("Sonar way");
     return profile;
   }

@@ -206,7 +206,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     conf.setProperty(GendarmeConstants.MODE, GendarmeSensor.MODE_REUSE_REPORT);
     initializeSensor();
     assertTrue(sensor.shouldExecuteOnProject(project));
@@ -218,7 +218,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertTrue(sensor.shouldExecuteOnProject(project));
 
     conf.setProperty(GendarmeConstants.MODE, AbstractRegularDotNetSensor.MODE_SKIP);
@@ -231,7 +231,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     conf.setProperty(GendarmeConstants.MODE, GendarmeSensor.MODE_SKIP);
     initializeSensor();
     assertFalse(sensor.shouldExecuteOnProject(project));
@@ -242,7 +242,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
 
@@ -253,7 +253,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
 
@@ -268,7 +268,7 @@ public class GendarmeSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     assertFalse(sensor.shouldExecuteOnProject(project));
   }

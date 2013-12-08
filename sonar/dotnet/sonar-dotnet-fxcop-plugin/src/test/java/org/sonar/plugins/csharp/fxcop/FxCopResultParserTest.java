@@ -33,6 +33,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
@@ -68,7 +69,7 @@ public class FxCopResultParserTest {
   public void init() {
     context = mock(SensorContext.class);
     resourcesBridge = mock(DotNetResourceBridge.class);
-    when(resourcesBridge.getLanguageKey()).thenReturn("cs");
+    when(resourcesBridge.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     DotNetResourceBridges bridges = new DotNetResourceBridges(new DotNetResourceBridge[] {resourcesBridge});
 
     Project project = mock(Project.class);
@@ -76,7 +77,7 @@ public class FxCopResultParserTest {
     when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(new File("C:\\Sonar\\Example")));
     when(fileSystem.getSourceCharset()).thenReturn(Charset.forName("UTF-8"));
     when(project.getFileSystem()).thenReturn(fileSystem);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     MicrosoftWindowsEnvironment env = mock(MicrosoftWindowsEnvironment.class);
     VisualStudioSolution solution = mock(VisualStudioSolution.class);

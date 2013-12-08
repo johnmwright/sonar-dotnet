@@ -35,6 +35,7 @@ import org.sonar.dotnet.tools.gallio.GallioRunnerConstants;
 import org.sonar.plugins.csharp.gallio.results.coverage.CoverageResultParser;
 import org.sonar.plugins.csharp.gallio.results.coverage.model.FileCoverage;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
@@ -90,7 +91,7 @@ public class CoverageReportSensorTest {
     microsoftWindowsEnvironment.setCurrentSolution(solution);
 
     project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
 
     conf = new Settings(new PropertyDefinitions(new DotNetCorePlugin(), new GallioPlugin()));

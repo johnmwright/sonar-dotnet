@@ -26,6 +26,7 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.plugins.csharp.stylecop.StyleCopConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.test.TestUtils;
 import org.xml.sax.SAXException;
 
@@ -40,7 +41,7 @@ public class StyleCopProfileExporterTest {
   @Before
   public void setUp() {
 
-    profile = RulesProfile.create("Sonar way", "cs");
+    profile = RulesProfile.create("Sonar way", DotNetConstants.CSHARP_LANGUAGE_KEY);
     profile.activateRule(
         Rule.create(StyleCopConstants.REPOSITORY_KEY, "ElementMustBeginWithUpperCaseLetter", "Element must begin with upper case letter")
             .setConfigKey("StyleCop.CSharp.NamingRules#ElementMustBeginWithUpperCaseLetter"), null);

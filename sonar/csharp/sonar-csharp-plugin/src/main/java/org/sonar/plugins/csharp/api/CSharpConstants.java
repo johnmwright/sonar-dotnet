@@ -20,6 +20,8 @@
 
 package org.sonar.plugins.csharp.api;
 
+import org.sonar.plugins.dotnet.api.DotNetConstants;
+
 /**
  * Constants for the C# language.
  */
@@ -28,7 +30,7 @@ public final class CSharpConstants {
   private CSharpConstants() {
   }
 
-  public static final String LANGUAGE_KEY = "cs";
+  public static final String LANGUAGE_KEY = DotNetConstants.CSHARP_LANGUAGE_KEY;
   public static final String LANGUAGE_NAME = "C#";
 
   public static final String FILE_SUFFIXES_KEY = "sonar.csharp.file.suffixes";

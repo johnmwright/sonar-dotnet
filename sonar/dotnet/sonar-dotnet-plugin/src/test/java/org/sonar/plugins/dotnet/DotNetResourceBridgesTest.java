@@ -20,6 +20,7 @@
 package org.sonar.plugins.dotnet;
 
 import org.junit.Test;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 
@@ -32,20 +33,20 @@ public class DotNetResourceBridgesTest {
   @Test
   public void shouldFindBridges() {
     DotNetResourceBridge bridge1 = mock(DotNetResourceBridge.class);
-    when(bridge1.getLanguageKey()).thenReturn("cs");
+    when(bridge1.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     DotNetResourceBridge bridge2 = mock(DotNetResourceBridge.class);
-    when(bridge2.getLanguageKey()).thenReturn("vbnet");
+    when(bridge2.getLanguageKey()).thenReturn(DotNetConstants.VBNET_LANGUAGE_KEY);
 
     DotNetResourceBridges b = new DotNetResourceBridges(new DotNetResourceBridge[] {bridge1, bridge2});
-    assertThat(b.getBridge("cs")).isEqualTo(bridge1);
-    assertThat(b.getBridge("vbnet")).isEqualTo(bridge2);
+    assertThat(b.getBridge(DotNetConstants.CSHARP_LANGUAGE_KEY)).isEqualTo(bridge1);
+    assertThat(b.getBridge(DotNetConstants.VBNET_LANGUAGE_KEY)).isEqualTo(bridge2);
     assertThat(b.getBridge("java")).isNull();
   }
 
   @Test
   public void shouldNotFindBridgesIfNoDotNetPlugin() {
     DotNetResourceBridges b = new DotNetResourceBridges();
-    assertThat(b.getBridge("cs")).isNull();
+    assertThat(b.getBridge(DotNetConstants.CSHARP_LANGUAGE_KEY)).isNull();
   }
 
 }

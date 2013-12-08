@@ -31,6 +31,7 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.csharp.fxcop.FxCopConstants;
 import org.sonar.plugins.csharp.fxcop.profiles.utils.FxCopRule;
 import org.sonar.plugins.csharp.fxcop.profiles.utils.FxCopRuleParser;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -46,13 +47,13 @@ public class FxCopProfileImporter extends ProfileImporter {
 
   public static class CSharpRegularFxCopProfileImporter extends FxCopProfileImporter {
     public CSharpRegularFxCopProfileImporter(RuleFinder ruleFinder) {
-      super("cs", FxCopConstants.REPOSITORY_KEY, FxCopConstants.REPOSITORY_NAME, ruleFinder);
+      super(DotNetConstants.CSHARP_LANGUAGE_KEY, FxCopConstants.REPOSITORY_KEY, FxCopConstants.REPOSITORY_NAME, ruleFinder);
     }
   }
 
   public static class VbNetRegularFxCopProfileImporter extends FxCopProfileImporter {
     public VbNetRegularFxCopProfileImporter(RuleFinder ruleFinder) {
-      super("vbnet", FxCopConstants.REPOSITORY_KEY + "-vbnet", FxCopConstants.REPOSITORY_NAME, ruleFinder);
+      super(DotNetConstants.VBNET_LANGUAGE_KEY, FxCopConstants.REPOSITORY_KEY + "-vbnet", FxCopConstants.REPOSITORY_NAME, ruleFinder);
     }
   }
 

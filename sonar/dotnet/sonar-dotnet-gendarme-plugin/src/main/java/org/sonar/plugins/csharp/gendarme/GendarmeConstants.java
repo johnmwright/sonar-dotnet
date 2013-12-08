@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.csharp.gendarme;
 
+import org.sonar.plugins.dotnet.api.DotNetConstants;
+
 /**
  * Constants of the Gendarme plugin.
  */
@@ -35,7 +37,7 @@ public final class GendarmeConstants {
   public static final String GENDARME_RULES_FILE = "sonar.Gendarme";
   public static final String GENDARME_REPORT_XML = "gendarme-report.xml";
 
-  public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
+  public static final String[] SUPPORTED_LANGUAGES = DotNetConstants.DOTNET_LANGUAGE_KEYS;
 
   // ----------- Plugin Configuration Properties ----------- //
   public static final String INSTALL_DIR_KEY = "sonar.gendarme.installDirectory";

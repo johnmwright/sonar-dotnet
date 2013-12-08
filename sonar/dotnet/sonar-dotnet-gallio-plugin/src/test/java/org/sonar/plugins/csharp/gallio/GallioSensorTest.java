@@ -97,7 +97,7 @@ public class GallioSensorTest {
     microsoftWindowsEnvironment.setCurrentSolution(solution);
 
     project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project #1");
 
     conf = new Settings(new PropertyDefinitions(new DotNetCorePlugin(), new GallioPlugin()));

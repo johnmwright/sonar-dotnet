@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.plugins.csharp.fxcop.FxCopConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.test.TestUtils;
 import org.xml.sax.SAXException;
 
@@ -35,7 +36,7 @@ public class FxCopProfileExporterTest {
 
   @Test
   public void testSimpleFxCopRulesToExport() throws IOException, SAXException {
-    RulesProfile profile = RulesProfile.create("Sonar way", "cs");
+    RulesProfile profile = RulesProfile.create("Sonar way", DotNetConstants.CSHARP_LANGUAGE_KEY);
     profile.activateRule(
         Rule.create(FxCopConstants.REPOSITORY_KEY, "AssembliesShouldHaveValidStrongNames", "Assemblies should have valid strong names")
             .setConfigKey("AssembliesShouldHaveValidStrongNames@$(FxCopDir)\\Rules\\DesignRules.dll"), null);
@@ -47,7 +48,7 @@ public class FxCopProfileExporterTest {
     StringWriter writer = new StringWriter();
     FxCopProfileExporter exporter = new FxCopProfileExporter.CSharpRegularFxCopProfileExporter();
     assertThat(exporter.getKey()).isEqualTo("fxcop");
-    assertThat(exporter.getSupportedLanguages()).containsOnly("cs");
+    assertThat(exporter.getSupportedLanguages()).containsOnly(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     exporter.exportProfile(profile, writer);
     TestUtils.assertSimilarXml(TestUtils.getResourceContent("/ProfileExporter/SimpleRules.FxCop.exported.xml"), writer.toString());
@@ -58,7 +59,7 @@ public class FxCopProfileExporterTest {
     FxCopProfileExporter exporter = new FxCopProfileExporter.VbNetRegularFxCopProfileExporter();
     // just test the differences with C#
     assertThat(exporter.getKey()).isEqualTo("fxcop-vbnet");
-    assertThat(exporter.getSupportedLanguages()).containsOnly("vbnet");
+    assertThat(exporter.getSupportedLanguages()).containsOnly(DotNetConstants.VBNET_LANGUAGE_KEY);
   }
 
 }

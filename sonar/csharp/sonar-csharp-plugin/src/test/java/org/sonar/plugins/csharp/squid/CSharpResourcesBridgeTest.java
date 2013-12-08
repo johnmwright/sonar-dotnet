@@ -23,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Resource;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.squid.api.SourceClass;
 import org.sonar.squid.api.SourceFile;
 import org.sonar.squid.api.SourceMethod;
@@ -57,7 +58,7 @@ public class CSharpResourcesBridgeTest {
 
   @Test
   public void shouldReturnCSharpKey() {
-    assertThat(cSharpResourcesBridge.getLanguageKey()).isEqualTo("cs");
+    assertThat(cSharpResourcesBridge.getLanguageKey()).isEqualTo(DotNetConstants.CSHARP_LANGUAGE_KEY);
   }
 
   @Test

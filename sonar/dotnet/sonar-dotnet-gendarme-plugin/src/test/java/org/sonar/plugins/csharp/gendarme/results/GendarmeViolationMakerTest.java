@@ -30,6 +30,7 @@ import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.rules.Violation;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
@@ -78,7 +79,7 @@ public class GendarmeViolationMakerTest {
     ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
     when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(new File("C:\\Sonar\\Example")));
     when(project.getFileSystem()).thenReturn(fileSystem);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     resourceHelper = mock(ResourceHelper.class);
     when(resourceHelper.isResourceInProject(any(Resource.class), eq(project))).thenReturn(true);
@@ -216,7 +217,7 @@ public class GendarmeViolationMakerTest {
   @SuppressWarnings("unchecked")
   private static DotNetResourceBridge createFakeBridge() {
     DotNetResourceBridge bridge = mock(DotNetResourceBridge.class);
-    when(bridge.getLanguageKey()).thenReturn("cs");
+    when(bridge.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(bridge.getFromTypeName("Example.Core.Money")).thenReturn(aFileMoney);
     when(bridge.getFromTypeName("Example.Core.IMoney")).thenReturn(aFileIMoney);
     when(bridge.getFromTypeName("Example.Core.IMoney.InnerClass")).thenReturn(aFileIMoney);

@@ -23,6 +23,7 @@ import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.rules.XMLRuleParser;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class FxCopUnitTestsRuleRepository extends RuleRepository {
 
   public FxCopUnitTestsRuleRepository(ServerFileSystem fileSystem, XMLRuleParser xmlRuleParser) {
     // TODO: This class should create a FxCop rule repo for each .NET language, not only C#
-    super(FxCopConstants.TEST_REPOSITORY_KEY, "cs");
+    super(FxCopConstants.TEST_REPOSITORY_KEY, DotNetConstants.CSHARP_LANGUAGE_KEY);
     setName(FxCopConstants.TEST_REPOSITORY_NAME);
     this.fileSystem = fileSystem;
     this.xmlRuleParser = xmlRuleParser;

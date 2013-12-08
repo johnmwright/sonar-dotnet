@@ -32,6 +32,7 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.dotnet.tools.gallio.GallioRunnerConstants;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.sensor.AbstractDotNetSensor;
@@ -66,7 +67,7 @@ public class CoverageDecoratorTest {
   @Before
   public void init() {
     project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     vsProject = mock(VisualStudioProject.class);
 

@@ -32,6 +32,7 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.csharp.gendarme.GendarmeConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
@@ -88,7 +89,7 @@ public class GendarmeResultParser implements BatchExtension {
   public void parse(File file) {
     this.repositoryKey =
         vsProject.isTest() ? GendarmeConstants.TEST_REPOSITORY_KEY : GendarmeConstants.REPOSITORY_KEY;
-    if (!"cs".equals(project.getLanguageKey())) {
+    if (!DotNetConstants.CSHARP_LANGUAGE_KEY.equals(project.getLanguageKey())) {
       // every repository key should be "fxcop-<language_key>", except for C# for which it is simply "fxcop" (for backward compatibility)
       repositoryKey += "-" + project.getLanguageKey();
     }

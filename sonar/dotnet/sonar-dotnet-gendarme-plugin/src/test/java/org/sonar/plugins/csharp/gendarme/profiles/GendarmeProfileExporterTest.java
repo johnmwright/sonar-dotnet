@@ -25,6 +25,7 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.plugins.csharp.gendarme.GendarmeConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.test.TestUtils;
 import org.xml.sax.SAXException;
 
@@ -37,7 +38,7 @@ public class GendarmeProfileExporterTest {
 
   @Test
   public void testSimpleGendarmeRulesToExport() throws IOException, SAXException {
-    RulesProfile profile = RulesProfile.create("Sonar way", "cs");
+    RulesProfile profile = RulesProfile.create("Sonar way", DotNetConstants.CSHARP_LANGUAGE_KEY);
     profile.activateRule(
         Rule.create(GendarmeConstants.REPOSITORY_KEY, "DoNotUseLockedRegionOutsideMethodRule", "DoNotUseLockedRegionOutsideMethodRule")
             .setConfigKey("DoNotUseLockedRegionOutsideMethodRule@Gendarme.Rules.Concurrency.dll"), RulePriority.INFO);
@@ -60,7 +61,7 @@ public class GendarmeProfileExporterTest {
     StringWriter writer = new StringWriter();
     GendarmeProfileExporter exporter = new GendarmeProfileExporter.CSharpRegularGendarmeProfileExporter();
     assertThat(exporter.getKey()).isEqualTo("gendarme");
-    assertThat(exporter.getSupportedLanguages()).containsOnly("cs");
+    assertThat(exporter.getSupportedLanguages()).containsOnly(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     exporter.exportProfile(profile, writer);
     TestUtils.assertSimilarXml(TestUtils.getResourceContent("/ProfileExporter/SimpleRules.Gendarme.exported.xml"), writer.toString());
@@ -71,7 +72,7 @@ public class GendarmeProfileExporterTest {
     GendarmeProfileExporter exporter = new GendarmeProfileExporter.VbNetRegularGendarmeProfileExporter();
     // just test the differences with C#
     assertThat(exporter.getKey()).isEqualTo("gendarme-vbnet");
-    assertThat(exporter.getSupportedLanguages()).containsOnly("vbnet");
+    assertThat(exporter.getSupportedLanguages()).containsOnly(DotNetConstants.VBNET_LANGUAGE_KEY);
   }
 
 }

@@ -27,6 +27,7 @@ import org.sonar.api.ServerExtension;
 import org.sonar.api.config.Settings;
 import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.rules.XMLRuleParser;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class FxCopRuleRepositoryProvider extends ExtensionProvider implements Se
 
     for (String languageKey : FxCopConstants.SUPPORTED_LANGUAGES) {
       String repoKey = FxCopConstants.REPOSITORY_KEY;
-      if (!"cs".equals(languageKey)) {
+      if (!DotNetConstants.CSHARP_LANGUAGE_KEY.equals(languageKey)) {
         // every repository key should be "fxcop-<language_key>", except for C# for which it is simply "fxcop" (for backward compatibility)
         repoKey += "-" + languageKey;
       }

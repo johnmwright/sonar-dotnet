@@ -28,6 +28,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -52,7 +53,7 @@ public class SonarWayProfileCSharpTest {
   @Test
   public void testCreateProfile() {
     RulesProfile profile = sonarWayProfile.createProfile(messages);
-    assertThat(profile.getLanguage()).isEqualTo("cs");
+    assertThat(profile.getLanguage()).isEqualTo(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertThat(profile.getName()).isEqualTo("Sonar way");
     assertThat(profile.getActiveRules().size(), is(185));
     assertThat(profile.getActiveRules().get(0).getRepositoryKey()).isEqualTo("gendarme");

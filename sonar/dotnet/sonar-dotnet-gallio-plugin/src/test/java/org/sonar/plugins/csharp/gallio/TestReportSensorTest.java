@@ -37,6 +37,7 @@ import org.sonar.plugins.csharp.gallio.results.execution.model.TestCaseDetail;
 import org.sonar.plugins.csharp.gallio.results.execution.model.TestStatus;
 import org.sonar.plugins.csharp.gallio.results.execution.model.UnitTestReport;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioSolution;
@@ -90,7 +91,7 @@ public class TestReportSensorTest {
     microsoftWindowsEnvironment.setCurrentSolution(solution);
 
     project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     when(project.getName()).thenReturn("Project Test 2");
     ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
     when(fileSystem.getTestDirs()).thenReturn(Collections.singletonList(TestUtils.getResource(".")));

@@ -30,6 +30,7 @@ import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.csharp.fxcop.FxCopConstants;
 import org.sonar.plugins.csharp.fxcop.profiles.utils.FxCopRule;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,13 +51,13 @@ public class FxCopProfileExporter extends ProfileExporter {
 
   public static class CSharpRegularFxCopProfileExporter extends FxCopProfileExporter {
     public CSharpRegularFxCopProfileExporter() {
-      super("cs", FxCopConstants.REPOSITORY_KEY, FxCopConstants.REPOSITORY_NAME);
+      super(DotNetConstants.CSHARP_LANGUAGE_KEY, FxCopConstants.REPOSITORY_KEY, FxCopConstants.REPOSITORY_NAME);
     }
   }
 
   public static class VbNetRegularFxCopProfileExporter extends FxCopProfileExporter {
     public VbNetRegularFxCopProfileExporter() {
-      super("vbnet", FxCopConstants.REPOSITORY_KEY + "-vbnet", FxCopConstants.REPOSITORY_NAME);
+      super(DotNetConstants.VBNET_LANGUAGE_KEY, FxCopConstants.REPOSITORY_KEY + "-vbnet", FxCopConstants.REPOSITORY_NAME);
     }
   }
 

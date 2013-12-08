@@ -36,6 +36,7 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
@@ -111,7 +112,7 @@ public class FxCopResultParser implements BatchExtension {
 
     repositoryKey =
         vsProject.isTest() ? FxCopConstants.TEST_REPOSITORY_KEY : FxCopConstants.REPOSITORY_KEY;
-    if (!"cs".equals(project.getLanguageKey())) {
+    if (!DotNetConstants.CSHARP_LANGUAGE_KEY.equals(project.getLanguageKey())) {
       // every repository key should be "fxcop-<language_key>", except for C# for which it is simply "fxcop" (for backward compatibility)
       repositoryKey += "-" + project.getLanguageKey();
     }

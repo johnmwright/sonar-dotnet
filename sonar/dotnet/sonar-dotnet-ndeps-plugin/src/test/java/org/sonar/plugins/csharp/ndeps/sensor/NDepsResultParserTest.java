@@ -39,6 +39,7 @@ import org.sonar.api.resources.Library;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
@@ -82,10 +83,10 @@ public class NDepsResultParserTest {
     project2 = PowerMockito.mock(Project.class);
     rootProject = mock(Project.class);
     when(project.getParent()).thenReturn(rootProject);
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     when(project2.getParent()).thenReturn(rootProject);
-    when(project2.getLanguageKey()).thenReturn("cs");
+    when(project2.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     when(rootProject.getModules()).thenReturn(Lists.newArrayList(project, project2));
 
@@ -104,7 +105,7 @@ public class NDepsResultParserTest {
         return file;
       }
     });
-    when(resourcesBridge.getLanguageKey()).thenReturn("cs");
+    when(resourcesBridge.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     DotNetResourceBridges bridges = new DotNetResourceBridges(new DotNetResourceBridge[] {resourcesBridge});
 
     context = mock(SensorContext.class);

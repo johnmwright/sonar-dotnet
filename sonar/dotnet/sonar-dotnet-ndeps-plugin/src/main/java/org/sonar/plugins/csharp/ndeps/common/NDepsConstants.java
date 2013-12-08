@@ -22,6 +22,7 @@ package org.sonar.plugins.csharp.ndeps.common;
 import com.google.common.collect.Lists;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public final class NDepsConstants implements Metrics {
 
   public static final String REPORTS_PATH_KEY = "sonar.ndeps.reports.path";
 
-  public static final String[] SUPPORTED_LANGUAGES = new String[] {"cs", "vbnet"};
+  public static final String[] SUPPORTED_LANGUAGES = DotNetConstants.DOTNET_LANGUAGE_KEYS;
 
   public static final String REPOSITORY_KEY = "ndeps";
 

@@ -72,7 +72,7 @@ public abstract class FxCopSensor extends AbstractRuleBasedDotNetSensor {
      */
     @Override
     public String[] getSupportedLanguages() {
-      return new String[] {"cs"};
+      return new String[] {DotNetConstants.CSHARP_LANGUAGE_KEY};
     }
   }
 
@@ -88,7 +88,7 @@ public abstract class FxCopSensor extends AbstractRuleBasedDotNetSensor {
      */
     @Override
     public String[] getSupportedLanguages() {
-      return new String[] {"vbnet"};
+      return new String[] {DotNetConstants.VBNET_LANGUAGE_KEY};
     }
   }
 
@@ -113,7 +113,7 @@ public abstract class FxCopSensor extends AbstractRuleBasedDotNetSensor {
      */
     @Override
     public String[] getSupportedLanguages() {
-      return new String[] {"cs"};
+      return new String[] {DotNetConstants.CSHARP_LANGUAGE_KEY};
     }
   }
 

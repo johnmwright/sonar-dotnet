@@ -34,6 +34,7 @@ import org.sonar.api.rules.RulePriority;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.csharp.gendarme.GendarmeConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -55,13 +56,13 @@ public class GendarmeProfileImporter extends ProfileImporter {
 
   public static class CSharpRegularGendarmeProfileImporter extends GendarmeProfileImporter {
     public CSharpRegularGendarmeProfileImporter(RuleFinder ruleFinder) {
-      super("cs", GendarmeConstants.REPOSITORY_KEY, GendarmeConstants.REPOSITORY_NAME, ruleFinder);
+      super(DotNetConstants.CSHARP_LANGUAGE_KEY, GendarmeConstants.REPOSITORY_KEY, GendarmeConstants.REPOSITORY_NAME, ruleFinder);
     }
   }
 
   public static class VbNetRegularGendarmeProfileImporter extends GendarmeProfileImporter {
     public VbNetRegularGendarmeProfileImporter(RuleFinder ruleFinder) {
-      super("vbnet", GendarmeConstants.REPOSITORY_KEY + "-vbnet", GendarmeConstants.REPOSITORY_NAME, ruleFinder);
+      super(DotNetConstants.VBNET_LANGUAGE_KEY, GendarmeConstants.REPOSITORY_KEY + "-vbnet", GendarmeConstants.REPOSITORY_NAME, ruleFinder);
     }
   }
 

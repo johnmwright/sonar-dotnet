@@ -20,6 +20,7 @@
 package org.sonar.plugins.dotnet.core;
 
 import org.junit.Test;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -28,8 +29,8 @@ public class DotNetLanguagesTest {
   @Test
   public void shouldTellIfDotNetLanguage() {
     // TRUE
-    assertThat(DotNetLanguages.isDotNetLanguage("cs")).isTrue();
-    assertThat(DotNetLanguages.isDotNetLanguage("vbnet")).isTrue();
+    assertThat(DotNetLanguages.isDotNetLanguage(DotNetConstants.CSHARP_LANGUAGE_KEY)).isTrue();
+    assertThat(DotNetLanguages.isDotNetLanguage(DotNetConstants.VBNET_LANGUAGE_KEY)).isTrue();
 
     // FALSE
     assertThat(DotNetLanguages.isDotNetLanguage(null)).isFalse();
@@ -40,8 +41,8 @@ public class DotNetLanguagesTest {
 
   @Test
   public void shouldGetLanguageKeyFromFileExtension() {
-    assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("cs")).isEqualTo("cs");
-    assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("vb")).isEqualTo("vbnet");
+    assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("cs")).isEqualTo(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("vb")).isEqualTo(DotNetConstants.VBNET_LANGUAGE_KEY);
     assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("aspx")).isNull();
     assertThat(DotNetLanguages.getLanguageKeyFromFileExtension("")).isNull();
     assertThat(DotNetLanguages.getLanguageKeyFromFileExtension(null)).isNull();

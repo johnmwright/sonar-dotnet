@@ -21,6 +21,7 @@ package org.sonar.plugins.csharp.fxcop;
 
 import org.junit.Test;
 import org.sonar.api.platform.ServerFileSystem;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 
 import java.util.List;
 
@@ -39,11 +40,11 @@ public class FxCopRuleRepositoryProviderTest {
     assertThat(extensions.size()).isEqualTo(2);
 
     FxCopRuleRepository repo1 = extensions.get(0);
-    assertThat(repo1.getLanguage()).isEqualTo("cs");
+    assertThat(repo1.getLanguage()).isEqualTo(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertThat(repo1.getKey()).isEqualTo("fxcop");
 
     FxCopRuleRepository repo2 = extensions.get(1);
-    assertThat(repo2.getLanguage()).isEqualTo("vbnet");
+    assertThat(repo2.getLanguage()).isEqualTo(DotNetConstants.VBNET_LANGUAGE_KEY);
     assertThat(repo2.getKey()).isEqualTo("fxcop-vbnet");
   }
 }

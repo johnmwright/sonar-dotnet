@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.csharp.api.CSharpConstants;
+import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.core.DotNetCorePlugin;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -55,7 +56,7 @@ public class CSharpProjectInitializerTest {
   public void shouldExecuteOnProject() {
     assertThat(initializer.shouldExecuteOnProject(project)).isFalse();
 
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertThat(initializer.shouldExecuteOnProject(project)).isTrue();
   }
 

@@ -88,7 +88,7 @@ public class FxCopSensorTest {
     when(fileSystem.getSonarWorkingDirectory()).thenReturn(TestUtils.getResource("/Sensor"));
 
     language = mock(Language.class);
-    when(language.getKey()).thenReturn("cs");
+    when(language.getKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     vsProject1 = mock(VisualStudioProject.class);
     when(vsProject1.getName()).thenReturn("Project #1");
@@ -206,7 +206,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     conf.setProperty(FxCopConstants.MODE, FxCopSensor.MODE_REUSE_REPORT);
     initializeSensor();
     assertTrue(sensor.shouldExecuteOnProject(project));
@@ -217,7 +217,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertTrue(sensor.shouldExecuteOnProject(project));
   }
 
@@ -226,7 +226,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     conf.setProperty(FxCopConstants.MODE, FxCopSensor.MODE_SKIP);
     initializeSensor();
     assertFalse(sensor.shouldExecuteOnProject(project));
@@ -237,7 +237,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
 
@@ -248,7 +248,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
 
@@ -263,7 +263,7 @@ public class FxCopSensorTest {
 
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
-    when(project.getLanguageKey()).thenReturn("cs");
+    when(project.getLanguageKey()).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
 
     assertFalse(sensor.shouldExecuteOnProject(project));
   }

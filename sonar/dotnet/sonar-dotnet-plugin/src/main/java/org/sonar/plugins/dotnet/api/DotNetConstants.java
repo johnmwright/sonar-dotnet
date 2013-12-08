@@ -95,7 +95,12 @@ public final class DotNetConstants {
 
   public static final String KEY_GENERATION_STRATEGY_KEY = "sonar.dotnet.key.generation.strategy";
 
-  /**
+
+  public static final String CSHARP_LANGUAGE_KEY = "cs";
+  public static final String VBNET_LANGUAGE_KEY = "vbnet";
+  public static final String[] DOTNET_LANGUAGE_KEYS = new String[] {CSHARP_LANGUAGE_KEY, VBNET_LANGUAGE_KEY};
+
+    /**
    * Returns the config key that will allow to retrieve the .NET SDK directory from the plugin configuration.
    * 
    * @param sdkVersion

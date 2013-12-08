@@ -97,7 +97,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldExecuteOnProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey("cs");
+    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     project.setParent(project);
     project.setName("Project #1");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(true));
@@ -106,7 +106,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldExecuteOnProjectWithAdvancedConfiguration() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey("cs");
+    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     project.setParent(project);
     project.setName("Project #1");
 
@@ -117,7 +117,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldNotExecuteOnProjectWithAdvancedConfiguration() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey("cs");
+    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     project.setParent(project);
     project.setName("Project #1");
 
@@ -128,7 +128,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldNotExecuteOnWebProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey("cs");
+    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     project.setParent(project);
     project.setName("Web project");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(false));
@@ -137,7 +137,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldNotExecuteOnRootProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey("cs");
+    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
     project.setParent(project);
     project.setName("Root project");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(false));
