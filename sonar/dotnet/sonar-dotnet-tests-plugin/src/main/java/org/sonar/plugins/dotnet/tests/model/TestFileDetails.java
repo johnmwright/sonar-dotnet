@@ -1,6 +1,6 @@
 /*
  * Sonar .NET Plugin :: .NET Tests
- * Copyright (C) 2010 Jose Chillan, Alexandre Victoor and SonarSource
+ * Copyright (C) 2010 Jose Chillan, Alexandre Victoor, John M. Wright and SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,27 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-/*
- * Created on Apr 28, 2009
- */
+
 package org.sonar.plugins.dotnet.tests.model;
 
-import java.io.File;
+import org.sonar.api.resources.File;
+import org.sonar.api.resources.Project;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A report for a unit test file.
- * 
- * @author Jose CHILLAN Apr 28, 2009
  */
 public class TestFileDetails {
 
-  private String assemblyName;
-  private File sourceFile;
+  private Project project;
+  private final org.sonar.api.resources.File sourceFile;
   private int errors = 0;
   private int skipped = 0;
-  private int tests = 0;
   private int timeMS = 0;
   private int failures = 0;
   private List<TestCaseDetail> details;
@@ -48,48 +45,29 @@ public class TestFileDetails {
     }
   }
 
-  public TestFileDetails() {
+  public TestFileDetails(File sourceFile) {
     details = new ArrayList<TestCaseDetail>();
+      this.sourceFile = sourceFile;
   }
 
   public int getErrors() {
     return errors;
   }
 
-  public void setErrors(int errors) {
-    this.errors = errors;
-  }
-
   public int getSkipped() {
     return skipped;
   }
 
-  public void setSkipped(int skipped) {
-    this.skipped = skipped;
-  }
-
   public int getTests() {
-    return tests;
-  }
-
-  public void setTests(int tests) {
-    this.tests = tests;
+    return details.size();
   }
 
   public int getTimeMS() {
     return timeMS;
   }
 
-  public void setTimeMS(int timeMS) {
-    this.timeMS = timeMS;
-  }
-
   public int getFailures() {
     return failures;
-  }
-
-  public void setFailures(int failures) {
-    this.failures = failures;
   }
 
   public List<TestCaseDetail> getDetails() {
@@ -98,7 +76,6 @@ public class TestFileDetails {
 
   public void addDetail(TestCaseDetail detail) {
     this.details.add(detail);
-    tests++;
     TestStatus status = detail.getStatus();
     switch (status) {
       case FAILED:
@@ -108,7 +85,6 @@ public class TestFileDetails {
         errors++;
         break;
       case SKIPPED:
-      case INCONCLUSIVE:
         skipped++;
         break;
       case SUCCESS:
@@ -117,27 +93,26 @@ public class TestFileDetails {
         // do nothing
     }
 
-    // We complete the other indicators
-    timeMS += detail.getTimeMillis();
+      //NOTE: There's some losiness using this method, as the test fixtures themselves
+      //may have some overhead that's not accounted for in the test cases but is provided
+      //at a higher reported level, but since we can't gaurantee the file-to-type mapping
+      //above the test case level due to partial classes, this has to do.
+      timeMS += detail.getTimeMillis();
   }
 
   /**
-   * Returns the assemblyName.
-   * 
-   * @return The assemblyName to return.
+   * Returns the Project.
    */
-  public String getAssemblyName() {
-    return this.assemblyName;
+  public Project getProject() {
+    return this.project;
   }
 
   /**
-   * Sets the assemblyName.
-   * 
-   * @param assemblyName
-   *          The assemblyName to set.
+   * Sets the Project.
+   *
    */
-  public void setAssemblyName(String assemblyName) {
-    this.assemblyName = assemblyName;
+  public void setProject(Project project) {
+    this.project = project;
   }
 
   /**
@@ -145,23 +120,13 @@ public class TestFileDetails {
    * 
    * @return The sourceFile to return.
    */
-  public File getSourceFile() {
+  public org.sonar.api.resources.File getSourceFile() {
     return this.sourceFile;
-  }
-
-  /**
-   * Sets the sourceFile.
-   * 
-   * @param sourceFile
-   *          The sourceFile to set.
-   */
-  public void setSourceFile(File sourceFile) {
-    this.sourceFile = sourceFile;
   }
 
   @Override
   public String toString() {
-    return "Assembly=" + assemblyName + ", file:" + sourceFile + "(time=" + timeMS / 1000. + "s, tests=" + tests + ", failures=" + failures
+    return "Project=" + project + ", file:" + sourceFile + "(time=" + timeMS / 1000. + "s, tests=" + getTests() + ", failures=" + failures
       + ", ignored=" + skipped + ")";
   }
 
@@ -176,51 +141,4 @@ public class TestFileDetails {
 
         return testCaseDetails.toString();
     }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((assemblyName == null) ? 0 : assemblyName.hashCode());
-    result = prime * result + errors;
-    result = prime * result + failures;
-    result = prime * result + skipped;
-    result = prime * result + ((sourceFile == null) ? 0 : sourceFile.hashCode());
-    result = prime * result + tests;
-    result = prime * result + timeMS;
-    return result;
-  }
-
-  @Override
-  @SuppressWarnings("all")
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    TestFileDetails other = (TestFileDetails) obj;
-    if (assemblyName == null) {
-      if (other.assemblyName != null)
-        return false;
-    } else if (!assemblyName.equals(other.assemblyName))
-      return false;
-    if (errors != other.errors)
-      return false;
-    if (failures != other.failures)
-      return false;
-    if (skipped != other.skipped)
-      return false;
-    if (sourceFile == null) {
-      if (other.sourceFile != null)
-        return false;
-    } else if (!sourceFile.equals(other.sourceFile))
-      return false;
-    if (tests != other.tests)
-      return false;
-    if (timeMS != other.timeMS)
-      return false;
-    return true;
-  }
 }

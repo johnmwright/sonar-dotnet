@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: Gallio
- * Copyright (C) 2010 Jose Chillan, Alexandre Victoor and SonarSource
+ * Sonar .NET Plugin :: .NET Tests
+ * Copyright (C) 2010 Jose Chillan, Alexandre Victoor, John M. Wright and SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,31 +17,24 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-/*
- * Created on Apr 28, 2009
- */
+
 package org.sonar.plugins.dotnet.tests.model;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.File;
-
 /**
  * Details for a test case.
- * 
- * @author Jose CHILLAN Jun 16, 2009
  */
 public class TestCaseDetail {
 
   private String name;
+  private String fixtureName;
   private TestStatus status;
   private String stackTrace;
   private String errorMessage;
   private int timeMillis = 0;
-  private int countAsserts;
-  private File sourceFile;
-  private String assemblyName;
+  private org.sonar.api.resources.File sourceFile;
 
   /**
    * Constructs an empty @link{TestCaseDetail}.
@@ -90,21 +83,31 @@ public class TestCaseDetail {
     this.timeMillis = timeMS;
   }
 
-  public int getCountAsserts() {
-    return this.countAsserts;
-  }
-
-  public void setCountAsserts(int countAsserts) {
-    this.countAsserts = countAsserts;
-  }
-
-  public String getAssemblyName() {
-    return assemblyName;
-  }
-
   @Override
   public String toString() {
     return "Test " + name + "(" + status + ", time=" + timeMillis * 0.001 + ")";
+  }
+
+  public String asXML() {
+      StringBuilder testCaseDetails = new StringBuilder(256);
+
+      testCaseDetails.append("<testcase status=\"").append(getStatus().getSonarStatus()).append("\"")
+                     .append(" time=\"").append(getTimeMillis()).append("\"")
+                     .append(" name=\"").append(getName()).append("\"");
+
+      boolean isError = (getStatus() == TestStatus.ERROR);
+
+      if (isError || (getStatus() == TestStatus.FAILED)) {
+
+          testCaseDetails.append(">").append(isError ? "<error message=\"" : "<failure message=\"").append(getFormatedErrorMessage())
+                  .append("\">").append("<![CDATA[").append(getFormatedStackTrace()).append("]]>")
+                  .append(isError ? "</error>" : "</failure>").append("</testcase>");
+
+      } else {
+          testCaseDetails.append("/>");
+      }
+
+      return testCaseDetails.toString();
   }
 
   /**
@@ -131,7 +134,7 @@ public class TestCaseDetail {
    * 
    * @return The testFile to return.
    */
-  public File getSourceFile() {
+  public org.sonar.api.resources.File getSourceFile() {
     return this.sourceFile;
   }
 
@@ -141,23 +144,18 @@ public class TestCaseDetail {
    * @param testFile
    *          The testFile to set.
    */
-  public void setSourceFile(File testFile) {
+  public void setSourceFile(org.sonar.api.resources.File testFile) {
     this.sourceFile = testFile;
   }
 
-  public String createSourceKey() {
-    String path = this.sourceFile.getPath();
-    return ("[" + this.assemblyName + "]" + path);
-  }
 
-  public void merge(TestDescription description) {
-    this.sourceFile = description.getSourceFile();
-    this.name = description.getMethodName();
-    if (description.getAssemblyName() == null) {
-      this.assemblyName = "AssemblyNotFound";
-    } else {
-      this.assemblyName = description.getAssemblyName();
+    public String getFixtureName() {
+        return fixtureName;
     }
-  }
+
+    public void setFixtureName(String fixtureName) {
+        this.fixtureName = fixtureName;
+    }
+
 
 }

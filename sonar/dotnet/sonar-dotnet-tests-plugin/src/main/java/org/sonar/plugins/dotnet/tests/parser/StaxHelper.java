@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: Gallio
- * Copyright (C) 2010 Jose Chillan, Alexandre Victoor and SonarSource
+ * Sonar .NET Plugin :: .NET Tests
+ * Copyright (C) 2010 Jose Chillan, Alexandre Victoor, John M. Wright and SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or

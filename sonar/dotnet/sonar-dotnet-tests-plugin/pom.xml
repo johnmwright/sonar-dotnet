@@ -8,28 +8,34 @@
     <relativePath>../..</relativePath>
   </parent>
 
-  <artifactId>sonar-dotnet-gallio-plugin</artifactId>
+  <artifactId>sonar-dotnet-tests-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>Sonar .NET Plugin :: Gallio</name>
+  <name>Sonar .NET Plugin :: .NET Tests</name>
   <description>Plugin that executes unit tests and computes code coverage on .NET assemblies.</description>
   <url>http://docs.codehaus.org/display/SONAR/C%23+Plugins+Ecosystem</url>
+    <developers>
+        <developer>
+            <id>jwright</id>
+            <name>John M. Wright</name>
+        </developer>
+    </developers>
 
-  <properties>
-    <sonar.pluginKey>dotnetgallio</sonar.pluginKey>
-    <sonar.pluginName>.NET Gallio</sonar.pluginName>
-    <sonar.pluginClass>org.sonar.plugins.csharp.gallio.GallioPlugin</sonar.pluginClass>
+
+    <properties>
+      <license.owner>Jose Chillan, Alexandre Victoor, John M. Wright and SonarSource</license.owner>
+
+      <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
+      <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+
+    <sonar.pluginKey>dotnettests</sonar.pluginKey>
+    <sonar.pluginName>.NET Tests</sonar.pluginName>
+    <sonar.pluginClass>org.sonar.plugins.dotnet.tests.DotNetTestsPlugin</sonar.pluginClass>
     <sonar.pluginParent>dotnet</sonar.pluginParent>
     <powermock.version>1.4.10</powermock.version>
   </properties>
 
   <dependencies>
-    <!-- .NET tools -->
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.dotnet.tools</groupId>
-      <artifactId>gallio-runner</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <!-- sonar open-source -->
     <dependency>
@@ -59,4 +65,4 @@
    </dependency>
   </dependencies>
 
-</project>
+ </project>

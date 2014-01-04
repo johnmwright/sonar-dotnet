@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\NUnitExample.nunit" total="10" errors="1" failures="1" not-run="1" inconclusive="0" ignored="1" skipped="0" invalid="0" date="2013-12-31" time="15:12:08">
+  <environment nunit-version="2.6.3.13283" clr-version="2.0.50727.7905" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\packages\NUnit.Runners.2.6.3\tools" machine-name="JWRIGHT-YOGA" user="jwright" user-domain="WRIGHTNET" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\NUnitExample.nunit" executed="True" result="Failure" success="False" time="0.234" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1.Test\bin\Debug\ClassLibrary1.Test.dll" executed="True" result="Failure" success="False" time="0.202" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="ClassLibrary1" executed="True" result="Failure" success="False" time="0.202" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Test" executed="True" result="Failure" success="False" time="0.202" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="Class1Tests" executed="True" result="Failure" success="False" time="0.137" asserts="0">
+                    <results>
+                      <test-case name="ClassLibrary1.Test.Class1Tests.SimpleTest_NoAsserts" executed="True" result="Success" success="True" time="0.050" asserts="0" />
+                      <test-suite type="ParameterizedTest" name="TestWithInput" executed="True" result="Failure" success="False" time="0.062" asserts="0">
+                        <results>
+                          <test-case name="ClassLibrary1.Test.Class1Tests.TestWithInput(False,True)" description="Expecting this to fail" executed="True" result="Failure" success="False" time="0.040" asserts="1">
+                            <failure>
+                              <message><![CDATA[  output did not meet expectations (input False, expectedOutput True)
+  Expected: True
+  But was:  False
+]]></message>
+                              <stack-trace><![CDATA[at ClassLibrary1.Test.Class1Tests.TestWithInput(Boolean input, Boolean expectedOutput) in c:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1.Test\Class1Tests.cs:line 29
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                          <test-case name="ClassLibrary1.Test.Class1Tests.TestWithInput(True,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Foo" executed="True" result="Failure" success="False" time="0.036" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Bar" executed="True" result="Failure" success="False" time="0.020" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="Class1Tests" executed="True" result="Failure" success="False" time="0.019" asserts="0">
+                            <results>
+                              <test-case name="ClassLibrary1.Test.Foo.Bar.Class1Tests.IgnoredTest" executed="False" result="Ignored">
+                                <reason>
+                                  <message><![CDATA[Test is ignored]]></message>
+                                </reason>
+                              </test-case>
+                              <test-case name="ClassLibrary1.Test.Foo.Bar.Class1Tests.TestNestedNamespaceClass" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="ClassLibrary1.Test.Foo.Bar.Class1Tests.TestWillThrowExeption" executed="True" result="Error" success="False" time="0.008" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.Exception : something bad happened]]></message>
+                                  <stack-trace><![CDATA[at ClassLibrary1.Class1.ThrowException() in c:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1\Class1.cs:line 24
+at ClassLibrary1.Test.Foo.Bar.Class1Tests.TestWillThrowExeption() in c:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1.Test\Foo\Bar\Class1Tests.cs:line 20
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="PartialClassTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                        <results>
+                          <test-case name="ClassLibrary1.Test.Foo.PartialClassTests.TestIn2ndFile" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ClassLibrary1.Test.Foo.PartialClassTests.TestInMainFile" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="NestedClassesOutter" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="ClassLibrary1.Test.NestedClassesOutter.UnnestedTest" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="NestedClassesOutter+NestedClassesInner" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="ClassLibrary1.Test.NestedClassesOutter+NestedClassesInner.InnerNestedTest" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="NestedClassesOutter+NestedClassesInner+DoubleNestedClassesInner" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="ClassLibrary1.Test.NestedClassesOutter+NestedClassesInner+DoubleNestedClassesInner.DoubleNestedTest" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

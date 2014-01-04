@@ -1,6 +1,6 @@
 /*
  * Sonar .NET Plugin :: .NET Tests
- * Copyright (C) 2010 Jose Chillan, Alexandre Victoor and SonarSource
+ * Copyright (C) 2010 Jose Chillan, Alexandre Victoor, John M. Wright and SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -30,9 +30,9 @@ public final class DotNetTestsConstants {
     public static final String MODE_KEY = "sonar.dotnet.tests.mode";
     public static final String IT_MODE_KEY = "sonar.dotnet.tests.it.mode";
 
-    public static final String REPORTS_PATH_KEY = "sonar.dotnet.tests.reports.path";
-    public static final String IT_REPORTS_PATH_KEY = "sonar.dotnet.tests.it.reports.path";
+    //***** NUNIT
+    public static final String NUNIT_REPORTS_KEY = "sonar.dotnet.tests.nunit.reports.path";
+    public static final String NUNIT_IT_REPORTS_KEY = "sonar.dotnet.tests.nunit.it.reports.path";
 
-    public static final String TEST_FRAMEWORK_KEY = "sonar.dotnet.tests.testFramework";
-    public static final String TEST_FRAMEWORK_NUNIT = "nunit";
+
 }

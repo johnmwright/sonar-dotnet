@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\NUnitExample.nunit</TopNode>
+  <SelectedNode>[0-1000]C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\NUnitExample.nunit</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\NUnitExample.nunit" Expanded="true" />
+    <Node UniqueName="[0-1019]C:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1.Test\bin\Debug\ClassLibrary1.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1020]ClassLibrary1" Expanded="true" />
+    <Node UniqueName="[0-1021]ClassLibrary1.Test" Expanded="true" />
+    <Node UniqueName="[0-1001]ClassLibrary1.Test.Class1Tests" Expanded="true" />
+    <Node UniqueName="[0-1003]ClassLibrary1.Test.Class1Tests.TestWithInput" Expanded="true" />
+    <Node UniqueName="[0-1022]ClassLibrary1.Test.Foo" Expanded="true" />
+    <Node UniqueName="[0-1023]ClassLibrary1.Test.Foo.Bar" Expanded="true" />
+    <Node UniqueName="[0-1006]ClassLibrary1.Test.Foo.Bar.Class1Tests" Expanded="true" />
+    <Node UniqueName="[0-1010]ClassLibrary1.Test.Foo.PartialClassTests" Expanded="true" />
+    <Node UniqueName="[0-1013]ClassLibrary1.Test.NestedClassesOutter" Expanded="true" />
+    <Node UniqueName="[0-1015]ClassLibrary1.Test.NestedClassesOutter+NestedClassesInner" Expanded="true" />
+    <Node UniqueName="[0-1017]ClassLibrary1.Test.NestedClassesOutter+NestedClassesInner+DoubleNestedClassesInner" Expanded="true" />
+  </Nodes>
+</VisualState>
