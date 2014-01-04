@@ -17,6 +17,16 @@
   </properties>
 
   <dependencies>
+
+      <!-- .NET Plugin -->
+      <dependency>
+          <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
+          <artifactId>sonar-dotnet-plugin</artifactId>
+          <version>${project.version}</version>
+          <type>sonar-plugin</type>
+          <scope>provided</scope>
+      </dependency>
+
     <!-- sonarsource -->
     <dependency>
       <groupId>org.codehaus.sonar.sslr</groupId>

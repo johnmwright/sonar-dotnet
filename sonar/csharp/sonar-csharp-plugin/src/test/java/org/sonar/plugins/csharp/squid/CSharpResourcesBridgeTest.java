@@ -24,9 +24,9 @@ import org.junit.Test;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.dotnet.api.DotNetConstants;
-import org.sonar.squid.api.SourceClass;
+import com.sonar.csharp.squid.api.source.SourceClass;
 import org.sonar.squid.api.SourceFile;
-import org.sonar.squid.api.SourceMethod;
+import com.sonar.csharp.squid.api.source.SourceMethod;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -44,7 +44,7 @@ public class CSharpResourcesBridgeTest {
     SourceFile sourceFile = new SourceFile("/temp/Fake.cs", "Fake.cs");
     SourceClass sourceType = new SourceClass("MyNamespace.MyClass", "MyClass");
     SourceClass sourceTypeWithoutNamespace = new SourceClass("MyClassWithoutNamespace", "MyClassWithoutNamespace");
-    SourceMethod sourceMember = new SourceMethod(sourceType, "GetFoo", 0);
+    SourceMethod sourceMember = new SourceMethod(sourceType, "GetFoo", 0, "GetFoo(bool, int)");
     sourceFile.addChild(sourceType);
     sourceFile.addChild(sourceTypeWithoutNamespace);
     sourceType.addChild(sourceMember);
@@ -87,7 +87,7 @@ public class CSharpResourcesBridgeTest {
 
   @Test
   public void testGetFromMember() {
-    Resource<?> file = cSharpResourcesBridge.getFromMemberName("MyNamespace.MyClass#GetFoo");
+    Resource<?> file = cSharpResourcesBridge.getFromMemberName("MyNamespace.MyClass#GetFoo(bool, int)");
     assertThat(file.getName(), is("Fake.cs"));
   }
 

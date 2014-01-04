@@ -1,5 +1,5 @@
 /*
- * Sonar C# Plugin :: Core
+ * Sonar .NET Plugin :: .NET Tests
  * Copyright (C) 2010 Jose Chillan, Alexandre Victoor and SonarSource
  * dev@sonar.codehaus.org
  *
@@ -17,21 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.csharp.squid;
+package org.sonar.plugins.dotnet.tests;
 
-public final class CSharpSquidConstants {
+/**
+ * Constants of the Tests plugin.
+ */
+public final class DotNetTestsConstants {
 
-  private CSharpSquidConstants() {
-  }
+    private DotNetTestsConstants() {
+    }
 
-  public static final String REPOSITORY_KEY = "csharpsquid";
-  public static final String REPOSITORY_NAME = "Sonar";
+    public static final String MODE_KEY = "sonar.dotnet.tests.mode";
+    public static final String IT_MODE_KEY = "sonar.dotnet.tests.it.mode";
 
-  public static final String CPD_MINIMUM_TOKENS_PROPERTY = "sonar.cpd.cs.minimumTokens";
-  public static final String CPD_IGNORE_LITERALS_PROPERTY = "sonar.cpd.cs.ignoreLiteral";
-  public static final boolean CPD_IGNORE_LITERALS_DEFVALUE = true;
-  public static final String IGNORE_HEADER_COMMENTS = "sonar.cs.ignoreHeaderComments";
+    public static final String REPORTS_PATH_KEY = "sonar.dotnet.tests.reports.path";
+    public static final String IT_REPORTS_PATH_KEY = "sonar.dotnet.tests.it.reports.path";
 
-  public static final String SSLR_INCLUDE_TEST_SOURCES_KEY = "sonar.csharp.squid.includeTestSources";
-
+    public static final String TEST_FRAMEWORK_KEY = "sonar.dotnet.tests.testFramework";
+    public static final String TEST_FRAMEWORK_NUNIT = "nunit";
 }

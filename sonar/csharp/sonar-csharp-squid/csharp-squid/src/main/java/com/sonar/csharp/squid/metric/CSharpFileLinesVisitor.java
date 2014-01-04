@@ -21,19 +21,17 @@ package com.sonar.csharp.squid.metric;
 
 import com.google.common.collect.Sets;
 import com.sonar.csharp.squid.api.CSharpMetric;
-import com.sonar.sslr.api.AstAndTokenVisitor;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.GenericTokenType;
-import com.sonar.sslr.api.Grammar;
-import com.sonar.sslr.api.Token;
-import com.sonar.sslr.api.Trivia;
+import com.sonar.sslr.api.*;
 import com.sonar.sslr.squid.SquidAstVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,20 +40,38 @@ import java.util.Set;
  */
 public class CSharpFileLinesVisitor extends SquidAstVisitor<Grammar> implements AstAndTokenVisitor {
 
+  private static final Logger LOG = LoggerFactory.getLogger(CSharpFileLinesVisitor.class);
+
   private final Project project;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final boolean includeTestProjects;
   private FileLinesContext fileLinesContext;
   private final Set<Integer> linesOfCode = Sets.newHashSet();
   private final Set<Integer> linesOfComments = Sets.newHashSet();
 
-  public CSharpFileLinesVisitor(Project project, FileLinesContextFactory fileLinesContextFactory) {
+  public CSharpFileLinesVisitor(Project project, FileLinesContextFactory fileLinesContextFactory, boolean includeTestProjects) {
     this.project = project;
     this.fileLinesContextFactory = fileLinesContextFactory;
+    this.includeTestProjects =  includeTestProjects;
+
   }
 
   @Override
   public void visitFile(AstNode astNode) {
-    File sonarFile = File.fromIOFile(getContext().getFile(), project);
+    java.io.File contextFile = getContext().getFile();
+
+    List<java.io.File> searchDirs = new ArrayList<java.io.File>();
+    searchDirs.addAll(project.getFileSystem().getSourceDirs());
+    if (includeTestProjects) {
+      searchDirs.addAll(project.getFileSystem().getTestDirs());
+    }
+    File sonarFile = File.fromIOFile(contextFile, searchDirs);
+
+
+    if (sonarFile == null) {
+       LOG.error("Unable to find sonarFile for contextFile {}. If this is a test file, you'll need to enable test file parsing.", contextFile.getName());
+    }
+
     fileLinesContext = fileLinesContextFactory.createFor(sonarFile);
   }
 

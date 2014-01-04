@@ -56,6 +56,13 @@ import java.util.List;
     name = "Ignore header comments",
     description = "Set to 'true' to enable, or 'false' to disable.",
     project = true, global = true,
+    type = PropertyType.BOOLEAN),
+    @Property(
+    key = CSharpSquidConstants.SSLR_INCLUDE_TEST_SOURCES_KEY,
+    defaultValue = "false",
+    name = "Include Test Sources",
+    description = "If true, sources from test projects will be included in C# squid parsing.",
+    project = true, global = true,
     type = PropertyType.BOOLEAN)
 })
 public class CSharpCorePlugin extends SonarPlugin {

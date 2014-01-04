@@ -20,6 +20,7 @@
 package org.sonar.plugins.csharp.squid;
 
 import com.google.common.collect.Maps;
+import com.sonar.csharp.squid.api.source.SourceMethod;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class CSharpResourcesBridge implements BatchExtension, DotNetResourceBrid
 
   private static final Logger LOG = LoggerFactory.getLogger(CSharpResourcesBridge.class);
   private Map<String, Resource<?>> logicalToPhysicalResourcesMap = Maps.newHashMap();
+  private Map<String, Resource<?>> logicalToPhysicalResourcesMapUsingMethodSignaturesWithParams = Maps.newHashMap();
 
   private boolean canIndexFiles = true;
 
@@ -74,7 +76,7 @@ public class CSharpResourcesBridge implements BatchExtension, DotNetResourceBrid
    */
   public void indexFile(SourceFile squidFile, File sonarFile) {
     if (canIndexFiles) {
-      LOG.debug("C# BRIDGE is indexing {}:", squidFile.getKey());
+      LOG.debug("C# BRIDGE is indexing {}: {}", squidFile.getKey(), sonarFile.getLongName());
       indexChildren(squidFile.getChildren(), sonarFile);
     } else {
       throw new IllegalStateException(
@@ -87,6 +89,12 @@ public class CSharpResourcesBridge implements BatchExtension, DotNetResourceBrid
       for (SourceCode children : sourceCodes) {
         LOG.debug("  - {}", children.getKey());
         logicalToPhysicalResourcesMap.put(children.getKey(), sonarFile);
+
+        if (children.getClass().equals(SourceMethod.class)){
+            String methodSignature = ((SourceMethod)children).getMethodSignatureWithParams();
+            LOG.debug("    + {}", methodSignature);
+            logicalToPhysicalResourcesMapUsingMethodSignaturesWithParams.put(methodSignature, sonarFile);
+        }
         indexChildren(children.getChildren(), sonarFile);
       }
     }
@@ -123,7 +131,11 @@ public class CSharpResourcesBridge implements BatchExtension, DotNetResourceBrid
    * {@inheritDoc}
    */
   public Resource<?> getFromMemberName(String memberFullName) {
-    return logicalToPhysicalResourcesMap.get(memberFullName);
+    Resource<?> resource = logicalToPhysicalResourcesMap.get(memberFullName);
+    if (resource == null && memberFullName.contains("(")) {
+       resource = logicalToPhysicalResourcesMapUsingMethodSignaturesWithParams.get(memberFullName);
+    }
+    return resource;
   }
 
 }

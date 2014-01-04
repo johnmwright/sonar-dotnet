@@ -66,16 +66,18 @@ public class CSharpFileLinesVisitorTest {
   public void init() {
     MockitoAnnotations.initMocks(this);
 
-    when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("/")));
     when(project.getFileSystem()).thenReturn(fileSystem);
 
     when(fileLinesContextFactory.createFor(any(Resource.class))).thenReturn(fileLinesContext);
 
-    fileLinesVisitor = new CSharpFileLinesVisitor(project, fileLinesContextFactory);
   }
 
   @Test
   public void testScanFile() {
+      when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("/")));
+
+      fileLinesVisitor = new CSharpFileLinesVisitor(project, fileLinesContextFactory, false);
+
     AstScanner<Grammar> scanner = CSharpAstScanner.create(new CSharpConfiguration(Charset.forName("UTF-8")), fileLinesVisitor);
     scanner.scanFile(readFile("/metric/Money.cs"));
     SourceProject project = (SourceProject) scanner.getIndex().search(new QueryByType(SourceProject.class)).iterator().next();
@@ -90,6 +92,29 @@ public class CSharpFileLinesVisitorTest {
     verify(fileLinesContext, times(comments)).setIntValue(eq(CoreMetrics.COMMENT_LINES_DATA_KEY), anyInt(), eq(1));
     verify(fileLinesContext, times(lines - comments)).setIntValue(eq(CoreMetrics.COMMENT_LINES_DATA_KEY), anyInt(), eq(0));
   }
+
+
+    @Test
+    public void testScanFileWithTestSources() {
+        when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("/lexer/")));
+        when(fileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("/metric/")));
+
+        fileLinesVisitor = new CSharpFileLinesVisitor(project, fileLinesContextFactory, true);
+
+        AstScanner<Grammar> scanner = CSharpAstScanner.create(new CSharpConfiguration(Charset.forName("UTF-8")), fileLinesVisitor);
+        scanner.scanFile(readFile("/metric/Money.cs"));
+        SourceProject project = (SourceProject) scanner.getIndex().search(new QueryByType(SourceProject.class)).iterator().next();
+
+        int lines = project.getInt(CSharpMetric.LINES);
+        int loc = project.getInt(CSharpMetric.LINES_OF_CODE);
+        int comments = project.getInt(CSharpMetric.COMMENT_LINES) + project.getInt(CSharpMetric.COMMENT_BLANK_LINES);
+
+        verify(fileLinesContext, times(loc)).setIntValue(eq(CoreMetrics.NCLOC_DATA_KEY), anyInt(), eq(1));
+        verify(fileLinesContext, times(lines - loc)).setIntValue(eq(CoreMetrics.NCLOC_DATA_KEY), anyInt(), eq(0));
+
+        verify(fileLinesContext, times(comments)).setIntValue(eq(CoreMetrics.COMMENT_LINES_DATA_KEY), anyInt(), eq(1));
+        verify(fileLinesContext, times(lines - comments)).setIntValue(eq(CoreMetrics.COMMENT_LINES_DATA_KEY), anyInt(), eq(0));
+    }
 
   protected File readFile(String path) {
     return FileUtils.toFile(getClass().getResource(path));

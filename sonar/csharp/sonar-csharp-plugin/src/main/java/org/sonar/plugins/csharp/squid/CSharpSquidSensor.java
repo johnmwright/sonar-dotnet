@@ -53,7 +53,7 @@ import org.sonar.plugins.csharp.squid.check.CSharpCheck;
 import org.sonar.plugins.dotnet.api.DotNetConfiguration;
 import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
-import org.sonar.plugins.dotnet.api.sensor.AbstractRegularDotNetSensor;
+import org.sonar.plugins.dotnet.api.sensor.AbstractDotNetSensor;
 import org.sonar.squid.api.CheckMessage;
 import org.sonar.squid.api.SourceCode;
 import org.sonar.squid.api.SourceFile;
@@ -67,7 +67,7 @@ import java.util.Set;
 
 @DependsUpon(DotNetConstants.CORE_PLUGIN_EXECUTED)
 @Phase(name = Phase.Name.PRE)
-public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
+public final class CSharpSquidSensor extends AbstractDotNetSensor {
 
   private static final Logger LOG = LoggerFactory.getLogger(CSharpSquidSensor.class);
   private static final Number[] METHOD_DISTRIB_BOTTOM_LIMITS = {1, 2, 4, 6, 8, 10, 12};
@@ -80,6 +80,7 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
   private final NoSonarFilter noSonarFilter;
   private final AnnotationCheckFactory annotationCheckFactory;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final DotNetConfiguration configuration;
 
   private Project project;
   private SensorContext context;
@@ -94,19 +95,46 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
   public CSharpSquidSensor(DotNetConfiguration dotNetConfiguration, CSharp cSharp, CSharpResourcesBridge cSharpResourcesBridge, ResourceCreationLock resourceCreationLock,
       MicrosoftWindowsEnvironment microsoftWindowsEnvironment, RulesProfile profile, NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory,
       CSharpCheck[] cSharpChecks) {
-    super(dotNetConfiguration, microsoftWindowsEnvironment, "Squid C#", "");
+    super(microsoftWindowsEnvironment, "Squid C#", "");
     this.cSharp = cSharp;
     this.cSharpResourcesBridge = cSharpResourcesBridge;
     this.resourceCreationLock = resourceCreationLock;
     this.noSonarFilter = noSonarFilter;
     this.fileLinesContextFactory = fileLinesContextFactory;
+    this.configuration = dotNetConfiguration;
 
     Collection<Class> allChecks = CSharpCheck.toCollection(cSharpChecks);
     allChecks.addAll(CheckList.getChecks());
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, CSharpSquidConstants.REPOSITORY_KEY, allChecks);
+
   }
 
-  /**
+    protected boolean shouldIncludeTestProjects() {
+        return configuration.getBoolean(CSharpSquidConstants.SSLR_INCLUDE_TEST_SOURCES_KEY);
+    }
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean shouldExecuteOnProject(Project project) {
+
+        if (!super.shouldExecuteOnProject(project))
+            return false;
+
+        boolean shouldRun =  shouldIncludeTestProjects() || !isTestProject(project);
+        if (!shouldRun) {
+            LOG.info("{} plugin not running for test project {}", this.getToolName(), project.getName());
+        }
+        return shouldRun;
+    }
+
+
+
+
+    /**
    * {@inheritDoc}
    */
   @Override
@@ -126,7 +154,7 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
     Collection<SquidAstVisitor<Grammar>> squidChecks = annotationCheckFactory.getChecks();
     List<SquidAstVisitor<Grammar>> visitors = Lists.newArrayList(squidChecks);
     // TODO: remove the following line & class once SSLR Squid bridge computes NCLOC_DATA_KEY & COMMENT_LINES_DATA_KEY
-    visitors.add(new CSharpFileLinesVisitor(project, fileLinesContextFactory));
+    visitors.add(new CSharpFileLinesVisitor(project, fileLinesContextFactory, shouldIncludeTestProjects()));
     scanner = CSharpAstScanner.create(createParserConfiguration(project), visitors.toArray(new SquidAstVisitor[visitors.size()]));
     scanner.scanFiles(getFilesToAnalyse(project));
 
@@ -134,12 +162,32 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
     saveMeasures(squidSourceFiles);
   }
 
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public org.sonar.api.resources.File fromIOFile(java.io.File file, Project project) {
+       List<java.io.File> searchFolders = Lists.newArrayList();
+       searchFolders.addAll(project.getFileSystem().getSourceDirs());
+       if (shouldIncludeTestProjects()){
+           searchFolders.addAll(project.getFileSystem().getTestDirs());
+       }
+
+       return File.fromIOFile(file, searchFolders);
+   }
+
   private List<java.io.File> getFilesToAnalyse(Project project) {
     List<java.io.File> result = Lists.newArrayList();
     for (InputFile file : project.getFileSystem().mainFiles(cSharp.getKey())) {
       result.add(file.getFile());
     }
 
+    if (shouldIncludeTestProjects()) {
+        for (InputFile file : project.getFileSystem().testFiles(cSharp.getKey()) ) {
+            result.add(file.getFile());
+        }
+    }
     return result;
   }
 
@@ -154,7 +202,7 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
       SourceFile squidFile = (SourceFile) squidFileCode;
 
       /* Create the sonar file */
-      File sonarFile = File.fromIOFile(new java.io.File(squidFile.getKey()), project);
+      File sonarFile = fromIOFile(new java.io.File(squidFile.getKey()), project);
       sonarFile.setLanguage(cSharp);
 
       /* Fill the resource bridge API that can be used by other C# plugins to map logical resources to physical ones */
@@ -181,6 +229,7 @@ public final class CSharpSquidSensor extends AbstractRegularDotNetSensor {
     cSharpResourcesBridge.lock();
     resourceCreationLock.lock();
   }
+
 
   private void saveMeasures(Resource sonarFile, SourceCode squidFile) {
     context.saveMeasure(sonarFile, CoreMetrics.CLASSES, squidFile.getDouble(CSharpMetric.CLASSES));

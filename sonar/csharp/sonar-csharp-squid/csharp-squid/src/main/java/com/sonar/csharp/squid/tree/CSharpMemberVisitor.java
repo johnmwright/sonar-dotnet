@@ -19,22 +19,36 @@
  */
 package com.sonar.csharp.squid.tree;
 
+import com.google.common.collect.ImmutableSet;
 import com.sonar.csharp.squid.api.CSharpMetric;
 import com.sonar.csharp.squid.api.CSharpPunctuator;
 import com.sonar.csharp.squid.api.source.SourceMember;
+import com.sonar.csharp.squid.api.source.SourceMethod;
 import com.sonar.csharp.squid.api.source.SourceType;
 import com.sonar.csharp.squid.parser.CSharpGrammar;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.Grammar;
 import com.sonar.sslr.squid.SquidAstVisitor;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonar.api.utils.SonarException;
+
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * Visitor that creates member resources (= methods, property accessors, event accessors, indexer accessors, operators, constructors,
  * finalizers) and computes the number of members.
  */
+
+
 public class CSharpMemberVisitor extends SquidAstVisitor<Grammar> {
 
-  /**
+    private static final Logger LOG = LoggerFactory.getLogger(CSharpMemberVisitor.class);
+
+
+    /**
    * {@inheritDoc}
    */
   @Override
@@ -60,13 +74,23 @@ public class CSharpMemberVisitor extends SquidAstVisitor<Grammar> {
       return;
     }
 
-    String memberSignature = defineMemberSignature(astNode);
-    SourceMember member = new SourceMember((SourceType) getContext().peekSourceCode(), memberSignature, astNode.getTokenLine());
+    SourceMember member = createSourceMember(astNode);
     member.setMeasure(CSharpMetric.METHODS, 1);
     getContext().addSourceCode(member);
   }
 
-  private String defineMemberSignature(AstNode astNode) {
+  private SourceMember createSourceMember(AstNode astNode) {
+      String memberSignature = defineMemberSignature(astNode);
+
+      if (astNode.is(CSharpGrammar.METHOD_DECLARATION)){
+          String methodSignatureWithParams = extractMethodSignatureWithParams(astNode);
+          return new SourceMethod((SourceType) getContext().peekSourceCode(), memberSignature, astNode.getTokenLine(), methodSignatureWithParams);
+      } else {
+          return new SourceMember((SourceType) getContext().peekSourceCode(), memberSignature, astNode.getTokenLine());
+      }
+  }
+
+    private String defineMemberSignature(AstNode astNode) {
     String memberSignature = "";
     if (astNode.is(CSharpGrammar.METHOD_DECLARATION)) {
       memberSignature = extractMethodSignature(astNode.getFirstChild(CSharpGrammar.METHOD_BODY));
@@ -106,6 +130,50 @@ public class CSharpMemberVisitor extends SquidAstVisitor<Grammar> {
   private String extractMethodSignature(AstNode astNode) {
     return astNode.getParent().getFirstChild(CSharpGrammar.MEMBER_NAME).getTokenValue() + ":" + astNode.getTokenLine();
   }
+
+
+    private String extractMethodSignatureWithParams(AstNode astNode) {
+        if (!astNode.is(CSharpGrammar.METHOD_DECLARATION)) {
+            throw new SonarException("member is not a method");
+        }
+        String methodName = extractMethodName(astNode);
+        String params = StringUtils.join( getFormalParameters(astNode), ", "); //TODO: is this the right node to pass in?
+        return methodName + "(" + params + ")";
+    }
+
+    private String extractMethodName(AstNode methodDeclarationNode) {
+        AstNode astNode = methodDeclarationNode.getFirstChild(CSharpGrammar.METHOD_BODY);
+
+        AstNode parentNode = astNode.getParent();
+        AstNode memberNameNode = parentNode.getFirstChild(CSharpGrammar.MEMBER_NAME);
+        String methodName =  memberNameNode.getTokenValue();
+
+        return methodName;
+    }
+
+    private static Set<String> getFormalParameters(AstNode methodNode) {
+        //Logic is very similar to ParameterAssignedToCheck.getNonOutNorRefFormalParameters -- consider consolidating
+
+        if (!methodNode.hasDirectChildren(CSharpGrammar.FORMAL_PARAMETER_LIST)){
+           return Collections.EMPTY_SET;
+        }
+
+        AstNode paramsNode = methodNode.getFirstChild(CSharpGrammar.FORMAL_PARAMETER_LIST);
+
+        ImmutableSet.Builder<String> builder = ImmutableSet.builder();
+
+        Iterable<AstNode> fixedParameters = paramsNode
+                .select()
+                .children(CSharpGrammar.FIXED_PARAMETERS)
+                .children(CSharpGrammar.FIXED_PARAMETER);
+
+        for (AstNode fixedParameter : fixedParameters) {
+           builder.add(fixedParameter.getFirstChild(CSharpGrammar.TYPE).getTokenOriginalValue());
+        }
+
+        return builder.build();
+    }
+
 
   private String extractPropertySignature(AstNode astNode) {
     StringBuilder signature = new StringBuilder(astNode.getPreviousSibling().getLastToken().getValue());

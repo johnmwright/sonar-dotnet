@@ -64,14 +64,12 @@ public interface DotNetResourceBridge {
   Resource<?> getFromTypeName(String typeFullName);
 
   /**
-   * /!\ Do not use for the moment! <br>
-   * <br>
-   * For the moment, method key ends with ':XXXX', where 'XXXX' is the line number, so this API does not work. <br>
-   * <br>
-   * TODO: Need to work on that.
-   * 
+   * Returns the physical file that contains the definition of the type referenced by its full name.
+   *
    * @param memberFullName
-   * @return
+   *        The member signature in the form Namespace.ClassName.MemberName
+   *        For methods, include the params by type: Namespace.ClassName.MemberName(int, bool)
+   * @return the resource that contains this type, or NULL if none
    */
   Resource<?> getFromMemberName(String memberFullName);
 
