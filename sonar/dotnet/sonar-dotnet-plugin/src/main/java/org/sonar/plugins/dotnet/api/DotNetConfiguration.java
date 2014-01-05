@@ -189,14 +189,14 @@ public class DotNetConfiguration implements BatchExtension, ServerExtension {
   }
 
   /**
-   * @see Settings#getBoolean(String, Boolean)
+   * @see Settings#getBoolean(String)
    */
   public boolean getBoolean(String key) {
-    boolean result = false;
+
     // look if this key existed before
     String previousKey = (String) newToPreviousParamMap.get(key);
     if (StringUtils.isNotBlank(previousKey) && settings.hasKey(previousKey)) {
-      result = settings.getBoolean(previousKey);
+      Boolean result = settings.getBoolean(previousKey);
       // a former parameter has been specified, let's take this value
       logInfo(result, previousKey);
       return result;
@@ -206,14 +206,14 @@ public class DotNetConfiguration implements BatchExtension, ServerExtension {
   }
 
   /**
-   * @see Settings#getInteger(String, Integer)
+   * @see Settings#getInt(String)
    */
   public int getInt(String key) {
-    int result = -1;
+
     // look if this key existed before
     String previousKey = (String) newToPreviousParamMap.get(key);
     if (StringUtils.isNotBlank(previousKey) && settings.hasKey(previousKey)) {
-      result = settings.getInt(previousKey);
+      int result = settings.getInt(previousKey);
       // a former parameter has been specified, let's take this value
       logInfo(result, previousKey);
       return result;

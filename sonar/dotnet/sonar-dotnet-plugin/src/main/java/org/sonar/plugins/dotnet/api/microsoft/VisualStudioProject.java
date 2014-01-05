@@ -68,9 +68,6 @@ public class VisualStudioProject {
 
   /**
    * Builds a {@link VisualStudioProject} ...
-   *
-   * @param name
-   * @param projectFile
    */
   public VisualStudioProject() {
     super();

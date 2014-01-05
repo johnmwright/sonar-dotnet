@@ -63,14 +63,16 @@ public abstract class AbstractDotNetSensor implements Sensor {
    */
   public boolean shouldExecuteOnProject(Project project) {
     if (project.isRoot() || !isLanguageSupported(project.getLanguageKey())) {
-      return false;
+        LOG.info("{} plugin won't execute for unsupported project {}", this.getToolName(), project.getName());
+        return false;
     }
     boolean skipMode = MODE_SKIP.equalsIgnoreCase(getExecutionMode());
     if (skipMode) {
-      LOG.info("{} plugin won't execute as it is set to 'skip' mode.", getToolName());
+      LOG.info("{} plugin won't execute as it is set to '{}' mode.", getToolName(), MODE_SKIP);
       return false;
     }
 
+    LOG.debug("{} plugin will execute using mode '{}'", getToolName(), getExecutionMode());
     return true;
   }
 

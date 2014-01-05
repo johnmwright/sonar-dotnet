@@ -12,6 +12,20 @@ target/
 .project
 .settings
 
+# Visual Studio
+*.user
+*.suo
+
+# VS Compiled files
+*/bin/
+*/obj/
+*/Obj/       # git is case sensitive
+
+# VS addin files
+*.ncrunch*
+*/.resharper/
+
+
 # ---- Mac OS X
 .DS_Store
 Icon?
