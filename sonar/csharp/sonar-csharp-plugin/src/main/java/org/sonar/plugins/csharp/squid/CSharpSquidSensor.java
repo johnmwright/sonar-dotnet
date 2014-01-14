@@ -208,20 +208,22 @@ public final class CSharpSquidSensor extends AbstractDotNetSensor {
       /* Fill the resource bridge API that can be used by other C# plugins to map logical resources to physical ones */
       cSharpResourcesBridge.indexFile(squidFile, sonarFile);
 
-      /* No Sonar */
-      noSonarFilter.addResource(sonarFile, squidFile.getNoSonarTagLines());
+      if (!isTestProject(project)) {
+        /* No Sonar */
+        noSonarFilter.addResource(sonarFile, squidFile.getNoSonarTagLines());
 
-      /* Files complexity distribution */
-      saveFilesComplexityDistribution(sonarFile, squidFile);
+        /* Files complexity distribution */
+        saveFilesComplexityDistribution(sonarFile, squidFile);
 
-      /* Methods complexity distribution */
-      saveMethodsComplexityDistribution(sonarFile, squidFile);
+        /* Methods complexity distribution */
+        saveMethodsComplexityDistribution(sonarFile, squidFile);
 
-      /* Check messages */
-      saveViolations(squidFile, sonarFile);
+        /* Check messages */
+        saveViolations(squidFile, sonarFile);
 
-      /* Metrics at the file level */
-      saveMeasures(sonarFile, squidFile);
+        /* Metrics at the file level */
+        saveMeasures(sonarFile, squidFile);
+      }
     }
 
     // and lock everything to prevent future modifications
