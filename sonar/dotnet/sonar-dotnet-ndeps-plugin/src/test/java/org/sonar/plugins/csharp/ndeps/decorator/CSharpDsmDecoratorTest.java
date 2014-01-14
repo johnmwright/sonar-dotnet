@@ -19,26 +19,24 @@
  */
 package org.sonar.plugins.csharp.ndeps.decorator;
 
-import org.sonar.plugins.csharp.ndeps.decorators.CSharpDsmDecorator;
-
+import org.apache.commons.configuration.Configuration;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.DecoratorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
+import org.sonar.plugins.csharp.ndeps.decorators.CSharpDsmDecorator;
 import org.sonar.plugins.dotnet.api.DotNetConstants;
 import org.sonar.plugins.dotnet.api.microsoft.MicrosoftWindowsEnvironment;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /*
  * Not too much test effort here as CSharpDsmDecorator will be removed once the design part of Sonar will be available in the API.
@@ -49,6 +47,7 @@ public class CSharpDsmDecoratorTest {
   private DecoratorContext context;
   private Resource<?> resource;
   private VisualStudioProject vsProject;
+  private Configuration configuration;
 
   @Before
   public void init() {
@@ -61,25 +60,29 @@ public class CSharpDsmDecoratorTest {
     when(resource.getScope()).thenReturn("DIR");
     context = mock(DecoratorContext.class);
     when(context.getResource()).thenReturn(resource);
+
+     configuration = mock(Configuration.class);
+     when(configuration.getString("sonar.language", Java.KEY)).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
   }
 
   @Test
   public void testShouldNotExecuteOnNoCSharpProject() throws Exception {
     Project p = new Project("");
+    p.setConfiguration(configuration);
     assertThat(dsmDecorator.shouldExecuteOnProject(p), is(false));
   }
 
   @Test
   public void testShouldNotExecuteOnRootProject() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    p.setConfiguration(configuration);
     assertThat(dsmDecorator.shouldExecuteOnProject(p), is(false));
   }
 
   @Test
   public void testShouldExecute() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    p.setConfiguration(configuration);
     p.setName("Foo");
     p.setParent(p);
     assertThat(dsmDecorator.shouldExecuteOnProject(p), is(true));
@@ -88,7 +91,7 @@ public class CSharpDsmDecoratorTest {
   @Test
   public void testShouldNotExecuteOnWebProject() throws Exception {
     Project p = new Project("");
-    p.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    p.setConfiguration(configuration);
     p.setName("Foo");
     p.setParent(p);
     when(vsProject.isWebProject()).thenReturn(true);

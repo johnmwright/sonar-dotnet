@@ -29,15 +29,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
+import org.sonar.api.test.TestCase;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridge;
 import org.sonar.plugins.dotnet.api.DotNetResourceBridges;
 import org.sonar.plugins.dotnet.api.microsoft.VisualStudioProject;
-import org.sonar.plugins.dotnet.tests.model.TestCaseDetail;
+import org.sonar.plugins.dotnet.tests.DotNetTestsConstants;
 import org.sonar.plugins.dotnet.tests.model.TestFileDetails;
-import org.sonar.plugins.dotnet.tests.model.TestStatus;
 import org.sonar.plugins.dotnet.tests.parser.DotNetTestResultParser;
 import org.sonar.plugins.dotnet.tests.parser.StaxHelper;
+import org.sonar.plugins.dotnet.tests.model.TestCaseDetail;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -50,56 +51,35 @@ import static org.sonar.plugins.dotnet.tests.parser.StaxHelper.findElementName;
 public class NUnitTestResultParser extends DotNetTestResultParser {
 
 
+    public String getUnitTestReportsKey(){return  DotNetTestsConstants.NUNIT_REPORTS_KEY;}
+    public String getIntegrationTestReportsKey(){ return  DotNetTestsConstants.NUNIT_IT_REPORTS_KEY;}
+
     private static final Logger LOG = LoggerFactory.getLogger(NUnitTestResultParser.class);
 
     private final DotNetResourceBridge resourceBridge;
     private final VisualStudioProject vsProject;
-    private final Collection<File> reportFiles;
-    private final Project project;
 
-    public NUnitTestResultParser(DotNetResourceBridges dotNetResourceBridges, Project project, VisualStudioProject vsProject, Collection<File> nunitTestReportFiles){
+    public NUnitTestResultParser(DotNetResourceBridges dotNetResourceBridges, Project project, VisualStudioProject vsProject){
         this.resourceBridge = dotNetResourceBridges.getBridge(project.getLanguageKey());
         this.vsProject = vsProject;
-        this.project = project;
-        this.reportFiles = nunitTestReportFiles;
     }
 
 
     private class ParseContext {
 
-        private Collection<TestCaseDetail> results = Lists.newArrayList();
+        private final String reportType;
+
+        private Map<org.sonar.api.resources.File, TestFileDetails> fixtureMap = Maps.newHashMap();
+
         private Stack<String> namespaces = new Stack<String>();
         private Stack<String> fixtureNames = new Stack<String>();
 
-        public ParseContext() {}
-
-        public void addResult(TestCaseDetail result) {
-            results.add(result);
+        public ParseContext(String reportType) {
+            this.reportType = reportType;
         }
 
-        public Collection<TestCaseDetail> getResults(){
-            return results;
-        }
-
-        public Collection<TestFileDetails> getFileDetails()  {
-            Map<String, TestFileDetails> fileMap = Maps.newHashMap();
-
-            for (TestCaseDetail testCase : results){
-                org.sonar.api.resources.File sourceFile = testCase.getSourceFile();
-                if (sourceFile == null) {
-                    LOG.error("no source file for {}", testCase.getName());
-//                    throw new SonarException(String.format("no source file for %s", testCase.getName()));
-                } else {
-                   String fileKey = testCase.getSourceFile().getKey();
-                   if (!fileMap.containsKey(fileKey)){
-                        fileMap.put(fileKey, new TestFileDetails(testCase.getSourceFile()));
-                   }
-
-                   fileMap.get(fileKey).addDetail(testCase);
-                }
-            }
-
-            return fileMap.values();
+        public String getReportType() {
+            return this.reportType;
         }
 
         public void popNamespaceOffStack() {
@@ -128,19 +108,31 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
         public String getCurrentFixtureName() {
             return fixtureNames.peek();
         }
+
+        public Collection<TestFileDetails> getFileDetails()  {
+            return fixtureMap.values();
+        }
+
+        public TestFileDetails getFixtureDetails(org.sonar.api.resources.File sonarFile) {
+            if (!fixtureMap.containsKey(sonarFile))
+            {
+                fixtureMap.put(sonarFile, new TestFileDetails(sonarFile));
+            }
+            return fixtureMap.get(sonarFile);
+        }
     }
 
     @Override
-    public Set<TestFileDetails> parse() {
+    public Set<TestFileDetails> parse(Collection<File> reportFiles, String reportType) {
 
         LOG.debug("running parse in NUnit parser");
         Set<TestFileDetails> results = new HashSet<TestFileDetails>();
 
-        for (File report : this.reportFiles ) {
+        for (File report : reportFiles ) {
 
             LOG.debug("Parsing NUnit report {}", report.getName());
 
-            ParseContext fileContext = new ParseContext();
+            ParseContext fileContext = new ParseContext(reportType);
 
             try {
 
@@ -238,12 +230,8 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
                         parseTestSuiteNode(resultsValuesCursor, fileContext);
 
                     } else if (resultsChildNodeName.equals("test-case"))  {
-                        LOG.debug("found test-case");
-                        TestCaseDetail testCaseDetail = parseTestCase(resultsValuesCursor, fileContext);
-                        if (testCaseDetail != null) {
-                            //testCaseDetail.setSourceFile(details.getSourceFile());
-                            fileContext.addResult(testCaseDetail);
-                        }
+                        parseTestCase(resultsValuesCursor, fileContext);
+
                     } else {
                         LOG.debug("found unsupported node {}", resultsChildNodeName);
                     }
@@ -261,25 +249,7 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
         fileContext.leaveFixture();
     }
 
-    private TestCaseDetail parseTestCase(SMInputCursor resultsCursor, ParseContext fileContext) throws XMLStreamException {
-
-        /***
-         /* <test-case name="InRule.Installer.UI.Test.ConfigActivateLicenseViewModelTests.Test_ExpiredExistingLicense_ResultsInPopulatedReadOnlyTextBoxes"
-         executed="True"
-         result="Success"
-         success="True"
-         time="0.004"
-         asserts="9" >
-         <failure>
-         <message><![CDATA[  output did not meet expectations (input False, expectedOutput True)
-         Expected: True
-         But was:  False
-         ]]></message>
-         <stack-trace><![CDATA[at ClassLibrary1.Test.Class1Tests.TestWithInput(Boolean input, Boolean expectedOutput) in c:\Users\jwright\Documents\GitHub\sonar-dotnet\sonar\dotnet\sonar-dotnet-tests-plugin\src\test\resources\nunit\NUnitExample\ClassLibrary1.Test\Class1.cs:line 29
-         ]]></stack-trace>
-         </failure>
-         </test-case>
-         **/
+    private void parseTestCase(SMInputCursor resultsCursor, ParseContext fileContext) throws XMLStreamException {
 
         String wasExecuted = resultsCursor.getAttrValue("executed");
         String status = resultsCursor.getAttrValue("result");
@@ -288,21 +258,31 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
 
         if (!wasExecuted.equals("True") && status == null){
             LOG.debug("TestCase {} was not executed", testName);
-            return null;
+            return;// null;
         }
 
-        TestCaseDetail testDetail = new TestCaseDetail();
+        org.sonar.api.resources.File sonarFile = getSonarFileForTestCase(testName, fileContext.getCurrentFixtureName() );
+        if (sonarFile == null) {
+            LOG.warn("unable to find source file for {} in {}", testName, fileContext.getCurrentFixtureName());
+            return;// null;
+        }
+
+        TestFileDetails testFileDetails = fileContext.getFixtureDetails(sonarFile);
+
+        TestCaseDetail testDetail = testFileDetails.addTestCase(testName);
+
+        if (testDetail == null) {
+            LOG.error("unable to create MutableTestCase for {}", testName);
+            return;// null;
+        }
+
+        testDetail.setType(fileContext.getReportType());
         testDetail.setStatus( convertNunitStatusToTestStatus(status));
         if (time != null) {
-            testDetail.setTimeMillis(Math.round(Float.parseFloat(time) * 1000));
+            testDetail.setDurationInMs(Long.valueOf(Math.round(Float.parseFloat(time) * 1000)));
         } else {
-            testDetail.setTimeMillis(0);
+            testDetail.setDurationInMs(Long.valueOf(0));
         }
-        testDetail.setName(testName);
-        testDetail.setFixtureName(fileContext.getCurrentFixtureName());
-
-        org.sonar.api.resources.File sourceFile = getSonarFileForTestCase(testDetail);
-        testDetail.setSourceFile(sourceFile);
 
         SMInputCursor childCursor = resultsCursor.childElementCursor();
 
@@ -323,7 +303,7 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
                         LOG.debug("found test-case failure message");
 
                         String message = failureDetailsCursor.collectDescendantText();
-                        testDetail.setErrorMessage(message);
+                        testDetail.setMessage(message);
 
                     } else if (subchildNodeName.equals("stack-trace")) {
                         LOG.debug("found test-case failure stack-trace");
@@ -335,21 +315,18 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
                 }
             }
         }
-
-
-        LOG.debug("+ add details : {}", testDetail.asXML());
-        return testDetail;
+//        return testDetail;
     }
 
-    private org.sonar.api.resources.File getSonarFileForTestCase(TestCaseDetail testCaseDetail) throws XMLStreamException {
-        LOG.debug("Getting Sonar File for TestCase {}", testCaseDetail.getName());
-        String testCaseName = testCaseDetail.getName().replaceAll("\\+", "\\.");
+    private org.sonar.api.resources.File getSonarFileForTestCase(String testCase, String fixtureName) throws XMLStreamException {
+        LOG.debug("Getting Sonar File for TestCase {}", testCase);
+        String testCaseName = testCase.replaceAll("\\+", "\\.");
 
         if (!testCaseName.endsWith(")")){
             testCaseName += "()";
         }
 
-        String fullyQualifiedTypeName = convertParameterizedTestToMethodSignature(testCaseName, testCaseDetail.getFixtureName());
+        String fullyQualifiedTypeName = convertParameterizedTestToMethodSignature(testCaseName, fixtureName);
 
         LOG.debug("checking for Resource for TestCase {}", fullyQualifiedTypeName);
 
@@ -364,7 +341,6 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
 
 
             // if can't find method, just associate to Type of test fixture. Will be the same, except for partial classes
-            String fixtureName = testCaseDetail.getFixtureName();
             typeResource = resourceBridge.getFromTypeName(fixtureName);
 
             if (typeResource == null){
@@ -384,6 +360,7 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
         org.sonar.api.resources.File sonarFile = (org.sonar.api.resources.File)typeResource;
 
         LOG.debug("source file for {} is {}", fullyQualifiedTypeName, sonarFile.getLongName());
+
         return sonarFile;
     }
 
@@ -466,16 +443,16 @@ public class NUnitTestResultParser extends DotNetTestResultParser {
         return isAMatch;
     }
 
-    private TestStatus convertNunitStatusToTestStatus(String nunitStatus){
+    private TestCase.Status convertNunitStatusToTestStatus(String nunitStatus){
 
         String upperedStatus = nunitStatus.toUpperCase();
 
-        if (upperedStatus.equals("FAILURE")) {
-            return TestStatus.FAILED;
+        if (upperedStatus.equals("SUCCESS")){
+            return TestCase.Status.OK;
         } else if (upperedStatus.equals("IGNORED") || upperedStatus.equals("INCONCLUSIVE")){
-            return TestStatus.SKIPPED;
+            return TestCase.Status.SKIPPED;
         } else {
-            return TestStatus.valueOf(upperedStatus);
+            return TestCase.Status.valueOf(upperedStatus);
         }
 
 

@@ -19,8 +19,9 @@
  */
 package org.sonar.plugins.csharp.ndeps.sensor;
 
+import org.apache.commons.configuration.Configuration;
+import org.sonar.api.resources.Java;
 import org.sonar.plugins.csharp.ndeps.NDepsPlugin;
-import org.sonar.plugins.csharp.ndeps.sensor.NDepsSensor;
 import org.sonar.plugins.csharp.ndeps.common.NDepsConstants;
 import com.google.common.collect.Lists;
 import org.junit.Before;
@@ -60,7 +61,8 @@ public class NDepsSensorTest {
   private VisualStudioProject vsProject2;
   private VisualStudioProject vsProject3;
   private MicrosoftWindowsEnvironment microsoftWindowsEnvironment;
-  private Settings configuration;
+  private Settings settings;
+  private Configuration configuration;
   private NDepsResultParser nDepsResultParser;
   private NDepsSensor nDepsSensor;
   private File reportFile;
@@ -86,18 +88,21 @@ public class NDepsSensorTest {
     microsoftWindowsEnvironment = new MicrosoftWindowsEnvironment();
     microsoftWindowsEnvironment.setCurrentSolution(solution);
 
-    configuration = new Settings(new PropertyDefinitions(new DotNetCorePlugin(), new NDepsPlugin()));
+    settings = new Settings(new PropertyDefinitions(new DotNetCorePlugin(), new NDepsPlugin()));
 
     nDepsResultParser = mock(NDepsResultParser.class);
-    nDepsSensor = new NDepsSensor(fileSystem, microsoftWindowsEnvironment, new DotNetConfiguration(configuration), nDepsResultParser, mock(RulesProfile.class));
+    nDepsSensor = new NDepsSensor(fileSystem, microsoftWindowsEnvironment, new DotNetConfiguration(settings), nDepsResultParser, mock(RulesProfile.class));
 
     reportFile = TestUtils.getResource("/ndeps-report.xml");
+
+    configuration = mock(Configuration.class);
+    when(configuration.getString("sonar.language", Java.KEY)).thenReturn(DotNetConstants.CSHARP_LANGUAGE_KEY);
   }
 
   @Test
   public void shouldExecuteOnProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    project.setConfiguration(configuration);
     project.setParent(project);
     project.setName("Project #1");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(true));
@@ -106,29 +111,29 @@ public class NDepsSensorTest {
   @Test
   public void shouldExecuteOnProjectWithAdvancedConfiguration() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    project.setConfiguration(configuration);
     project.setParent(project);
     project.setName("Project #1");
 
-    configuration.setProperty(DotNetConstants.ASSEMBLIES_TO_SCAN_KEY, "**/*.dll");
+    settings.setProperty(DotNetConstants.ASSEMBLIES_TO_SCAN_KEY, "**/*.dll");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(true));
   }
 
   @Test
   public void shouldNotExecuteOnProjectWithAdvancedConfiguration() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    project.setConfiguration(configuration);
     project.setParent(project);
     project.setName("Project #1");
 
-    configuration.setProperty(DotNetConstants.ASSEMBLIES_TO_SCAN_KEY, "**/*.dll,**/*.exe");
+    settings.setProperty(DotNetConstants.ASSEMBLIES_TO_SCAN_KEY, "**/*.dll,**/*.exe");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(false));
   }
 
   @Test
   public void shouldNotExecuteOnWebProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    project.setConfiguration(configuration);
     project.setParent(project);
     project.setName("Web project");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(false));
@@ -137,7 +142,7 @@ public class NDepsSensorTest {
   @Test
   public void shouldNotExecuteOnRootProject() throws Exception {
     Project project = new Project("");
-    project.setLanguageKey(DotNetConstants.CSHARP_LANGUAGE_KEY);
+    project.setConfiguration(configuration);
     project.setParent(project);
     project.setName("Root project");
     assertThat(nDepsSensor.shouldExecuteOnProject(project), is(false));
@@ -165,8 +170,8 @@ public class NDepsSensorTest {
 
   @Test
   public void shouldLaunchNDeps() throws Exception {
-    configuration.setProperty(DotNetConstants.BUILD_CONFIGURATION_KEY, "Release");
-    configuration.setProperty(NDepsConstants.TIMEOUT_MINUTES_KEY, 3);
+    settings.setProperty(DotNetConstants.BUILD_CONFIGURATION_KEY, "Release");
+    settings.setProperty(NDepsConstants.TIMEOUT_MINUTES_KEY, 3);
     Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
 

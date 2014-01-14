@@ -19,8 +19,10 @@
  */
 package org.sonar.plugins.csharp.core;
 
+import org.apache.commons.configuration.Configuration;
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.CoreProperties;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
@@ -35,24 +37,32 @@ public class CSharpSourceImporterTest {
 
   private CSharp language;
   private CSharpSourceImporter importer;
+  private Configuration configuration;
+  private Project project;
 
   @Before
   public void init() {
     language = mock(CSharp.class);
     importer = new CSharpSourceImporter(language);
+
+      configuration= mock(Configuration.class);
+      when(configuration.getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
+              CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE)).thenReturn(true);
+
+      project = mock(Project.class);
+      when(project.getConfiguration()).thenReturn(configuration);
   }
 
   @Test
   public void testShouldNotExecuteOnRootProject() {
-    Project project = mock(Project.class);
     when(project.isRoot()).thenReturn(true);
+    when(project.getLanguage()).thenReturn(language);
     assertFalse(importer.shouldExecuteOnProject(project));
   }
 
   @Test
   public void testShouldNotExecuteOnOtherLanguageProject() {
     AbstractLanguage java = mock(Java.class);
-    Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
     when(project.getLanguage()).thenReturn(java);
     assertFalse(importer.shouldExecuteOnProject(project));
@@ -60,7 +70,6 @@ public class CSharpSourceImporterTest {
 
   @Test
   public void testShouldExecuteOnNormalProject() {
-    Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project #1");
     when(project.getLanguage()).thenReturn(language);
     assertTrue(importer.shouldExecuteOnProject(project));
@@ -68,7 +77,6 @@ public class CSharpSourceImporterTest {
 
   @Test
   public void testShouldExecuteOnTestProject() {
-    Project project = mock(Project.class);
     when(project.getName()).thenReturn("Project Test");
     when(project.getLanguage()).thenReturn(language);
     assertTrue(importer.shouldExecuteOnProject(project));

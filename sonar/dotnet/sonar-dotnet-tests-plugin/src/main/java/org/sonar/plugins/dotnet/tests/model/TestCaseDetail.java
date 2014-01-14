@@ -17,145 +17,80 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-
 package org.sonar.plugins.dotnet.tests.model;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.sonar.api.test.MutableTestCase;
+import org.sonar.api.test.TestCase;
 
-/**
- * Details for a test case.
- */
 public class TestCaseDetail {
+    private final String testName;
+    private String type;
+    private TestCase.Status status;
+    private Long durationInMs;
+    private String message;
+    private String stackTrace;
 
-  private String name;
-  private String fixtureName;
-  private TestStatus status;
-  private String stackTrace;
-  private String errorMessage;
-  private int timeMillis = 0;
-  private org.sonar.api.resources.File sourceFile;
+    public TestCaseDetail(String testName) {
 
-  /**
-   * Constructs an empty @link{TestCaseDetail}.
-   */
-  public TestCaseDetail() {
-
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getStackTrace() {
-    return stackTrace;
-  }
-
-  public String getFormatedStackTrace() {
-    return StringEscapeUtils.escapeXml(stackTrace);
-  }
-
-  public void setStackTrace(String stackTrace) {
-    this.stackTrace = stackTrace;
-  }
-
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public String getFormatedErrorMessage() {
-    return StringEscapeUtils.escapeXml(StringUtils.remove(errorMessage, "\n\t"));
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public int getTimeMillis() {
-    return timeMillis;
-  }
-
-  public void setTimeMillis(int timeMS) {
-    this.timeMillis = timeMS;
-  }
-
-  @Override
-  public String toString() {
-    return "Test " + name + "(" + status + ", time=" + timeMillis * 0.001 + ")";
-  }
-
-  public String asXML() {
-      StringBuilder testCaseDetails = new StringBuilder(256);
-
-      testCaseDetails.append("<testcase status=\"").append(getStatus().getSonarStatus()).append("\"")
-                     .append(" time=\"").append(getTimeMillis()).append("\"")
-                     .append(" name=\"").append(getName()).append("\"");
-
-      boolean isError = (getStatus() == TestStatus.ERROR);
-
-      if (isError || (getStatus() == TestStatus.FAILED)) {
-
-          testCaseDetails.append(">").append(isError ? "<error message=\"" : "<failure message=\"").append(getFormatedErrorMessage())
-                  .append("\">").append("<![CDATA[").append(getFormatedStackTrace()).append("]]>")
-                  .append(isError ? "</error>" : "</failure>").append("</testcase>");
-
-      } else {
-          testCaseDetails.append("/>");
-      }
-
-      return testCaseDetails.toString();
-  }
-
-  /**
-   * Returns the status.
-   * 
-   * @return The status to return.
-   */
-  public TestStatus getStatus() {
-    return this.status;
-  }
-
-  /**
-   * Sets the status.
-   * 
-   * @param status
-   *          The status to set.
-   */
-  public void setStatus(TestStatus status) {
-    this.status = status;
-  }
-
-  /**
-   * Returns the testFile.
-   * 
-   * @return The testFile to return.
-   */
-  public org.sonar.api.resources.File getSourceFile() {
-    return this.sourceFile;
-  }
-
-  /**
-   * Sets the testFile.
-   * 
-   * @param testFile
-   *          The testFile to set.
-   */
-  public void setSourceFile(org.sonar.api.resources.File testFile) {
-    this.sourceFile = testFile;
-  }
-
-
-    public String getFixtureName() {
-        return fixtureName;
+        this.testName = testName;
     }
 
-    public void setFixtureName(String fixtureName) {
-        this.fixtureName = fixtureName;
+    public String getName() {
+        return this.testName;
     }
 
+    public void populateTestCase(MutableTestCase testCase) {
+        testCase.setType(this.type);
+        testCase.setStatus(this.status);
+        testCase.setDurationInMs(this.durationInMs);
 
+        if (this.stackTrace != null) {
+            testCase.setStackTrace(this.stackTrace);
+        }
+
+        if (this.message != null) {
+            testCase.setMessage(this.message);
+        }
+
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setStatus(TestCase.Status status) {
+        this.status = status;
+    }
+
+    public TestCase.Status getStatus() {
+        return status;
+    }
+
+    public void setDurationInMs(Long durationInMs) {
+        this.durationInMs = durationInMs;
+    }
+
+    public Long getDurationInMs() {
+        return durationInMs;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setStackTrace(String stackTrace) {
+        this.stackTrace = stackTrace;
+    }
+
+    public String getStackTrace() {
+        return stackTrace;
+    }
 }

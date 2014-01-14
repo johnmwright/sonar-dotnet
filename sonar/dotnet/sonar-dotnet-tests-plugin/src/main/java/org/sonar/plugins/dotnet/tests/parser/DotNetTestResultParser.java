@@ -22,10 +22,14 @@ package org.sonar.plugins.dotnet.tests.parser;
 import org.sonar.api.BatchExtension;
 import org.sonar.plugins.dotnet.tests.model.TestFileDetails;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.Set;
 
 public abstract class DotNetTestResultParser implements BatchExtension {
 
-    public abstract Set<TestFileDetails> parse();
+    public abstract Set<TestFileDetails> parse(Collection<File> reportFiles, String reportType);
 
+    public abstract String getUnitTestReportsKey();
+    public abstract String getIntegrationTestReportsKey();
 }
